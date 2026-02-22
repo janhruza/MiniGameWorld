@@ -25,12 +25,15 @@ static inline bool UpdatePlayerName(GameSession *session)
 	}
 
 	char playerName[MAX_NAME];
-	printf_s("Enter your player name: ");
+	printf_s(INPUT_PLAYER_NAME);
 	if (fgets(playerName, MAX_NAME, stdin) == NULL)
 	{
 		// Unable to get new player name
 		return false;
 	}
+
+	// remove the trailing line feed character
+	playerName[strnlen_s(playerName, MAX_NAME) - 1] = 0;
 
 	// update the player name
 	strcpy_s(session->player.name, MAX_NAME, playerName);
@@ -64,7 +67,8 @@ int main(int argc, const char* argv[])
 		return EXIT_FAILURE;
 	}
 
-	printf_s("New player name: %s\n", gs.player.name);
+	printf_s("\n");
+	GsDisplayStatus(&gs);
 
 	// successful exit
 	return EXIT_SUCCESS;

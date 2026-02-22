@@ -17,6 +17,14 @@ typedef struct
 	/// </summary>
 	double money;
 
+	/// <summary>
+	/// Number of owned stocks.
+	/// </summary>
+	int stockSize;
+
+	/// <summary>
+	/// List of owned stocks.
+	/// </summary>
 	Stock stocks[MAX_STOCK_SIZE];
 
 } Player;

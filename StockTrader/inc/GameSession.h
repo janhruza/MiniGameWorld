@@ -34,3 +34,11 @@ inline static bool GsInitialize(GameSession *session)
 	memset(session, 0, sizeof(GameSession));
 	return true;
 }
+
+inline static bool GsDisplayStatus(GameSession *session)
+{
+	if (session == NULL) return false;
+
+	printf_s("%s's stats:\nMoney:  %.2lf USD\nStocks: %d\n", session->player.name, session->player.money, session->player.stockSize);
+	return true;
+}
