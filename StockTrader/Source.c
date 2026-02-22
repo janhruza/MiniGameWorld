@@ -40,6 +40,10 @@ int main(int argc, const char* argv[])
 
 	printf_s("\n");
 	GsDisplayStatus(&gs);
+	printf_s("\n");
+
+	GsUpdateStockValues();
+	GsDisplayStatus(&gs);
 
 	// successful exit
 	return EXIT_SUCCESS;

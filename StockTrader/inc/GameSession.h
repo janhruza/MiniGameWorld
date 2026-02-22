@@ -10,6 +10,8 @@
 #include "Values.h"
 #include <memory.h>
 #include <stdbool.h>
+#include <stdlib.h>
+#include <time.h>
 
 /// <summary>
 /// Representing the game session object.
@@ -39,6 +41,8 @@ inline static bool GsInitialize(GameSession *session)
 	// check if the session exists
 	if (session == NULL) return false;
 
+	srand(time(NULL));
+
 	// clear the game session object
 	memset(session, 0, sizeof(GameSession));
 
@@ -51,6 +55,11 @@ inline static bool GsInitialize(GameSession *session)
 	return true;
 }
 
+/// <summary>
+/// Displays the current game state.
+/// </summary>
+/// <param name="session">The active game session.</param>
+/// <returns>true if the operation succeeds, otherwise false.</returns>
 inline static bool GsDisplayStatus(GameSession *session)
 {
 	// check if the session exists
@@ -67,8 +76,32 @@ inline static bool GsDisplayStatus(GameSession *session)
 		{
 			continue;
 		}
-		printf("[%s] %s, %.2lf\n", session->stocks[i].code, session->stocks[i].name, session->stocks[i].value);
+		printf("%s - %-32s %.2lf\n", g_stockCodes[i], g_stockNames[i], g_stockValues[i]);
 	}
 
 	return true;
+}
+
+/// <summary>
+/// Updates the global stock values.
+/// </summary>
+inline static void GsUpdateStockValues(void)
+{
+	for (int i = 0; i < MAX_STOCK_SIZE; i++)
+	{
+		double oldValue = g_stockValues[i];
+		int det = rand() % 10 + 1;
+		if (det % 2 == 0)
+		{
+			oldValue += det;
+		}
+
+		else
+		{
+			oldValue -= det;
+		}
+
+		g_stockValues[i] = max(oldValue, 0);
+	}
+	return;
 }
