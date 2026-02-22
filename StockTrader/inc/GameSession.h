@@ -1,0 +1,36 @@
+#pragma once
+#include "data/Player.h"
+#include "data/Stock.h"
+#include "Values.h"
+#include <stdbool.h>
+#include <memory.h>
+
+/// <summary>
+/// Representing the game session object.
+/// This object contains information about the current session, e.g. which stocks are available and others.
+/// </summary>
+typedef struct
+{
+	/// <summary>
+	/// Current player object.
+	/// </summary>
+	Player player;
+
+	/// <summary>
+	/// List of tradable stocks.
+	/// </summary>
+	Stock stocks[MAX_STOCK_SIZE];
+
+} GameSession;
+
+/// <summary>
+/// Initializes the game session object.
+/// </summary>
+/// <param name="session">Game session object.</param>
+/// <returns>true if the function succeeds, otherwise false.</returns>
+inline static bool GsInitialize(GameSession *session)
+{
+	// clear the game session object
+	memset(session, 0, sizeof(GameSession));
+	return true;
+}

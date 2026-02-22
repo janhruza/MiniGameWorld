@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="StockTrader/StockTrader.vcxproj" />
+  <Project Path="StockTrader/StockTrader.vcxproj" Id="2351b704-cc2d-49f3-8842-b81d649ebd99" />
 </Solution>
