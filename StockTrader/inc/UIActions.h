@@ -32,6 +32,12 @@ static inline bool UpdatePlayerName(GameSession* session)
 	// remove the trailing line feed character
 	playerName[strnlen_s(playerName, MAX_NAME) - 1] = 0;
 
+	if (strnlen_s(playerName, MAX_NAME) == 0)
+	{
+		// name must not be empty
+		return false;
+	}
+
 	// update the player name
 	strcpy_s(session->player.name, MAX_NAME, playerName);
 	return true;
