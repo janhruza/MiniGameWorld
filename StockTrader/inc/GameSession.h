@@ -40,6 +40,11 @@ inline static bool GsInitialize(GameSession *session)
 
 	// clear the game session object
 	memset(session, 0, sizeof(GameSession));
+
+	// set the available stocks
+	CreateStock("Technologia Inc.", "TCLG", 1.87, &(session->stocks[0]));
+	CreateStock("Love Spades", "LVSP", 0.84, &(session->stocks[1]));
+
 	return true;
 }
 
@@ -48,7 +53,19 @@ inline static bool GsDisplayStatus(GameSession *session)
 	// check if the session exists
 	if (session == NULL) return false;
 
-	// print the status
-	printf_s("%s's stats:\nMoney : %.2lf USD\nStocks: %d\n", session->player.name, session->player.money, session->player.stockSize);
+	// print the player status
+	printf_s("%s's stats:\nMoney : %.2lf USD\nStocks: %d\n\n", session->player.name, session->player.money, StockValidCount(session->player.stocks, MAX_STOCK_SIZE));
+
+	// print the session state
+	printf_s("List of stocks:\n");
+	for (int i = 0; i < MAX_STOCK_SIZE; i++)
+	{
+		if (StockIsValid(&session->stocks[i]) == false)
+		{
+			continue;
+		}
+		printf("[%s] %s, %.2lf\n", session->stocks[i].code, session->stocks[i].name, session->stocks[i].value);
+	}
+
 	return true;
 }
