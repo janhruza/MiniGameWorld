@@ -134,6 +134,7 @@
     <ClCompile Include="Source.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="inc\data\GlobalData.h" />
     <ClInclude Include="inc\data\Player.h" />
     <ClInclude Include="inc\data\Stock.h" />
     <ClInclude Include="inc\GameSession.h" />

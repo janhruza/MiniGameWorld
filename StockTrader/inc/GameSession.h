@@ -4,11 +4,12 @@
 */
 
 #pragma once
+#include "data/GlobalData.h"
 #include "data/Player.h"
 #include "data/Stock.h"
 #include "Values.h"
-#include <stdbool.h>
 #include <memory.h>
+#include <stdbool.h>
 
 /// <summary>
 /// Representing the game session object.
@@ -42,8 +43,10 @@ inline static bool GsInitialize(GameSession *session)
 	memset(session, 0, sizeof(GameSession));
 
 	// set the available stocks
-	CreateStock("Technologia Inc.", "TCLG", 1.87, &(session->stocks[0]));
-	CreateStock("Love Spades", "LVSP", 0.84, &(session->stocks[1]));
+	for (int i = 0; i < MAX_STOCK_SIZE; i++)
+	{
+		CreateStock(g_stockNames[i], g_stockCodes[i], g_stockValues[i], &session->stocks[i]);
+	}
 
 	return true;
 }

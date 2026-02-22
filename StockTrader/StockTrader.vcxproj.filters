@@ -35,5 +35,8 @@
     <ClInclude Include="inc\UIActions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="inc\data\GlobalData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
