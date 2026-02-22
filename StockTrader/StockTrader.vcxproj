@@ -137,6 +137,7 @@
     <ClInclude Include="inc\data\Player.h" />
     <ClInclude Include="inc\data\Stock.h" />
     <ClInclude Include="inc\GameSession.h" />
+    <ClInclude Include="inc\UIActions.h" />
     <ClInclude Include="inc\Values.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

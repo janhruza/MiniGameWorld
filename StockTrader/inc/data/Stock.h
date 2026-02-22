@@ -1,3 +1,8 @@
+/*
+* Stock.h
+* Representing the stock object.
+*/
+
 #pragma once
 #include "..\Values.h"
 

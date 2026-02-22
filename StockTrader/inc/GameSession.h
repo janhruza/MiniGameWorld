@@ -1,3 +1,8 @@
+/*
+* GameSession.h
+* Representing the game session struct and other associated methods.
+*/
+
 #pragma once
 #include "data/Player.h"
 #include "data/Stock.h"
@@ -30,6 +35,9 @@ typedef struct
 /// <returns>true if the function succeeds, otherwise false.</returns>
 inline static bool GsInitialize(GameSession *session)
 {
+	// check if the session exists
+	if (session == NULL) return false;
+
 	// clear the game session object
 	memset(session, 0, sizeof(GameSession));
 	return true;
@@ -37,8 +45,10 @@ inline static bool GsInitialize(GameSession *session)
 
 inline static bool GsDisplayStatus(GameSession *session)
 {
+	// check if the session exists
 	if (session == NULL) return false;
 
-	printf_s("%s's stats:\nMoney:  %.2lf USD\nStocks: %d\n", session->player.name, session->player.money, session->player.stockSize);
+	// print the status
+	printf_s("%s's stats:\nMoney : %.2lf USD\nStocks: %d\n", session->player.name, session->player.money, session->player.stockSize);
 	return true;
 }

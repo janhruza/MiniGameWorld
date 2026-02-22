@@ -1,3 +1,8 @@
+/*
+* Player.h
+* Representing the player object struct.
+*/
+
 #pragma once
 #include "Stock.h"
 #include "..\Values.h"
