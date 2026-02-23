@@ -4,7 +4,7 @@
 */
 
 #pragma once
-#include "..\Values.h"
+#include "../Values.h"
 #include <stdbool.h>
 #include <memory.h>
 #include <string.h>
@@ -54,8 +54,8 @@ inline static bool CreateStock(const char* name, const char* code, double unitVa
 
 	memset(dest, 0, sizeof(dest));
 	dest->value = unitValue;
-	strcpy_s(dest->name, MAX_NAME, name);
-	strcpy_s(dest->code, STOCK_CODE_SIZE, code);
+	strcpy(dest->name, name);
+	strcpy(dest->code, code);
 	return true;
 }
 
@@ -67,8 +67,8 @@ inline static bool CreateStock(const char* name, const char* code, double unitVa
 inline static bool StockIsValid(Stock* stock)
 {
 	if (stock == NULL) return false;
-	if (strnlen_s(stock->name, MAX_NAME) == 0) return false;
-	if (strnlen_s(stock->code, MAX_NAME) == 0) return false;
+	if (strlen(stock->name) == 0) return false;
+	if (strlen(stock->code) == 0) return false;
 	if (stock->value <= 0) return false;
 
 	return true;

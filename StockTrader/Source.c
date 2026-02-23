@@ -16,31 +16,31 @@ int main(int argc, const char* argv[])
 	if (argc > 1)
 	{
 		// arguments are disabled
-		fprintf_s(stderr, "Arguments are disabled.\n");
+		fprintf(stderr, "Arguments are disabled.\n");
 		return EXIT_FAILURE;
 	}
 
 	// print the header
-	printf_s("StockTrader\n(c) 2026, Jan Hruza\n\n");
+	printf("StockTrader\n(c) 2026, Jan Hruza\n\n");
 
 	// initialize the session
 	GameSession gs;
 	if (GsInitialize(&gs) == false)
 	{
-		fprintf_s(stderr, "Unable to initialize the game session.\n");
+		fprintf(stderr, "Unable to initialize the game session.\n");
 		return EXIT_FAILURE;
 	}
 
 	// get the player name
 	if (UpdatePlayerName(&gs) == false)
 	{
-		fprintf_s(stderr, "Unable to get the player name.\n");
+		fprintf(stderr, "Unable to get the player name.\n");
 		return EXIT_FAILURE;
 	}
 
-	printf_s("\n");
+	printf("\n");
 	GsDisplayStatus(&gs);
-	printf_s("\n");
+	printf("\n");
 
 	GsUpdateStockValues();
 	GsDisplayStatus(&gs);

@@ -4,7 +4,7 @@
 */
 
 #pragma once
-#include "..\Values.h"
+#include "../Values.h"
 
 /// <summary>
 /// Representing the stock names.

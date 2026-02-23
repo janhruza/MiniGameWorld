@@ -5,7 +5,7 @@
 
 #pragma once
 #include "Stock.h"
-#include "..\Values.h"
+#include "../Values.h"
 
 /// <summary>
 /// Representing the player object.

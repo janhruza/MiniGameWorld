@@ -8,9 +8,8 @@
 #include "data/Player.h"
 #include "data/Stock.h"
 #include "Values.h"
-#include <memory.h>
-#include <stdbool.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <time.h>
 
 /// <summary>
@@ -66,10 +65,10 @@ inline static bool GsDisplayStatus(GameSession *session)
 	if (session == NULL) return false;
 
 	// print the player status
-	printf_s("%s's stats:\nMoney : %.2lf USD\nStocks: %d\n\n", session->player.name, session->player.money, StockValidCount(session->player.stocks, MAX_STOCK_SIZE));
+	printf("%s's stats:\nMoney : %.2lf USD\nStocks: %d\n\n", session->player.name, session->player.money, StockValidCount((Stock**)session->player.stocks, MAX_STOCK_SIZE));
 
 	// print the session state
-	printf_s("List of stocks:\n");
+	printf("List of stocks:\n");
 	for (int i = 0; i < MAX_STOCK_SIZE; i++)
 	{
 		if (StockIsValid(&session->stocks[i]) == false)
@@ -80,6 +79,10 @@ inline static bool GsDisplayStatus(GameSession *session)
 	}
 
 	return true;
+}
+
+static double local_max(double a, double b) {
+	return (a > b) ? a : b;
 }
 
 /// <summary>
@@ -101,7 +104,7 @@ inline static void GsUpdateStockValues(void)
 			oldValue -= det;
 		}
 
-		g_stockValues[i] = max(oldValue, 0);
+		g_stockValues[i] = local_max(oldValue, 0);
 	}
 	return;
 }
