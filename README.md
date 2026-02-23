@@ -2,7 +2,7 @@
 Live, laugh & play!
 
 ## About
-This repository contains various mini games and small simulation programs. This project has been created mostly for learning purposes.
+This repository contains various mini-games and small simulation programs. This project has been created mostly for learning purposes.
 
 ## List of active projects
 There is a list of all included projects in the table below.
@@ -11,7 +11,7 @@ There is a list of all included projects in the table below.
 |------------|--------|------|-----------|
 |StackTrader|C|Yes|Basic stock market trading simulator.|
 
-## Prerequisities
+## Prerequisites
 All current and future projects are being developed using the Microsoft Visual Studio or JetBrains IDEs such as CLion.
 
 ### Additional information
