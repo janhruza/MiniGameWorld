@@ -5,14 +5,13 @@
 
 #pragma once
 #include "../Values.h"
-#include <stdbool.h>
 #include <memory.h>
 #include <string.h>
 
 /// <summary>
 /// Representing a single stock object.
 /// </summary>
-typedef struct _stock
+typedef struct stock
 {
 	/// <summary>
 	/// Stock name.
@@ -52,7 +51,7 @@ inline static bool CreateStock(const char* name, const char* code, double unitVa
 {
 	if (dest == NULL) return false;
 
-	memset(dest, 0, sizeof(dest));
+	memset(dest, 0, sizeof(Stock));
 	dest->value = unitValue;
 	strcpy(dest->name, name);
 	strcpy(dest->code, code);
@@ -64,7 +63,7 @@ inline static bool CreateStock(const char* name, const char* code, double unitVa
 /// </summary>
 /// <param name="stock">Target stock object.</param>
 /// <returns>true if the stock is valid, otherwise false.</returns>
-inline static bool StockIsValid(Stock* stock)
+inline static bool StockIsValid(const Stock* stock)
 {
 	if (stock == NULL) return false;
 	if (strlen(stock->name) == 0) return false;
@@ -78,9 +77,9 @@ inline static bool StockIsValid(Stock* stock)
 /// Counts the valid stocks from the list of stocks.
 /// </summary>
 /// <param name="stocks">List of stocks.</param>
-/// <param name="maxCount">Maximium number of loop cycles. It should be the same as the size of the stocks list.</param>
+/// <param name="maxCount">Maximum number of loop cycles. It should be the same as the size of the stocks list.</param>
 /// <returns>Number of the valid stocks.</returns>
-inline static int StockValidCount(Stock *stocks[], size_t maxCount)
+inline static int StockValidCount(Stock *stocks[], const size_t maxCount)
 {
 	int count = 0;
 	for (int i = 0; i < maxCount; i++)

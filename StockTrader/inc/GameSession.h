@@ -40,7 +40,7 @@ inline static bool GsInitialize(GameSession *session)
 	// check if the session exists
 	if (session == NULL) return false;
 
-	srand(time(NULL));
+	srand(time(nullptr));
 
 	// clear the game session object
 	memset(session, 0, sizeof(GameSession));
@@ -62,7 +62,7 @@ inline static bool GsInitialize(GameSession *session)
 inline static bool GsDisplayStatus(GameSession *session)
 {
 	// check if the session exists
-	if (session == NULL) return false;
+	if (session == nullptr) return false;
 
 	// print the player status
 	printf("%s's stats:\nMoney : %.2lf USD\nStocks: %d\n\n", session->player.name, session->player.money, StockValidCount((Stock**)session->player.stocks, MAX_STOCK_SIZE));
@@ -81,7 +81,16 @@ inline static bool GsDisplayStatus(GameSession *session)
 	return true;
 }
 
-static double local_max(double a, double b) {
+/// <summary>
+///
+/// </summary>
+/// <param name="a">First value.</param>
+/// <param name="b">Second value.</param>
+/// <returns>The maximum of <paramref name="a"/> and <paramref name="b"/>.</returns>
+/// <remarks>
+/// Function created solely because of the CMake build that was unable to locate the standard max function.
+/// </remarks>
+static double local_max(const double a, const double b) {
 	return (a > b) ? a : b;
 }
 
@@ -93,7 +102,7 @@ inline static void GsUpdateStockValues(void)
 	for (int i = 0; i < MAX_STOCK_SIZE; i++)
 	{
 		double oldValue = g_stockValues[i];
-		int det = rand() % 10 + 1;
+		const int det = rand() % 10 + 1;
 		if (det % 2 == 0)
 		{
 			oldValue += det;
@@ -106,5 +115,4 @@ inline static void GsUpdateStockValues(void)
 
 		g_stockValues[i] = local_max(oldValue, 0);
 	}
-	return;
 }

@@ -11,7 +11,13 @@
 #define EXIT_SUCCESS	0
 #define EXIT_FAILURE	1
 
-int main(int argc, const char* argv[])
+/**
+ * Main application entry point.
+ * @param argc Number of command line arguments.
+ * @param argv Command line arguments.
+ * @return Application's exit code.
+ */
+int main(const int argc, const char* argv[])
 {
 	if (argc > 1)
 	{
