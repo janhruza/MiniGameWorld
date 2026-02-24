@@ -38,7 +38,7 @@ typedef struct
 inline static bool GsInitialize(GameSession *session)
 {
 	// check if the session exists
-	if (session == NULL) return false;
+	if (session == nullptr) return false;
 
 	srand(time(nullptr));
 
