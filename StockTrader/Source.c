@@ -38,18 +38,32 @@ int main(const int argc, const char* argv[])
 	}
 
 	// get the player name
-	if (UpdatePlayerName(&gs) == false)
+	if (UiUpdatePlayerName(&gs) == false)
 	{
 		fprintf(stderr, "Unable to get the player name.\n");
 		return EXIT_FAILURE;
 	}
 
-	printf("\n");
-	GsDisplayStatus(&gs);
-	printf("\n");
+	// start the game session
+	unsigned char statusCode = UiGameLoop(&gs);
 
-	GsUpdateStockValues();
-	GsDisplayStatus(&gs);
+	// TODO display the final result
+	switch (statusCode)
+	{
+		case GAME_OK:
+			printf("Game completed successfully!\n");
+			break;
+
+		case GAME_ERROR:
+			fprintf(stderr, "Game error!\n");
+			break;
+
+		default:
+			fprintf(stderr, "Unknown error!\n");
+			break;
+	}
+
+	// TODO post-exit cleanup
 
 	// successful exit
 	return EXIT_SUCCESS;

@@ -13,6 +13,17 @@
 #include <time.h>
 
 /// <summary>
+/// Representing the game state enum.
+/// </summary>
+enum GAME_STATE : unsigned char
+{
+	STATE_RUNNING = 0,
+	STATE_INITIALIZED,
+	STATE_ENDED,
+	STATE_ERROR
+};
+
+/// <summary>
 /// Representing the game session object.
 /// This object contains information about the current session, e.g. which stocks are available and others.
 /// </summary>
@@ -27,6 +38,11 @@ typedef struct
 	/// List of tradable stocks.
 	/// </summary>
 	Stock stocks[MAX_STOCK_SIZE];
+
+	/// <summary>
+	/// Representing the game state.
+	/// </summary>
+	enum GAME_STATE gameState;
 
 } GameSession;
 
@@ -51,6 +67,8 @@ inline static bool GsInitialize(GameSession *session)
 		CreateStock(g_stockNames[i], g_stockCodes[i], g_stockValues[i], &session->stocks[i]);
 	}
 
+	// initialize the game session (not the same as start)
+	session->gameState = STATE_INITIALIZED;
 	return true;
 }
 
@@ -97,7 +115,7 @@ static double local_max(const double a, const double b) {
 /// <summary>
 /// Updates the global stock values.
 /// </summary>
-inline static void GsUpdateStockValues(void)
+static void GsUpdateStockValues(void)
 {
 	for (int i = 0; i < MAX_STOCK_SIZE; i++)
 	{
