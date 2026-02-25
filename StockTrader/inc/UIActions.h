@@ -18,6 +18,16 @@ enum GAME_RESULT : unsigned char
 };
 
 /// <summary>
+/// Clears the terminal screen (not the buffer).
+/// </summary>
+/// <remarks>
+/// This method clears the terminal screen and moves the cursor to the home position using the ANSI escape codes.
+/// </remarks>
+static void UiClearScreen(void) {
+	printf("\033[2J\033[H");
+}
+
+/// <summary>
 /// Attempts to update the player name.
 /// </summary>
 /// <param name="session">Active game session.</param>
@@ -147,6 +157,7 @@ static unsigned char UiGameLoop(GameSession *session) {
 		//	1. List player's options
 		bool userInputs = true;
 		while (userInputs == true) {
+			UiClearScreen();
 			printf("---------------------------\n");
 			printf("1. View Dashboard\n");
 			printf("2. Buy Stocks\n");
@@ -185,6 +196,7 @@ static unsigned char UiGameLoop(GameSession *session) {
 					// Buy Stocks option
 					if (UiBuyStocks(session) == false) {
 						// TODO handle error
+
 					}
 
 					printf("\n");
