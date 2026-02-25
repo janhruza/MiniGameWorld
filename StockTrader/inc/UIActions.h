@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "GameSession.h"
+#include "Ansi.h"
 
 /// <summary>
 /// Representing possible return values for the game loop function.
@@ -24,7 +25,7 @@ enum GAME_RESULT : unsigned char
 /// This method clears the terminal screen and moves the cursor to the home position using the ANSI escape codes.
 /// </remarks>
 static void UiClearScreen(void) {
-	printf("\033[2J\033[H");
+	AnsiClearScreen();
 }
 
 /// <summary>

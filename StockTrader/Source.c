@@ -26,6 +26,8 @@ int main(const int argc, const char* argv[])
 		return EXIT_FAILURE;
 	}
 
+	UiClearScreen();
+
 	// print the header
 	printf("StockTrader\n(c) 2026, Jan Hruza\n\n");
 
@@ -64,6 +66,7 @@ int main(const int argc, const char* argv[])
 	}
 
 	// TODO post-exit cleanup
+	printf(CRESET);
 
 	// successful exit
 	return EXIT_SUCCESS;

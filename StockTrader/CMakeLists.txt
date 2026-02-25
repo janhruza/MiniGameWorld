@@ -9,4 +9,5 @@ add_executable(StockTrader Source.c
         inc/data/Stock.h
         inc/GameSession.h
         inc/UIActions.h
-        inc/Values.h)
+        inc/Values.h
+        inc/Ansi.h)
