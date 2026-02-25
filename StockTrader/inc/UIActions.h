@@ -4,6 +4,7 @@
 */
 
 #pragma once
+#include <ctype.h>
 #include <stdio.h>
 #include <string.h>
 #include "GameSession.h"
@@ -29,6 +30,54 @@ static void UiClearScreen(void) {
 }
 
 /// <summary>
+/// Flushes the input buffer.
+/// </summary>
+static void UiFlushInputBuffer(void) {
+	int ch;
+	while ((ch = getchar()) != '\n' && ch != EOF) {}
+}
+
+static bool UiReadString(const char *prompt, char *buf) {
+	printf("%s", prompt);
+	printf(ACCENT_TEXT);
+
+	if (fgets(buf, MAX_NAME, stdin) == NULL) {
+		printf(CRESET);
+		return false;
+	}
+	printf(CRESET);
+
+	size_t len = strlen(buf);
+	if (len > 0 && buf[len - 1] == '\n')
+	{
+		buf[len - 1] = '\0';
+	}
+
+	else
+	{
+		UiFlushInputBuffer();
+	}
+
+	return true;
+}
+
+static long UiGetInteger(const char *inputPrompt) {
+	char buf[MAX_NAME];
+	if (!UiReadString(inputPrompt, buf)) return EOF;
+
+	char *endptr;
+	long num = strtol(buf, &endptr, 10);
+	if (endptr == buf) return EOF;
+
+	while (*endptr != '\0') {
+		if (!isspace((unsigned char)*endptr)) return EOF;
+		endptr++;
+	}
+
+	return num;
+}
+
+/// <summary>
 /// Attempts to update the player name.
 /// </summary>
 /// <param name="session">Active game session.</param>
@@ -42,10 +91,7 @@ static bool UiUpdatePlayerName(GameSession* session)
 	}
 
 	char playerName[MAX_NAME];
-	printf(INPUT_PLAYER_NAME);
-	if (fgets(playerName, MAX_NAME, stdin) == NULL)
-	{
-		// Unable to get new player name
+	if (UiReadString(INPUT_PLAYER_NAME, playerName) == false) {
 		return false;
 	}
 
@@ -63,63 +109,111 @@ static bool UiUpdatePlayerName(GameSession* session)
 	return true;
 }
 
-/// <summary>
-/// Flushes the input buffer.
-/// </summary>
-static void UiFlushInputBuffer(void) {
-	int ch;
-	while ((ch = getchar()) != '\n' && ch != EOF) {}
-}
-
 static void UiPauseTerminal(void) {
 	printf(INPUT_PAUSE);
-	getchar();
-	UiFlushInputBuffer();
-}
-
-static int UiGetInteger(const char *inputPrompt) {
-	int result = EOF;
-	printf("%s", inputPrompt);
-	const int sfResult = scanf("%d", &result);
-	switch (sfResult) {
-		case EOF:
-		case 0:
-			UiFlushInputBuffer();
-			return EOF;
-
-		default:
-			return result;
-	}
+	int ch;
+	while ((ch = getchar()) != '\n' && ch != EOF);
 }
 
 #pragma region "Player's action methods"
+
+/// <summary>
+/// Displays the dashboard - player's overview.
+/// </summary>
+/// <param name="session">Current session.</param>
+/// <returns>Operation value.</returns>
 static bool UiViewDashboard(GameSession* session) {
-	// TODO use a better display method
-	return GsDisplayStatus(session);
+	if (session == nullptr) return false;
+
+	UiClearScreen();
+	printf("%s%s%s's portfolio:\n", ACCENT_TEXT, session->player.name, CRESET);
+
+	double sum = 0;
+	int count = 0;
+
+	for (int i = 0; i < MAX_STOCK_SIZE; i++) {
+		if (session->player.stocks[i].count > 0) {
+			double value = (double)session->player.stocks[i].count * g_stockValues[i];
+			sum += value;
+			count += 1;
+			printf("Stock Name: %-20s %-8lu %.2lf USD\n", g_stockNames[i], session->player.stocks[i].count, value);
+		}
+	}
+
+	if (count == 0) {
+		printf("No stocks.\n");
+	}
+
+	printf("\nTotal: %.2lf USD\n", sum);
+	return true;
 }
 
 static bool UiBuyStocks(GameSession* session) {
-	// FIXME add implementation
+	UiClearScreen();
 	printf("Buy Stocks\n");
-	return false;
+
+	for (int i = 0; i < MAX_STOCK_SIZE - 3; i += 4) {
+		printf("%02d. %s %02d. %s %02d. %s %02d. %s\n", i+1,  session->stocks[i].code, i+2,  session->stocks[i + 1].code, i+3, session->stocks[i + 2].code, i+4, session->stocks[i + 3].code);
+	}
+	printf("\n");
+
+	// get stock id
+	int id = UiGetInteger(INPUT_STOCK_INDEX);
+	if (id < 1 || id > MAX_STOCK_SIZE) {
+		// invalid input
+		fprintf(stderr, "Invalid stock index: %d\n", id);
+		return false;
+	}
+
+	// adjust the id to index
+	id -= 1;
+
+	printf("\n%s: %s%s%s", g_stockCodes[id], ACCENT_TEXT, g_stockNames[id], CRESET);
+	printf("\nUnit value: %s%.2lf%s USD\n\n", ACCENT_TEXT, g_stockValues[id], CRESET);
+
+	int amount = UiGetInteger(INPUT_AMOUNT);
+	printf("\n");
+	if (amount <= 0) {
+		// invalid amount
+		fprintf(stderr, "Invalid amount of stocks.\n");
+		return false;
+	}
+
+	// calculate total price
+	double total = session->stocks[id].value * amount;
+
+	if (session->player.money < total) {
+		// insufficient money
+		fprintf(stderr, "Insufficient funds.\n");
+		return false;
+	}
+
+	// transfer stocks
+	// updating only the count is alright as the game state values are stored in the global variables
+	session->player.money -= total;
+	session->player.stocks[id].count += amount;
+	return true;
 }
 
 static bool UiSellStocks(GameSession* session) {
+	if (session == nullptr) return false;
+
 	// FIXME add implementation
 	printf("Sell Stocks\n");
-	return false;
+	return true;
 }
 
 static bool UiViewTrends(GameSession* session) {
-	// FIXME add implementation
-	printf("View Trends\n");
-	return false;
+	if (session == nullptr) return false;
+
+	// TODO replace with a better, more advanced, method
+	return true;
 }
 
 static bool UiExecuteActions(GameSession* session) {
-	// FIXME add implementation
-	printf("Execute Actions\n");
-	return false;
+	if (session == nullptr) return false;
+	session->day += 1;
+	return true;
 }
 
 #pragma endregion "Player's action methods"
@@ -136,7 +230,7 @@ static bool UiExecuteActions(GameSession* session) {
 /// This method sets the <paramref name="session"/>'s state to STATE_RUNNING and keeps looping until the state is change to any other value.
 /// </remarks>
 static unsigned char UiGameLoop(GameSession *session) {
-	if (session == NULL)
+	if (session == nullptr)
 		return GAME_ERROR;
 
 	// set the game session state to running
@@ -147,29 +241,26 @@ static unsigned char UiGameLoop(GameSession *session) {
 
 		/*
 		 *	1. List player's options
-		 *	2. Get player's inputs (can be multiple actions per day)
-		 *	3. Process player's inputs
-		 *	4. When all actions are taken, process the day and evaluate the results
+		 *	2. Get player's inputs (can be multiple actions per day) and process them
+		 *	3. When all actions are taken, process the day and evaluate the results
 		 *		- Update the global state of assets like stocks, money, day counter
-		 *		- Display a day summary
-		 *	5. Start anew
+		 *	4. Start anew
 		 */
 
 		//	1. List player's options
 		bool userInputs = true;
 		while (userInputs == true) {
 			UiClearScreen();
-			printf("---------------------------\n");
+			printf("Player %s%s%s, day %s%d%s\n\n", ACCENT_TEXT, session->player.name, CRESET, ACCENT_TEXT, session->day, CRESET);
 			printf("1. View Dashboard\n");
 			printf("2. Buy Stocks\n");
 			printf("3. Sell Stocks\n");
 			printf("4. View Trends\n");
 			printf("5. Execute Actions\n");
-			printf("---------------------------\n");
 			printf("0. Quit\n\n");
 
 			//	2. Get player's inputs
-			int option = UiGetInteger(INPUT_GAME_ACTION);
+			long option = UiGetInteger(INPUT_GAME_ACTION);
 			if (option == EOF) {
 				printf("Only integers are allowed.\n");
 				continue;
@@ -185,54 +276,52 @@ static unsigned char UiGameLoop(GameSession *session) {
 				case 1:
 					// View Dashboard option
 					if (UiViewDashboard(session) == false) {
-						// TODO handle error
+						fprintf(stderr, "Unable to display the dashboard.\n");
 					}
 
-					printf("\n");
+					// pause even when the method succeeds
 					UiPauseTerminal();
-
 					break;
 
 				case 2:
 					// Buy Stocks option
 					if (UiBuyStocks(session) == false) {
-						// TODO handle error
-
+						printf("\n");
+						fprintf(stderr, "Unable to purchase stocks.\n");
+						UiPauseTerminal();
 					}
-
-					printf("\n");
-					UiPauseTerminal();
 
 					break;
 
 				case 3:
 					// Sell Stocks option
 					if (UiSellStocks(session) == false) {
-						// TODO handle error
+						fprintf(stderr, "Unable to sell stocks.\n");
+						UiPauseTerminal();
 					}
 
-					printf("\n");
-					UiPauseTerminal();
 					break;
 
 				case 4:
 					// View Trends option
 					if (UiViewTrends(session) == false) {
-						// TODO handle error
+						fprintf(stderr, "Unable to display trends.\n");
 					}
 
-					printf("\n");
+					// pause even when the function succeeds
 					UiPauseTerminal();
 					break;
 
 				case 5:
-					// Execute Actions options
+					//	3. Day ended, update the progress
 					userInputs = false;
 					if (UiExecuteActions(session) == false) {
 						// unable to continue - error or player reached a point of no return
 						// exit is the valid
 						session->gameState = STATE_ENDED;
+						return GAME_OK;
 					}
+
 					break;
 
 				default:
@@ -241,10 +330,6 @@ static unsigned char UiGameLoop(GameSession *session) {
 					break;
 			}
 		}
-
-		//	3. TODO Process player's inputs (process changes)
-
-		//	4. TODO Evaluate the results
 	}
 
 	return GAME_OK;

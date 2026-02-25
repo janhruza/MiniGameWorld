@@ -3,7 +3,6 @@
 * Main application entry point.
 */
 
-#pragma once
 #include "inc/GameSession.h"
 #include "inc/UIActions.h"
 #include <stdio.h>
@@ -46,14 +45,17 @@ int main(const int argc, const char* argv[])
 		return EXIT_FAILURE;
 	}
 
+	PlayerSetMoney(&gs.player, 1000000);
+
 	// start the game session
 	unsigned char statusCode = UiGameLoop(&gs);
+	UiClearScreen();
 
-	// TODO display the final result
+	// display the final result
 	switch (statusCode)
 	{
 		case GAME_OK:
-			printf("Game completed successfully!\n");
+			printf("\nYou progressed through %d days!\n\nGame completed successfully!\n", gs.day);
 			break;
 
 		case GAME_ERROR:

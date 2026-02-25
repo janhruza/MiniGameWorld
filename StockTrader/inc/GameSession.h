@@ -40,6 +40,11 @@ typedef struct
 	Stock stocks[MAX_STOCK_SIZE];
 
 	/// <summary>
+	/// Gets the current day (game progress).
+	/// </summary>
+	unsigned int day;
+
+	/// <summary>
 	/// Representing the game state.
 	/// </summary>
 	enum GAME_STATE gameState;
@@ -60,6 +65,9 @@ inline static bool GsInitialize(GameSession *session)
 
 	// clear the game session object
 	memset(session, 0, sizeof(GameSession));
+
+	// set tje first day
+	session->day = 1;
 
 	// set the available stocks
 	for (int i = 0; i < MAX_STOCK_SIZE; i++)

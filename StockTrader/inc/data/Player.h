@@ -4,6 +4,8 @@
 */
 
 #pragma once
+#include <math.h>
+
 #include "Stock.h"
 #include "../Values.h"
 
@@ -33,3 +35,19 @@ typedef struct
 	Stock stocks[MAX_STOCK_SIZE];
 
 } Player;
+
+/// <summary>
+/// Sets the player's money.
+/// </summary>
+/// <param name="player">The target player object.</param>
+/// <param name="newValue">New money value.</param>
+/// <remarks>
+/// Sets <paramref name="player"/>'s money to the absolute value of <paramref name="newValue"/>.
+/// </remarks>
+static bool PlayerSetMoney(Player *player, double newValue) {
+	if (player == nullptr) return false;
+
+	double value = fabs(newValue);
+	player->money = newValue;
+	return true;
+}

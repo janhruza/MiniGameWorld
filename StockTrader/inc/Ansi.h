@@ -90,4 +90,8 @@
 #define AnsiPrint(ansiCode, text) printf("%s%s%s", ansiCode, text, CRESET)
 #define AnsiClearScreen() printf("\033[2J\033[H")
 
+// Custom program definitions
+#define ACCENT_TEXT HMAG
+#define ERROR_TEXT RED
+
 #endif //STOCKTRADER_ANSI_H

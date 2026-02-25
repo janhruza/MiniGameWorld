@@ -16,6 +16,8 @@
 #define INPUT_PLAYER_NAME	    "Player name: "
 #define INPUT_GAME_ACTION       "Select action [0-5]: "
 #define INPUT_PAUSE		        "Press ENTER to continue... "
+#define INPUT_STOCK_INDEX       "Enter stock code index: "
+#define INPUT_AMOUNT            "Enter amount: "
 
 #pragma endregion
 
