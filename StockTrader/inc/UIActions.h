@@ -29,6 +29,16 @@ static void UiClearScreen(void) {
 	AnsiClearScreen();
 }
 
+static void UiDisplayBanner(void) {
+	printf("███████╗████████╗ ██████╗  ██████╗██╗  ██╗    ████████╗██████╗  █████╗ ██████╗ ███████╗██████╗\n");
+	printf("██╔════╝╚══██╔══╝██╔═══██╗██╔════╝██║ ██╔╝    ╚══██╔══╝██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔══██╗\n");
+	printf("███████╗   ██║   ██║   ██║██║     █████╔╝        ██║   ██████╔╝███████║██║  ██║█████╗  ██████╔╝\n");
+	printf("╚════██║   ██║   ██║   ██║██║     ██╔═██╗        ██║   ██╔══██╗██╔══██║██║  ██║██╔══╝  ██╔══██╗\n");
+	printf("███████║   ██║   ╚██████╔╝╚██████╗██║  ██╗       ██║   ██║  ██║██║  ██║██████╔╝███████╗██║  ██║\n");
+	printf("╚══════╝   ╚═╝    ╚═════╝  ╚═════╝╚═╝  ╚═╝       ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝\n");
+	printf("By %s@jendahruza%s\n\n", ACCENT_TEXT, CRESET);
+}
+
 /// <summary>
 /// Flushes the input buffer.
 /// </summary>
@@ -95,15 +105,6 @@ static bool UiUpdatePlayerName(GameSession* session)
 		return false;
 	}
 
-	// remove the trailing line feed character
-	playerName[strlen(playerName) - 1] = 0;
-
-	if (strlen(playerName) == 0)
-	{
-		// name must not be empty
-		return false;
-	}
-
 	// update the player name
 	strcpy(session->player.name, playerName);
 	return true;
@@ -126,31 +127,42 @@ static bool UiViewDashboard(GameSession* session) {
 	if (session == nullptr) return false;
 
 	UiClearScreen();
-	printf("%s%s%s's portfolio:\n", ACCENT_TEXT, session->player.name, CRESET);
+	UiDisplayBanner();
+	printf("Player:  %s%s%s\nBalance: %s%.2lf%s %s\n", ACCENT_TEXT, session->player.name, CRESET, ACCENT_TEXT, session->player.money, CRESET, CURRENCY);
+	printf("Day:     %s%d%s\n\n", ACCENT_TEXT, session->day, CRESET);
+	printf("Portfolio:\n");
+
+	// count valid stocks
+	int count = 0;
+	for (int i = 0; i < MAX_STOCK_SIZE; i++) {
+		if (session->player.stocks[i].count > 0) {
+			count += 1;
+		}
+	}
+
+	if (count == 0) {
+		printf("No stocks.\n");
+		return true;
+	}
 
 	double sum = 0;
-	int count = 0;
 
 	for (int i = 0; i < MAX_STOCK_SIZE; i++) {
 		if (session->player.stocks[i].count > 0) {
 			double value = (double)session->player.stocks[i].count * g_stockValues[i];
 			sum += value;
 			count += 1;
-			printf("Stock Name: %-20s %-8lu %.2lf USD\n", g_stockNames[i], session->player.stocks[i].count, value);
+			printf("Stock Name: %-20s %-8lu %.2lf %s\n", g_stockNames[i], session->player.stocks[i].count, value, CURRENCY);
 		}
 	}
 
-	if (count == 0) {
-		printf("No stocks.\n");
-	}
-
-	printf("\nTotal: %.2lf USD\n", sum);
+	printf("\nTotal: %s%.2lf%s %s\n", ACCENT_TEXT, sum, CRESET, CURRENCY);
 	return true;
 }
 
 static bool UiBuyStocks(GameSession* session) {
 	UiClearScreen();
-	printf("Buy Stocks\n");
+	UiDisplayBanner();
 
 	for (int i = 0; i < MAX_STOCK_SIZE - 3; i += 4) {
 		printf("%02d. %s %02d. %s %02d. %s %02d. %s\n", i+1,  session->stocks[i].code, i+2,  session->stocks[i + 1].code, i+3, session->stocks[i + 2].code, i+4, session->stocks[i + 3].code);
@@ -158,7 +170,7 @@ static bool UiBuyStocks(GameSession* session) {
 	printf("\n");
 
 	// get stock id
-	int id = UiGetInteger(INPUT_STOCK_INDEX);
+	long id = UiGetInteger(INPUT_STOCK_INDEX);
 	if (id < 1 || id > MAX_STOCK_SIZE) {
 		// invalid input
 		fprintf(stderr, "Invalid stock index: %d\n", id);
@@ -169,18 +181,19 @@ static bool UiBuyStocks(GameSession* session) {
 	id -= 1;
 
 	printf("\n%s: %s%s%s", g_stockCodes[id], ACCENT_TEXT, g_stockNames[id], CRESET);
-	printf("\nUnit value: %s%.2lf%s USD\n\n", ACCENT_TEXT, g_stockValues[id], CRESET);
+	printf("\nUnit value: %s%.2lf%s %s\n", ACCENT_TEXT, g_stockValues[id], CRESET, CURRENCY);
+	printf("Your money: %s%.2lf%s %s\n\n", ACCENT_TEXT, session->player.money, CRESET, CURRENCY);
 
-	int amount = UiGetInteger(INPUT_AMOUNT);
+	long amount = UiGetInteger(INPUT_AMOUNT);
 	printf("\n");
 	if (amount <= 0) {
 		// invalid amount
-		fprintf(stderr, "Invalid amount of stocks.\n");
+		fprintf(stderr, ERROR_INVALID_STOCK_NUMBER);
 		return false;
 	}
 
 	// calculate total price
-	double total = session->stocks[id].value * amount;
+	double total = g_stockValues[id] * (double)amount;
 
 	if (session->player.money < total) {
 		// insufficient money
@@ -192,21 +205,91 @@ static bool UiBuyStocks(GameSession* session) {
 	// updating only the count is alright as the game state values are stored in the global variables
 	session->player.money -= total;
 	session->player.stocks[id].count += amount;
+	GsSetDailyBalance(GsGetDailyBalance() - total);
 	return true;
 }
 
+/// <summary>
+/// Sells the player's stocks.
+/// </summary>
+/// <param name="session">Active game session.</param>
+/// <returns>Operation result.</returns>
+/// <remarks>
+/// Writes to the stderr on every failed check.
+/// When the function fails a check, it immediately returns false.
+/// </remarks>
 static bool UiSellStocks(GameSession* session) {
 	if (session == nullptr) return false;
 
-	// FIXME add implementation
-	printf("Sell Stocks\n");
+	UiClearScreen();
+	UiDisplayBanner();
+
+	int idx = 0;
+	int stockIdxs[MAX_STOCK_SIZE] = {EOF};
+
+	// get only the valid stocks (by their indexes)
+	for (int i = 0; i < MAX_STOCK_SIZE; i++) {
+		if (session->player.stocks[i].count > 0) {
+			stockIdxs[idx++] = i;
+		}
+	}
+
+	// list the sellable stocks
+	if (idx == 0) {
+		fprintf(stderr, "No stocks to sell.\n");
+		return false;
+	}
+
+	for (int i = 0; i < MAX_STOCK_SIZE; i++) {
+		if (session->player.stocks[i].count > 0) {
+			// print the stock info
+			printf("%02d. %s%s%s: %-20s %lu %.2lf %s\n", i+1, ACCENT_TEXT, g_stockCodes[i], CRESET, g_stockNames[i], session->player.stocks[i].count, (double)session->player.stocks[i].count * g_stockValues[i], CURRENCY);
+		}
+	}
+
+	printf("\n");
+	long id = UiGetInteger(INPUT_STOCK_INDEX);
+	if (id == EOF || (id < 1 || id > MAX_STOCK_SIZE)) {
+		fprintf(stderr, FORMAT_INVALID_STOCK_INDEX, id);
+		return false;
+	}
+
+	// adjust the index
+	id -= 1;
+
+	// verify the index
+	if (stockIdxs[id] == EOF) {
+		fprintf(stderr, FORMAT_INVALID_STOCK_INDEX, id);
+		return false;
+	}
+
+	// stock index is valid
+	// stock can be sold
+	// get the amount of stocks to be sold
+	printf("Selected stock: %s%s%s\n", ACCENT_TEXT, g_stockNames[id], CRESET);
+	long amount = UiGetInteger(INPUT_AMOUNT);
+
+	if (amount <= 0 || amount > session->player.stocks[id].count) {
+		fprintf(stderr, "Invalid amount of stocks.\n");
+		return false;
+	}
+
+	// checks passed, sell the stocks
+	double delta = (double)amount * g_stockValues[id];
+	session->player.stocks[id].count -= amount;
+	session->player.money += delta;
+	GsSetDailyBalance(GsGetDailyBalance() + delta);
 	return true;
 }
 
 static bool UiViewTrends(GameSession* session) {
 	if (session == nullptr) return false;
 
-	// TODO replace with a better, more advanced, method
+	UiClearScreen();
+	UiDisplayBanner();
+
+	// FIXME missing implementation
+	fprintf(stderr, "Missing implementation.\n");
 	return true;
 }
 
@@ -247,11 +330,14 @@ static unsigned char UiGameLoop(GameSession *session) {
 		 *	4. Start anew
 		 */
 
+		GsSetDailyBalance(0);
+
 		//	1. List player's options
 		bool userInputs = true;
 		while (userInputs == true) {
 			UiClearScreen();
-			printf("Player %s%s%s, day %s%d%s\n\n", ACCENT_TEXT, session->player.name, CRESET, ACCENT_TEXT, session->day, CRESET);
+			UiDisplayBanner();
+
 			printf("1. View Dashboard\n");
 			printf("2. Buy Stocks\n");
 			printf("3. Sell Stocks\n");
@@ -280,6 +366,7 @@ static unsigned char UiGameLoop(GameSession *session) {
 					}
 
 					// pause even when the method succeeds
+					printf("\n");
 					UiPauseTerminal();
 					break;
 
@@ -287,7 +374,6 @@ static unsigned char UiGameLoop(GameSession *session) {
 					// Buy Stocks option
 					if (UiBuyStocks(session) == false) {
 						printf("\n");
-						fprintf(stderr, "Unable to purchase stocks.\n");
 						UiPauseTerminal();
 					}
 
@@ -296,7 +382,7 @@ static unsigned char UiGameLoop(GameSession *session) {
 				case 3:
 					// Sell Stocks option
 					if (UiSellStocks(session) == false) {
-						fprintf(stderr, "Unable to sell stocks.\n");
+						printf("\n");
 						UiPauseTerminal();
 					}
 
@@ -309,6 +395,7 @@ static unsigned char UiGameLoop(GameSession *session) {
 					}
 
 					// pause even when the function succeeds
+					printf("\n");
 					UiPauseTerminal();
 					break;
 
@@ -322,6 +409,11 @@ static unsigned char UiGameLoop(GameSession *session) {
 						return GAME_OK;
 					}
 
+					UiClearScreen();
+					UiDisplayBanner();
+					printf("Day %s%d%s ended.\n", ACCENT_TEXT, session->day - 1, CRESET);
+					printf("Daily balance: %s%.2lf%s %s\n\n", ACCENT_TEXT, GsGetDailyBalance(), CRESET, CURRENCY);
+					UiPauseTerminal();
 					break;
 
 				default:

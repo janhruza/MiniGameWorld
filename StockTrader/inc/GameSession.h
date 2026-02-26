@@ -120,6 +120,20 @@ static double local_max(const double a, const double b) {
 	return (a > b) ? a : b;
 }
 
+#pragma region Daily balance
+
+static double g_dailyBalance = 0;
+
+static void GsSetDailyBalance(double value) {
+	g_dailyBalance = value;
+}
+
+static double GsGetDailyBalance(void) {
+	return g_dailyBalance;
+}
+
+#pragma endregion
+
 /// <summary>
 /// Updates the global stock values.
 /// </summary>

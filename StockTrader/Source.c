@@ -25,10 +25,9 @@ int main(const int argc, const char* argv[])
 		return EXIT_FAILURE;
 	}
 
+	// print the banner
 	UiClearScreen();
-
-	// print the header
-	printf("StockTrader\n(c) 2026, Jan Hruza\n\n");
+	UiDisplayBanner();
 
 	// initialize the session
 	GameSession gs;
@@ -45,7 +44,7 @@ int main(const int argc, const char* argv[])
 		return EXIT_FAILURE;
 	}
 
-	PlayerSetMoney(&gs.player, 1000000);
+	PlayerSetMoney(&gs.player, INITIAL_MONEY);
 
 	// start the game session
 	unsigned char statusCode = UiGameLoop(&gs);
@@ -55,7 +54,7 @@ int main(const int argc, const char* argv[])
 	switch (statusCode)
 	{
 		case GAME_OK:
-			printf("\nYou progressed through %d days!\n\nGame completed successfully!\n", gs.day);
+			printf("\nYou progressed through %s%d%s days!\n\nGame completed successfully!\n", ACCENT_TEXT, gs.day, CRESET);
 			break;
 
 		case GAME_ERROR:

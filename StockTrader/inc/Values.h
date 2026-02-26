@@ -5,6 +5,13 @@
 
 #pragma once
 
+#pragma region Game options
+
+#define INITIAL_MONEY   1000
+#define CURRENCY        "USD"
+
+#pragma endregion
+
 #pragma region Limit values
 #define MAX_STOCK_SIZE	32
 #define MAX_NAME		32
@@ -23,6 +30,8 @@
 
 #pragma region Output messages
 
-#define OUTPUT_INVALID_OPTION    "Invalid option.\n"
+#define OUTPUT_INVALID_OPTION       "Invalid option.\n"
+#define FORMAT_INVALID_STOCK_INDEX  "Invalid stock index: %lu\n"
+#define ERROR_INVALID_STOCK_NUMBER  "Invalid number of stocks.\n"
 
 #pragma endregion
