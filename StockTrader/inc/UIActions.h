@@ -173,7 +173,7 @@ static bool UiBuyStocks(GameSession* session) {
 	long id = UiGetInteger(INPUT_STOCK_INDEX);
 	if (id < 1 || id > MAX_STOCK_SIZE) {
 		// invalid input
-		fprintf(stderr, "Invalid stock index: %d\n", id);
+		fprintf(stderr, FORMAT_INVALID_STOCK_INDEX, id);
 		return false;
 	}
 

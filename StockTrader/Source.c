@@ -37,6 +37,11 @@ int main(const int argc, const char* argv[])
 		return EXIT_FAILURE;
 	}
 
+	// update the stock values upon startup
+	// otherwise the initial state will be the same
+	// for all program executions
+	GsUpdateStockValues();
+
 	// get the player name
 	if (UiUpdatePlayerName(&gs) == false)
 	{
