@@ -30,13 +30,15 @@ static void UiClearScreen(void) {
 }
 
 static void UiDisplayBanner(void) {
-	printf("███████╗████████╗ ██████╗  ██████╗██╗  ██╗    ████████╗██████╗  █████╗ ██████╗ ███████╗██████╗\n");
-	printf("██╔════╝╚══██╔══╝██╔═══██╗██╔════╝██║ ██╔╝    ╚══██╔══╝██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔══██╗\n");
-	printf("███████╗   ██║   ██║   ██║██║     █████╔╝        ██║   ██████╔╝███████║██║  ██║█████╗  ██████╔╝\n");
-	printf("╚════██║   ██║   ██║   ██║██║     ██╔═██╗        ██║   ██╔══██╗██╔══██║██║  ██║██╔══╝  ██╔══██╗\n");
-	printf("███████║   ██║   ╚██████╔╝╚██████╗██║  ██╗       ██║   ██║  ██║██║  ██║██████╔╝███████╗██║  ██║\n");
-	printf("╚══════╝   ╚═╝    ╚═════╝  ╚═════╝╚═╝  ╚═╝       ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝\n");
-	printf("By %s@jendahruza%s\n\n", ACCENT_TEXT, CRESET);
+	// printf("███████╗████████╗ ██████╗  ██████╗██╗  ██╗    ████████╗██████╗  █████╗ ██████╗ ███████╗██████╗\n");
+	// printf("██╔════╝╚══██╔══╝██╔═══██╗██╔════╝██║ ██╔╝    ╚══██╔══╝██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔══██╗\n");
+	// printf("███████╗   ██║   ██║   ██║██║     █████╔╝        ██║   ██████╔╝███████║██║  ██║█████╗  ██████╔╝\n");
+	// printf("╚════██║   ██║   ██║   ██║██║     ██╔═██╗        ██║   ██╔══██╗██╔══██║██║  ██║██╔══╝  ██╔══██╗\n");
+	// printf("███████║   ██║   ╚██████╔╝╚██████╗██║  ██╗       ██║   ██║  ██║██║  ██║██████╔╝███████╗██║  ██║\n");
+	// printf("╚══════╝   ╚═╝    ╚═════╝  ╚═════╝╚═╝  ╚═╝       ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝\n");
+	// printf("By %s@jendahruza%s\n\n", ACCENT_TEXT, CRESET);
+
+	printf("Stock Trader\nMade by %s@jendahruza%s\n\n", ACCENT_BOLD, CRESET);
 }
 
 /// <summary>
@@ -57,8 +59,14 @@ static bool UiReadString(const char *prompt, char *buf) {
 	}
 	printf(CRESET);
 
+	if (strcmp(buf, "\n") == 0) {
+		return false;
+	}
+
 	size_t len = strlen(buf);
-	if (len > 0 && buf[len - 1] == '\n')
+	if (len <= 0) return false;
+
+	if (buf[len - 1] == '\n')
 	{
 		buf[len - 1] = '\0';
 	}
@@ -282,19 +290,27 @@ static bool UiSellStocks(GameSession* session) {
 	return true;
 }
 
-static bool UiViewTrends(GameSession* session) {
+static bool UiViewTrends(const GameSession* session) {
 	if (session == nullptr) return false;
 
 	UiClearScreen();
 	UiDisplayBanner();
 
-	// FIXME missing implementation
-	fprintf(stderr, "Missing implementation.\n");
+	// display stock information
+	printf("Simple trend overview\n\n");
+
+	printf(ACCENT_BOLD);
+	printf("%-24s %s %-10s VOLATILITY\n", "STOCK NAME", "CODE", "UNIT VALUE");
+	printf(CRESET);
+	for (int i = 0; i < MAX_STOCK_SIZE; i++) {
+		printf("%s%-24s%s %s %s%10.2lf%s %.3lf\n", ACCENT_TEXT, g_stockNames[i], CRESET, g_stockCodes[i], ACCENT_TEXT, g_stockValues[i], CRESET, g_stockVolatilities[i]);
+	}
 	return true;
 }
 
 static bool UiExecuteActions(GameSession* session) {
 	if (session == nullptr) return false;
+	GsUpdateStockValues();
 	session->day += 1;
 	return true;
 }

@@ -83,16 +83,16 @@
 #define BHWHT "\033[1;97m"
 
 //Reset
-#define reset "\033[0m"
 #define CRESET "\033[0m"
 
 // Macros
 #define AnsiPrint(ansiCode, text) printf("%s%s%s", ansiCode, text, CRESET)
 #define AnsiClearScreen() printf("\033[2J\033[H")
-#define AnsiSetWindowSize(r, c) printf("%d;<rows>;%dt", r, c)
+#define AnsiSetWindowSize(r, c) printf("\033[8;%d;%dt", c, r)
 
 // Custom program definitions
 #define ACCENT_TEXT HMAG
-#define ERROR_TEXT RED
+#define ACCENT_BOLD BMAG
+#define ERROR_TEXT BHRED
 
 #endif //STOCKTRADER_ANSI_H

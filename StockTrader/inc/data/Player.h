@@ -44,7 +44,7 @@ typedef struct
 /// <remarks>
 /// Sets <paramref name="player"/>'s money to the absolute value of <paramref name="newValue"/>.
 /// </remarks>
-static bool PlayerSetMoney(Player *player, double newValue) {
+static bool PlayerSetMoney(Player *player, const double newValue) {
 	if (player == nullptr) return false;
 
 	double value = fabs(newValue);

@@ -85,7 +85,7 @@ inline static bool GsInitialize(GameSession *session)
 /// </summary>
 /// <param name="session">The active game session.</param>
 /// <returns>true if the operation succeeds, otherwise false.</returns>
-inline static bool GsDisplayStatus(GameSession *session)
+inline static bool GsDisplayStatus(const GameSession *session)
 {
 	// check if the session exists
 	if (session == nullptr) return false;
@@ -124,7 +124,7 @@ static double local_max(const double a, const double b) {
 
 static double g_dailyBalance = 0;
 
-static void GsSetDailyBalance(double value) {
+static void GsSetDailyBalance(const double value) {
 	g_dailyBalance = value;
 }
 
@@ -135,24 +135,34 @@ static double GsGetDailyBalance(void) {
 #pragma endregion
 
 /// <summary>
+/// Updates the global stock values using a percentage-based delta.
+/// </summary>
+/// <param name="values">Stock values.</param>
+/// <param name="size">Number of stocks.</param>
+/// <param name="volatilities">Array of stocks' volatilities.</param>
+static void GsUpdateStockValuesEx(double values[], const int size, const double volatilities[])
+{
+	for (int i = 0; i < size; i++)
+	{
+		// 1. Generate a multiplier between -VOLATILITY and +VOLATILITY
+		// (rand() / (double)RAND_MAX) gives 0.0 to 1.0
+		double changePercent = ((rand() / (double)RAND_MAX) * (volatilities[i] * 2)) - volatilities[i];
+
+		// 2. Apply the change: New = Old * (1 + change)
+		values[i] *= (1.0 + changePercent);
+
+		// 3. Simple floor: prevents stocks from becoming negative or "worthless"
+		if (values[i] < 0.01)
+		{
+			values[i] = 0.01;
+		}
+	}
+}
+
+/// <summary>
 /// Updates the global stock values.
 /// </summary>
 static void GsUpdateStockValues(void)
 {
-	for (int i = 0; i < MAX_STOCK_SIZE; i++)
-	{
-		double oldValue = g_stockValues[i];
-		const int det = rand() % 10 + 1;
-		if (det % 2 == 0)
-		{
-			oldValue += det;
-		}
-
-		else
-		{
-			oldValue -= det;
-		}
-
-		g_stockValues[i] = local_max(oldValue, 0);
-	}
+	GsUpdateStockValuesEx(g_stockValues, MAX_STOCK_SIZE, g_stockVolatilities);
 }

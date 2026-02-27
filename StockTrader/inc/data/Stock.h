@@ -37,6 +37,11 @@ typedef struct stock
 	/// </summary>
 	char code[STOCK_CODE_SIZE];
 
+	/// <summary>
+	/// Representing the stock's volatility.
+	/// </summary>
+	double volatility;
+
 } Stock;
 
 /// <summary>
@@ -47,7 +52,7 @@ typedef struct stock
 /// <param name="unitValue">Stock unit value.</param>
 /// <param name="dest">Destination object.</param>
 /// <returns>true if the function succeeds, otherwise false.</returns>
-inline static bool CreateStock(const char* name, const char* code, double unitValue, Stock *dest)
+inline static bool CreateStock(const char* name, const char* code, const double unitValue, Stock *dest)
 {
 	if (dest == NULL) return false;
 

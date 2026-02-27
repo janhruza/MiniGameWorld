@@ -25,8 +25,6 @@ int main(const int argc, const char* argv[])
 		return EXIT_FAILURE;
 	}
 
-	AnsiSetWindowSize(100, 30);
-
 	// print the banner
 	UiClearScreen();
 	UiDisplayBanner();
@@ -47,21 +45,22 @@ int main(const int argc, const char* argv[])
 	// get the player name
 	if (UiUpdatePlayerName(&gs) == false)
 	{
-		fprintf(stderr, "Unable to get the player name.\n");
+		fprintf(stderr, "%sUnable to get the player name.%s\n", ERROR_TEXT, CRESET);
 		return EXIT_FAILURE;
 	}
 
 	PlayerSetMoney(&gs.player, INITIAL_MONEY);
 
 	// start the game session
-	unsigned char statusCode = UiGameLoop(&gs);
+	const unsigned char statusCode = UiGameLoop(&gs);
 	UiClearScreen();
+	UiDisplayBanner();
 
 	// display the final result
 	switch (statusCode)
 	{
 		case GAME_OK:
-			printf("\nYou progressed through %s%d%s days!\n\nGame completed successfully!\n", ACCENT_TEXT, gs.day, CRESET);
+			printf("You progressed through %s%d%s days!\n\nGame completed successfully!\n", ACCENT_TEXT, gs.day, CRESET);
 			break;
 
 		case GAME_ERROR:

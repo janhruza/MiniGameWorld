@@ -9,6 +9,7 @@
 
 #define INITIAL_MONEY   1000
 #define CURRENCY        "USD"
+#define VOLATILITY      0.05
 
 #pragma endregion
 
