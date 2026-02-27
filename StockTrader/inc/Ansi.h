@@ -89,6 +89,7 @@
 // Macros
 #define AnsiPrint(ansiCode, text) printf("%s%s%s", ansiCode, text, CRESET)
 #define AnsiClearScreen() printf("\033[2J\033[H")
+#define AnsiSetWindowSize(r, c) printf("%d;<rows>;%dt", r, c)
 
 // Custom program definitions
 #define ACCENT_TEXT HMAG

@@ -25,6 +25,8 @@ int main(const int argc, const char* argv[])
 		return EXIT_FAILURE;
 	}
 
+	AnsiSetWindowSize(100, 30);
+
 	// print the banner
 	UiClearScreen();
 	UiDisplayBanner();
