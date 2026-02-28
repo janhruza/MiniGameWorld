@@ -10,8 +10,11 @@
 #pragma once
 #include <stdbool.h>
 
-#define TRUE    1
-#define FALSE   0
+#define TRUE                1
+#define FALSE               0
+
+#define MAX_STAGES          14
+#define MAX_TEAMS           30
 
 #define SHORT_TEXT_LENGTH   32
 #define NORMAL_TEXT_LENGTH  64
