@@ -6,15 +6,16 @@
 #define RALLYDAKAR_STAGERESULT_H
 
 #include "Common.h"
+#include "VehicleInfo.h"
 
 /**
  * Representing the stage result struct.
  */
 typedef struct {
     /**
-     * @brief Representing the team ID.
+     * Representing the associated vehicle info object.
      */
-    unsigned int TeamId;
+    VehicleInfo Vehicle;
 
     /**
      * Representing the driven time of the stage.

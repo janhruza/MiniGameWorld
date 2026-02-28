@@ -11,4 +11,6 @@ add_executable(RallyDakar main.c
         inc/TerrainType.h
         inc/StageResult.h
         src/TeamInfo.c
-        inc/Ansi.h)
+        inc/Ansi.h
+        inc/VehicleInfo.h
+        src/VehicleInfo.c)

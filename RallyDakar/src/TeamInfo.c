@@ -13,13 +13,12 @@ bool TeamInit(TeamInfo *team, char *teamName, char *driverName, char *coDriverNa
         return false;
     }
 
-    // clear the team object
-    memset(team, 0, sizeof(TeamInfo));
-
     // set the initial values
     snprintf(team->TeamName, SHORT_TEXT_LENGTH, "%s", teamName);
-    snprintf(team->DriverName, SHORT_TEXT_LENGTH, "%s", driverName);
-    snprintf(team->CoDriverName, SHORT_TEXT_LENGTH, "%s", coDriverName);
+
+    for (int i = 0; i < MAX_TEAM_VEHICLES; i++) {
+        VehicleInit(&team->Vehicles[i]);
+    }
 
     // initialize the times
     team->TimePenalty = 0;

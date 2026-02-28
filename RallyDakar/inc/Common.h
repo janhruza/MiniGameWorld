@@ -17,4 +17,9 @@
 #define NORMAL_TEXT_LENGTH  64
 #define LONG_TEXT_LENGTH    128
 
+#define MAX_TEAM_VEHICLES   4
+#define MAX_CREW_SIZE       5
+
+#define HEALTH_MAX          100.0f
+
 #endif //RALLYDAKAR_COMMON_H
