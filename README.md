@@ -11,9 +11,12 @@ There is a list of all included projects in the table below.
 |------------|--------|------|-----------|
 |StackTrader|C|Yes|Basic stock market trading simulator.|
 |HigherLower|C|Yes|Simple higher or lower guessing game.|
+|RallyDakar|C|Yes|Rally Dakar manager simulator.|
 
 ## Prerequisites
 All current and future projects are being developed using the Microsoft Visual Studio or JetBrains IDEs such as CLion.
+
+>**Note**: Visual Studio will automatically generate project solution files.
 
 ### Additional information
 On Windows, all CLI applications are tested in the Windows Terminal.
