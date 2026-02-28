@@ -8,6 +8,6 @@ add_executable(RallyDakar main.c
         inc/TeamInfo.h
         inc/VehicleHealth.h
         inc/Stage.h
-        TerrainType.h
+        inc/TerrainType.h
         inc/StageResult.h
         src/TeamInfo.c)
