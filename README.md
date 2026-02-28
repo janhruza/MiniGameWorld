@@ -10,6 +10,7 @@ There is a list of all included projects in the table below.
 |Project name|Language|Active|Description|
 |------------|--------|------|-----------|
 |StackTrader|C|Yes|Basic stock market trading simulator.|
+|HigherLower|C|Yes|Simple higher or lower guessing game.|
 
 ## Prerequisites
 All current and future projects are being developed using the Microsoft Visual Studio or JetBrains IDEs such as CLion.
