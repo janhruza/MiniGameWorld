@@ -38,9 +38,7 @@ typedef struct {
  *@brief Initializes the team object.
  * @param team Pointer to a team object to be initialized.
  * @param teamName Name of the new team.
- * @param driverName Name of the main driver.
- * @param coDriverName Name of the co-driver(s).
  */
-bool TeamInit(TeamInfo *team, char *teamName, char *driverName, char *coDriverName);
+bool TeamInit(TeamInfo *team, char *teamName);
 
 #endif //RALLYDAKAR_TEAMINFO_H

@@ -32,3 +32,17 @@ bool VehicleInit(VehicleInfo *vehicleInfo) {
     vehicleInfo->Penalty = 0;
     return true;
 }
+
+bool VehicleCreate(VehicleInfo *vehicleInfo, char* drivers[]) {
+    // initialize the object first
+    if (VehicleInit(vehicleInfo) == false) {
+        return false;
+    }
+
+    // assign the drivers objects
+    for (int i = 0; i < MAX_TEAM_VEHICLES; i++) {
+        vehicleInfo->Drivers[i] = drivers[i];
+    }
+
+    return true;
+}

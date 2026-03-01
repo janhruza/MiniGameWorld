@@ -43,4 +43,13 @@ typedef struct {
  */
 bool VehicleInit(VehicleInfo *vehicleInfo);
 
+/**
+ * @brief Initializes the vehicle and sets the driver and co-driver information.
+ * @param vehicleInfo Target vehicle object.
+ * @param drivers List of drivers, must be only up to MAX_CREW_SIZE.
+ * @return Operation result.
+ * @details Initializes the vehicleInfo object using the VehicleInit function and then assigns the drivers' details.
+ */
+bool VehicleCreate(VehicleInfo *vehicleInfo, char *drivers[]);
+
 #endif //RALLYDAKAR_VEHICLEINFO_H

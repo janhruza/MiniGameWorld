@@ -7,6 +7,8 @@
 
 #include <stdio.h>
 
+#pragma region Load/Save functions
+
 bool GsSave(const GameSession *session, const char *fileName) {
     if (session == NULL || fileName == NULL) {
         return false;
@@ -38,3 +40,22 @@ bool GsLoad(GameSession *session, const char *fileName) {
     fclose(file);
     return read == 1;
 }
+
+#pragma endregion
+
+#pragma region Main game logic
+
+bool GsDisplayScoreboard(GameSession *session) {
+    // TODO missing implementation
+    return false;
+}
+
+StatusCode GsStartGameLoop(GameSession *session) {
+    if (session == NULL) {
+        return STATUS_GAME_UNINITIALIZED;
+    }
+
+    return STATUS_OK;
+}
+
+#pragma endregion

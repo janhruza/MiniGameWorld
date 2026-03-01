@@ -10,6 +10,28 @@
 #include "Stage.h"
 
 /**
+ * {brief Representing the game exit code enum.
+ */
+typedef enum : unsigned char {
+
+    /**
+     * Exit success code.
+     */
+    STATUS_OK = 0,
+
+    /**
+     * Exit error status code.
+     */
+    STATUS_ERROR,
+
+    /**
+     * Game session is invalid or uninitialized.
+     */
+    STATUS_GAME_UNINITIALIZED
+
+} StatusCode;
+
+/**
  * @brief Representing the game session struct.
  */
 typedef struct {
@@ -29,6 +51,8 @@ typedef struct {
     TeamInfo Teams[MAX_TEAMS];
 } GameSession;
 
+#pragma region Load/Save functions
+
 /**
  * @brief Saves the given session into the output file.
  * @param session Pointer to the session object.
@@ -44,5 +68,25 @@ bool GsSave(const GameSession *session, const char* fileName);
  * @return Operation result.
  */
 bool GsLoad(GameSession *session, const char* fileName);
+
+#pragma endregion
+
+#pragma region Main game logic functions
+
+/**
+ * @brief Displays the global scoreboard of all active teams.
+ * @param session Pointer to the active game session object.
+ * @return Operation result.
+ */
+bool GsDisplayScoreboard(GameSession *session);
+
+/**
+ * @brief Starts the main game loop.
+ * @param session The game session.
+ * @return Game exit status code.
+ */
+StatusCode GsStartGameLoop(GameSession *session);
+
+#pragma endregion
 
 #endif //RALLYDAKAR_GAMESESSION_H

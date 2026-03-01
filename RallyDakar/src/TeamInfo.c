@@ -8,7 +8,7 @@
 #include "../inc/TeamInfo.h"
 #include "../inc/Common.h"
 
-bool TeamInit(TeamInfo *team, char *teamName, char *driverName, char *coDriverName) {
+bool TeamInit(TeamInfo *team, char *teamName) {
     if (team == NULL) {
         return false;
     }
