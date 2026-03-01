@@ -7,6 +7,8 @@
 
 #include <stdio.h>
 
+#include "../inc/UI/AppMenus.h"
+
 #pragma region Load/Save functions
 
 bool GsSave(const GameSession *session, const char *fileName) {
@@ -62,6 +64,7 @@ StatusCode GsStartGameLoop(GameSession *session) {
 
     // TODO missing implementation
     //  1.  show the initial screen (new/load game)
+    const int iWelcome = MenuWelcomeScreen();
 
     return STATUS_OK;
 }
