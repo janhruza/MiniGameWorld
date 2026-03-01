@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <memory.h>
-#include <stdlib.h> // pro NULL
+#include <stdlib.h>
 
 #ifdef _WIN32
     #include <conio.h>
@@ -61,7 +61,7 @@ int GetActualMenuSize(const ConsoleMenu *menu) {
 
     int num = 0;
     for (int i = 0; i < MENU_MAX_ITEMS; i++) {
-        if (menu->Items[i].Id < 0 || menu->Items[i].Id >= MENU_MAX_ITEMS) {
+        if (menu->Items[i].Id < 0) {
             break;
         }
         num++;
@@ -80,13 +80,13 @@ bool CmDrawMenu(ConsoleMenu *menu) {
         if (menu->Items[i].Id < 0) break;
 
         // left pad the item
-        printf("%*s", MENU_LEFT_PADDING, " ");
+        printf("%*s", MENU_LEFT_PADDING, "");
 
         if (i == menu->ActiveIdx) {
             printf(ACCENT_BACK);
-            printf("  %-34s  \n", menu->Items[i].Header);
+            printf("  %-*s  \n", MENU_ITEM_HEADER_WIDTH, menu->Items[i].Header);
         } else {
-            printf("  %-34s  \n", menu->Items[i].Header);
+            printf("  %-*s  \n", MENU_ITEM_HEADER_WIDTH, menu->Items[i].Header);
         }
         printf(RESET);
     }
@@ -134,6 +134,11 @@ int CmSelectMenu(ConsoleMenu *menu) {
 
             case 10: // Linux Enter
             case 13: // Windows Enter
+
+                // check if the item is a separator
+                // and if so, ignore it
+                if (menu->Items[menu->ActiveIdx].Id == MENU_ID_SEPARATOR) break;
+
                 value = menu->Items[menu->ActiveIdx].Id;
                 goto exit;
 
@@ -151,4 +156,21 @@ int CmSelectMenu(ConsoleMenu *menu) {
 
     // return the selected key
     return value;
+}
+
+bool CmIsSeparator(const MenuItem *item) {
+    if (item == NULL) return false;
+    return item->Id == MENU_ID_SEPARATOR;
+}
+
+bool CmMakeSeparator(MenuItem *item) {
+    if (item == NULL) return false;
+
+    item->Id = MENU_ID_SEPARATOR;
+
+    for (int i  = 0; i < MENU_ITEM_HEADER_WIDTH; i++) {
+        item->Header[i] = '-';
+    }
+
+    return true;
 }

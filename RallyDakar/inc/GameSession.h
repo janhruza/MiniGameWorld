@@ -51,6 +51,7 @@ typedef struct {
     TeamInfo Teams[MAX_TEAMS];
 } GameSession;
 
+// Load save logic
 #pragma region Load/Save functions
 
 /**
@@ -71,6 +72,7 @@ bool GsLoad(GameSession *session, const char* fileName);
 
 #pragma endregion
 
+// Main game logic
 #pragma region Main game logic functions
 
 /**

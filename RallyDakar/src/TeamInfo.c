@@ -9,6 +9,7 @@
 #include "../inc/Common.h"
 
 bool TeamInit(TeamInfo *team, char *teamName) {
+    // check if the team is a valid pointer
     if (team == NULL) {
         return false;
     }
@@ -16,6 +17,7 @@ bool TeamInit(TeamInfo *team, char *teamName) {
     // set the initial values
     snprintf(team->TeamName, SHORT_TEXT_LENGTH, "%s", teamName);
 
+    // initialize all vehicle objects
     for (int i = 0; i < MAX_TEAM_VEHICLES; i++) {
         VehicleInit(&team->Vehicles[i]);
     }

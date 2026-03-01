@@ -37,4 +37,11 @@ typedef struct {
     unsigned int Terrain;
 } Stage;
 
+/**
+ * @brief Initializes the given stage object.
+ * @param stage Pointer to the stage that should be initialized.
+ * @return Operation result.
+ */
+bool StageInit(Stage *stage);
+
 #endif //RALLYDAKAR_STAGE_H

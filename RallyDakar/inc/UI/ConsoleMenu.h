@@ -5,9 +5,11 @@
 #ifndef RALLYDAKAR_CONSOLEMENU_H
 #define RALLYDAKAR_CONSOLEMENU_H
 
-#define MENU_MAX_ITEMS      16
-#define MENU_ITEM_WIDTH     40
-#define MENU_LEFT_PADDING   4
+#define MENU_ITEM_HEADER_WIDTH  SHORT_TEXT_LENGTH
+#define MENU_MAX_ITEMS          16
+#define MENU_ITEM_WIDTH         (MENU_ITEM_HEADER_WIDTH + 4)
+#define MENU_LEFT_PADDING       4
+#define MENU_ID_SEPARATOR       0xFFFF
 
 #include "../Common.h"
 
@@ -19,7 +21,7 @@ typedef struct {
     /**
      * @brief Representing the header text of the item.
      */
-    char Header[SHORT_TEXT_LENGTH];
+    char Header[MENU_ITEM_HEADER_WIDTH];
 
     /**
      * @brief Representing the unique menu item identifier.
@@ -46,7 +48,7 @@ typedef struct {
     /**
      * @brief Menu header text.
      */
-    char Header[SHORT_TEXT_LENGTH];
+    char Header[MENU_ITEM_HEADER_WIDTH];
 
 } ConsoleMenu;
 
@@ -72,6 +74,20 @@ bool CmDrawMenu(ConsoleMenu *menu);
  * @return ID of the selected menu item or EOF if no item was selected or the method failed for any other reason.
  */
 int CmSelectMenu(ConsoleMenu *menu);
+
+/**
+ * @brief Determines whether the item is marked as separator.
+ * @param item Target menu item.
+ * @return true, if the menu is a separator, otherwise false.
+ */
+bool CmIsSeparator(const MenuItem *item);
+
+/**
+ * @Makes the target item a separator.
+ * @param item Target menu item.
+ * @return Operation result.
+ */
+bool CmMakeSeparator(MenuItem *item);
 
 #pragma endregion
 

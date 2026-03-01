@@ -16,9 +16,9 @@
 #define MAX_STAGES          14
 #define MAX_TEAMS           30
 
-#define SHORT_TEXT_LENGTH   32
-#define NORMAL_TEXT_LENGTH  64
-#define LONG_TEXT_LENGTH    128
+#define SHORT_TEXT_LENGTH   33
+#define NORMAL_TEXT_LENGTH  65
+#define LONG_TEXT_LENGTH    129
 
 #define MAX_TEAM_VEHICLES   4
 #define MAX_CREW_SIZE       5

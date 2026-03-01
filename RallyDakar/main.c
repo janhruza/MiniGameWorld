@@ -7,6 +7,7 @@
 #include "inc/Ansi.h"
 #include "inc/GameSession.h"
 #include "inc/UI/ConsoleMenu.h"
+#include "inc/UI/AppMenus.h"
 
 int main(int argc, const char *argv[]) {
     ConsoleMenu menu;
@@ -15,16 +16,10 @@ int main(int argc, const char *argv[]) {
     snprintf(menu.Header, SHORT_TEXT_LENGTH, "%sMAIN MENU%s", ACCENT_TEXT, RESET);
 
     ClearScreen();
-
     CoDrawBanner();
 
-    for (int i = 0; i < 10; i++) {
-        menu.Items[i].Id = i;
-        snprintf(menu.Items[i].Header, SHORT_TEXT_LENGTH, "Item #%02d", i+1);
-    }
-
     // select menu
-    const int opt = CmSelectMenu(&menu);
+    const int opt = MenuWelcomeScreen();
 
     ClearScreen();
     printf("Selected ID: %d\n", opt);

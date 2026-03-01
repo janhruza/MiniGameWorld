@@ -45,6 +45,11 @@ bool GsLoad(GameSession *session, const char *fileName) {
 
 #pragma region Main game logic
 
+// Helper functions
+#pragma region Helper functions
+
+#pragma endregion
+
 bool GsDisplayScoreboard(GameSession *session) {
     // TODO missing implementation
     return false;
@@ -54,6 +59,9 @@ StatusCode GsStartGameLoop(GameSession *session) {
     if (session == NULL) {
         return STATUS_GAME_UNINITIALIZED;
     }
+
+    // TODO missing implementation
+    //  1.  show the initial screen (new/load game)
 
     return STATUS_OK;
 }
