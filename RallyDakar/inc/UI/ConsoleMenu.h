@@ -7,6 +7,7 @@
 
 #define MENU_MAX_ITEMS      16
 #define MENU_ITEM_WIDTH     40
+#define MENU_LEFT_PADDING   4
 
 #include "../Common.h"
 
@@ -41,6 +42,11 @@ typedef struct {
      * @brief Representing the index of the active (selected) menu item from the Items array.
      */
     int ActiveIdx;
+
+    /**
+     * @brief Menu header text.
+     */
+    char Header[SHORT_TEXT_LENGTH];
 
 } ConsoleMenu;
 

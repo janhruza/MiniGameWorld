@@ -45,11 +45,13 @@ bool CmInitMenu(ConsoleMenu *menu) {
 
     memset(menu, 0, sizeof(ConsoleMenu));
 
+    menu->ActiveIdx = 0;
+    snprintf(menu->Header, SHORT_TEXT_LENGTH, "MENU");
+
     // invalidate all menu items
     for (int i = 0; i < MENU_MAX_ITEMS; i++) {
         menu->Items[i].Id = -1;
     }
-    menu->ActiveIdx = 0;
 
     return true;
 }
@@ -70,11 +72,15 @@ int GetActualMenuSize(const ConsoleMenu *menu) {
 bool CmDrawMenu(ConsoleMenu *menu) {
     if (menu == NULL) return false;
 
+    CoDrawBanner();
+
+    printf("%s  %-*s%s  %s\n", BOLD, MENU_LEFT_PADDING, "", menu->Header, RESET);
+
     for (int i = 0; i < MENU_MAX_ITEMS; i++) {
         if (menu->Items[i].Id < 0) break;
 
         // left pad the item
-        printf("%-10s", " ");
+        printf("%*s", MENU_LEFT_PADDING, " ");
 
         if (i == menu->ActiveIdx) {
             printf(ACCENT_BACK);
@@ -86,7 +92,7 @@ bool CmDrawMenu(ConsoleMenu *menu) {
     }
 
     // print help, left pad it as well
-    printf("\n%-10sUse %sUP%s and %sDOWN%s to navigate\n%-10s%sENTER%s to select or %sQ%s to exit\n", "", ACCENT_TEXT, RESET, ACCENT_TEXT, RESET, "", ACCENT_TEXT, RESET, ACCENT_TEXT, RESET);
+    printf("\n%*sUse %sUP%s and %sDOWN%s to navigate,\n%*s%sENTER%s to select or %sQ%s to exit\n", MENU_LEFT_PADDING, "", ACCENT_TEXT, RESET, ACCENT_TEXT, RESET, MENU_LEFT_PADDING, "", ACCENT_TEXT, RESET, ACCENT_TEXT, RESET);
 
     return true;
 }

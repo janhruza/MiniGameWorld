@@ -25,4 +25,9 @@
 
 #define HEALTH_MAX          100.0f
 
+/**
+ * @brief Draws the application banner.
+ */
+void CoDrawBanner(void);
+
 #endif //RALLYDAKAR_COMMON_H
