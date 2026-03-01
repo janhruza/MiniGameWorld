@@ -15,4 +15,6 @@ add_executable(RallyDakar main.c
         inc/VehicleInfo.h
         src/VehicleInfo.c
         inc/GameSession.h
-        src/GameSession.c)
+        src/GameSession.c
+        inc/UI/ConsoleMenu.h
+        src/ConsoleMenu.c)
