@@ -10,6 +10,8 @@
 #pragma once
 #include <stdbool.h>
 
+#define AUTHOR              "@jendahruza"
+
 #define TRUE                1
 #define FALSE               0
 
@@ -29,5 +31,10 @@
  * @brief Draws the application banner.
  */
 void CoDrawBanner(void);
+
+/**
+ * @brief Shows the about and credits screen.
+ */
+void CoShowCredits(void);
 
 #endif //RALLYDAKAR_COMMON_H

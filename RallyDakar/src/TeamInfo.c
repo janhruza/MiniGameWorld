@@ -14,6 +14,9 @@ bool TeamInit(TeamInfo *team, char *teamName) {
         return false;
     }
 
+    // set the default team ID -> EOF
+    team->Id = EOF;
+
     // set the initial values
     snprintf(team->TeamName, SHORT_TEXT_LENGTH, "%s", teamName);
 
@@ -25,5 +28,15 @@ bool TeamInit(TeamInfo *team, char *teamName) {
     // initialize the times
     team->TimePenalty = 0;
     team->TimeTotal = 0;
+    return true;
+}
+
+bool TeamIsValid(const TeamInfo *team) {
+    if (team == NULL) return false;
+
+    if (team->Id <= EOF) {
+        return false;
+    }
+
     return true;
 }

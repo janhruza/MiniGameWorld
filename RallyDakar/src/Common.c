@@ -7,5 +7,10 @@
 #include "../inc/Ansi.h"
 
 void CoDrawBanner(void) {
-    printf("%sRally Dakar%s\nBy %s@jendahruza%s\n\n", BOLD, RESET, ACCENT_TEXT, RESET);
+    printf("Rally Dakar\n(c) 2026 %s%s%s%s\n\n", BOLD, ACCENT_TEXT, AUTHOR, RESET);
+}
+
+void CoShowCredits(void) {
+    ClearScreen();
+    CoDrawBanner();
 }

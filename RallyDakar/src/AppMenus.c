@@ -9,20 +9,29 @@ int MenuWelcomeScreen(void) {
     ConsoleMenu menu;
     CmInitMenu(&menu);
 
-    menu.Items[0] = (MenuItem) {
-        .Id = 1,
-        .Header = "Play"
+    int idx = 0;
+
+    menu.Items[idx++] = (MenuItem) {
+        .Id = ID_NEW_GAME,
+        .Header = "New Game"
     };
 
-    menu.Items[1] = (MenuItem) {
-        .Id = 2,
-        .Header = "About Rally Dakar"
+    menu.Items[idx++] = (MenuItem) {
+        .Id = ID_LOAD_GAME,
+        .Header = "Load Game"
     };
 
-    CmMakeSeparator(&menu.Items[2]);
+    CmMakeSeparator(&menu.Items[idx++]);
 
-    menu.Items[3] = (MenuItem) {
-        .Id = 3,
+    menu.Items[idx++] = (MenuItem) {
+        .Id = ID_CREDITS,
+        .Header = "Credits"
+    };
+
+    CmMakeSeparator(&menu.Items[idx++]);
+
+    menu.Items[idx++] = (MenuItem) {
+        .Id = ID_EXIT,
         .Header = "Exit"
     };
 

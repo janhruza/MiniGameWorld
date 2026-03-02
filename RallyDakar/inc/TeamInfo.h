@@ -14,6 +14,11 @@
  */
 typedef struct {
     /**
+     * @brief Representing the team identifier.
+     */
+    int Id;
+
+    /**
      * @brief Representing the team name.
      */
     char TeamName[SHORT_TEXT_LENGTH];
@@ -40,5 +45,12 @@ typedef struct {
  * @param teamName Name of the new team.
  */
 bool TeamInit(TeamInfo *team, char *teamName);
+
+/**
+ * @brief Determines whether the team is valid.
+ * @param team Pointer to the target team.
+ * @return true if the team is valid, otherwise false.
+ */
+bool TeamIsValid(const TeamInfo *team);
 
 #endif //RALLYDAKAR_TEAMINFO_H

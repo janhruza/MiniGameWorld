@@ -7,7 +7,9 @@
 
 #include <stdio.h>
 
+#include "../inc/Ansi.h"
 #include "../inc/UI/AppMenus.h"
+#include "../inc/TeamInfo.h"
 
 #pragma region Load/Save functions
 
@@ -52,9 +54,34 @@ bool GsLoad(GameSession *session, const char *fileName) {
 
 #pragma endregion
 
+int GsValidTeamsCount(const GameSession *session) {
+    if (session == NULL) return EOF;
+
+    int counter = 0;
+    for (int i = 0; i < MAX_TEAMS; i++) {
+        if (TeamIsValid(&session->Teams[i]) == true) counter++;
+    }
+
+    return counter;
+}
+
 bool GsDisplayScoreboard(GameSession *session) {
-    // TODO missing implementation
-    return false;
+    if (GsValidTeamsCount(session) <= 0) {
+        // unable to get any valid teams
+        return false;
+    }
+
+    // FIXME implement better scoreboard
+    printf("%sCURRENT STANDINGS%s\n", ACCENT_BOLD, RESET);
+    for (int i = 0; i < MAX_TEAMS; i++) {
+
+        // filter out invalid teams
+        if (TeamIsValid(&session->Teams[i]) == false) continue;
+
+        printf("%*s %f (%f)\n", SHORT_TEXT_LENGTH, session->Teams[i].TeamName, session->Teams[i].TimeTotal, session->Teams[i].TimeTotal);
+    }
+
+    return true;
 }
 
 StatusCode GsStartGameLoop(GameSession *session) {
@@ -63,9 +90,6 @@ StatusCode GsStartGameLoop(GameSession *session) {
     }
 
     // TODO missing implementation
-    //  1.  show the initial screen (new/load game)
-    const int iWelcome = MenuWelcomeScreen();
-
     return STATUS_OK;
 }
 

@@ -89,6 +89,13 @@ bool GsDisplayScoreboard(GameSession *session);
  */
 StatusCode GsStartGameLoop(GameSession *session);
 
+/**
+ * @brief Gets the number of valid teams.
+ * @param session Pointer to the active game session.
+ * @return Number of the valid teams in the session.
+ */
+int GsValidTeamsCount(const GameSession *session);
+
 #pragma endregion
 
 #endif //RALLYDAKAR_GAMESESSION_H

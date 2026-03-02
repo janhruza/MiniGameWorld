@@ -84,6 +84,7 @@ bool CmDrawMenu(ConsoleMenu *menu) {
 
         if (i == menu->ActiveIdx) {
             printf(ACCENT_BACK);
+            printf(BOLD);
             printf("  %-*s  \n", MENU_ITEM_HEADER_WIDTH, menu->Items[i].Header);
         } else {
             printf("  %-*s  \n", MENU_ITEM_HEADER_WIDTH, menu->Items[i].Header);
@@ -92,7 +93,7 @@ bool CmDrawMenu(ConsoleMenu *menu) {
     }
 
     // print help, left pad it as well
-    printf("\n%*sUse %sUP%s and %sDOWN%s to navigate,\n%*s%sENTER%s to select or %sQ%s to exit\n", MENU_LEFT_PADDING, "", ACCENT_TEXT, RESET, ACCENT_TEXT, RESET, MENU_LEFT_PADDING, "", ACCENT_TEXT, RESET, ACCENT_TEXT, RESET);
+    printf("\n%*sUse %sUP%s and %sDOWN%s to navigate,\n%*s%sENTER%s to select or %sQ%s to exit\n", MENU_LEFT_PADDING, "", ACCENT_BOLD, RESET, ACCENT_BOLD, RESET, MENU_LEFT_PADDING, "", ACCENT_BOLD, RESET, ACCENT_BOLD, RESET);
 
     return true;
 }
