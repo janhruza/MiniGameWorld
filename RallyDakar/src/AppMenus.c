@@ -32,7 +32,7 @@ int MenuWelcomeScreen(void) {
 
     menu.Items[idx++] = (MenuItem) {
         .Id = ID_EXIT,
-        .Header = "Exit"
+        .Header = "Quit"
     };
 
     return CmSelectMenu(&menu);

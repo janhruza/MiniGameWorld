@@ -20,12 +20,12 @@ int main(int argc, const char *argv[]) {
     while (true) {
         const int iWelcome = MenuWelcomeScreen();
         switch (iWelcome) {
-            default:
+            default: // The Q key, etc.
             case ID_EXIT:
                 goto exit;
 
             case ID_NEW_GAME:
-            case ID_PLAY:
+            case ID_DEBUG:
 
                 // run the game loop
                 const StatusCode result = GsStartGameLoop(&gs);

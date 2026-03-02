@@ -6,6 +6,7 @@
 #include "../inc/GameSession.h"
 
 #include <stdio.h>
+#include <time.h>
 
 #include "../inc/Ansi.h"
 #include "../inc/UI/AppMenus.h"
