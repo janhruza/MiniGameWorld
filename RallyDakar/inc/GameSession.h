@@ -55,6 +55,11 @@ typedef struct {
 #pragma region Load/Save functions
 
 /**
+ * @brief Representing the only valid save game file name.
+ */
+static const char *sSaveFile = "gamedata.dat";
+
+/**
  * @brief Saves the given session into the output file.
  * @param session Pointer to the session object.
  * @param fileName Target save file path.
@@ -74,6 +79,12 @@ bool GsLoad(GameSession *session, const char* fileName);
 
 // Main game logic
 #pragma region Main game logic functions
+
+/**
+ * @brief Initializes the game session object with empty values.
+ * @param session Pointer to the target game session object.
+ */
+void GsInitialize(GameSession *session);
 
 /**
  * @brief Displays the global scoreboard of all active teams.

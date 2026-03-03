@@ -50,6 +50,11 @@ typedef struct {
      */
     char Header[MENU_ITEM_HEADER_WIDTH];
 
+    /**
+     * @brief Extra text to display bellow the menu.
+     */
+    char *Extra;
+
 } ConsoleMenu;
 
 #pragma region Methods

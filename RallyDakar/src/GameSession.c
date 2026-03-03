@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <time.h>
+#include <memory.h>
 
 #include "../inc/Ansi.h"
 #include "../inc/UI/AppMenus.h"
@@ -54,6 +55,10 @@ bool GsLoad(GameSession *session, const char *fileName) {
 #pragma region Helper functions
 
 #pragma endregion
+
+void GsInitialize(GameSession *session) {
+    memset(session, 0, sizeof(GameSession));
+}
 
 int GsValidTeamsCount(const GameSession *session) {
     if (session == NULL) return EOF;

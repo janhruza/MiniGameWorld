@@ -44,6 +44,7 @@ bool CmInitMenu(ConsoleMenu *menu) {
     if (menu == NULL) return false;
 
     memset(menu, 0, sizeof(ConsoleMenu));
+    menu->Extra = "\0";
 
     menu->ActiveIdx = 0;
     snprintf(menu->Header, SHORT_TEXT_LENGTH, "MENU");
@@ -94,6 +95,11 @@ bool CmDrawMenu(ConsoleMenu *menu) {
 
     // print help, left pad it as well
     printf("\n%*sUse %sUP%s and %sDOWN%s to navigate,\n%*s%sENTER%s to select or %sQ%s to exit\n", MENU_LEFT_PADDING, "", ACCENT_BOLD, RESET, ACCENT_BOLD, RESET, MENU_LEFT_PADDING, "", ACCENT_BOLD, RESET, ACCENT_BOLD, RESET);
+
+    if (strlen(menu->Extra) > 0) {
+        // display the extra attached info
+        printf("\n%*s%s\n", MENU_LEFT_PADDING, "", menu->Extra);
+    }
 
     return true;
 }

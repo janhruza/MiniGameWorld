@@ -9,6 +9,7 @@
 
 #pragma once
 #include <stdbool.h>
+#include <string.h>
 
 #define AUTHOR              "@jendahruza"
 
@@ -26,6 +27,11 @@
 #define MAX_CREW_SIZE       5
 
 #define HEALTH_MAX          100.0f
+
+/**
+ * @brief Representing the global storage place for the last app message.
+ */
+static char gLastMessage[NORMAL_TEXT_LENGTH];
 
 /**
  * @brief Draws the application banner.
