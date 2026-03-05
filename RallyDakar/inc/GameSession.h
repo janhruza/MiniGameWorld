@@ -46,6 +46,11 @@ typedef struct {
     int StageIndex;
 
     /**
+     * @brief Representing the player's team index.
+     */
+    int PlayerIndex;
+
+    /**
      * @brief Representing all active teams.
      */
     TeamInfo Teams[MAX_TEAMS];
