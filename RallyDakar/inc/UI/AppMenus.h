@@ -8,7 +8,7 @@
 /**
  * @brief Representing the valid menu action IDs.
  */
-typedef enum : int {
+typedef enum {
     ID_EXIT = 0,        // Universal exit or cancel action code.
 
     ID_DEBUG,           // Debug option used to bypass some functionality for testing purposes (only one ID_DEBUG is assumed while testing).

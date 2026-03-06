@@ -12,7 +12,7 @@
 /**
  * {brief Representing the game exit code enum.
  */
-typedef enum : unsigned char {
+typedef enum {
 
     /**
      * Exit success code.
