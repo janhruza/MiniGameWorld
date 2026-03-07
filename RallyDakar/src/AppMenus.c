@@ -37,3 +37,19 @@ int MenuWelcomeScreen(void) {
 
     return CmSelectMenu(&menu);
 }
+
+
+int MenuMainScreen(GameSession *session)
+{
+    // session is invalid
+    if (session == NULL) return ID_ERROR;
+
+    // ID_NEW_CUP, ID_CONTINUE_CUP, ID_ADJUST_VEHICLES, ID_EXIT
+
+    ConsoleMenu cm;
+    CmInitMenu(&cm);
+
+
+
+    return ID_EXIT;
+}

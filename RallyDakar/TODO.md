@@ -32,9 +32,7 @@ Missing features:
 ## Miscellaneous
 This section focuses on all of the less-important tasks that might be done in the future.
 
+> **Note**: Miscellaneous features are not guaranteed to be implemented.
+
 ### Race animation/minigame
 Player would see an animation or will play a super simple minigame.
-
----
-
-> **Note**: Miscellaneous features are not guaranteed to be implemented.
