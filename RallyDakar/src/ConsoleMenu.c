@@ -49,7 +49,7 @@ bool CmDrawMenu(ConsoleMenu *menu) {
 
     CoDrawBanner();
 
-    printf("%s  %-*s%s  %s\n", BOLD, MENU_LEFT_PADDING, "", menu->Header, RESET);
+    printf("%s  %-*s%s  %s\n", ACCENT_BOLD, MENU_LEFT_PADDING, "", menu->Header, RESET);
 
     for (int i = 0; i < MENU_MAX_ITEMS; i++) {
         if (menu->Items[i].Id < 0) break;

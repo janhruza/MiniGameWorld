@@ -59,12 +59,14 @@ int MenuMainScreen(GameSession *session)
 
     int idx = 0;
 
-    // continue cup
-    cm.Items[idx++] = (MenuItem){
-        .Id = ID_CONTINUE_CUP,
-    };
-
-    snprintf(cm.Items[idx - 1].Header, SHORT_TEXT_LENGTH, "Continue Cup (%d/%d)", session->StageIndex + 1, MAX_STAGES);
+    if (session->StageIndex > 0)
+    {
+        // continue cup
+        cm.Items[idx++] = (MenuItem){
+            .Id = ID_CONTINUE_CUP,
+        };
+        snprintf(cm.Items[idx - 1].Header, SHORT_TEXT_LENGTH, "Continue Cup (%d/%d)", session->StageIndex + 1, MAX_STAGES);
+    }
 
     cm.Items[idx++] = (MenuItem){
         .Id = ID_NEW_CUP,
@@ -121,11 +123,6 @@ int MenuContinueCup(GameSession* session)
     };
 
     return CmSelectMenu(&menu);
-}
-
-int MenuNewCup(GameSession* session)
-{
-    return ID_EXIT;
 }
 
 int MenuAdjustVehicles(GameSession* session)
