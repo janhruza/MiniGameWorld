@@ -95,7 +95,6 @@ StatusCode GsStartGameLoop(GameSession *session) {
         return STATUS_GAME_UNINITIALIZED;
     }
 
-    // TODO missing implementation
     return STATUS_OK;
 }
 

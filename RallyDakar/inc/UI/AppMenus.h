@@ -7,27 +7,7 @@
 
 #include "../GameSession.h"
 
-/**
- * @brief Representing the valid menu action IDs.
- */
-typedef enum {
-    ID_EXIT = 0,        // Universal exit or cancel action code.
-    ID_ERROR,           // Generic error code.
-
-    // GENERAL
-    ID_DEBUG,           // Debug option used to bypass some functionality for testing purposes (only one ID_DEBUG is assumed while testing).
-    ID_NEW_GAME,        // Start a new game.
-    ID_LOAD_GAME,       // Load a saved game.
-    ID_SAVE_GAME,       // Save game.
-    ID_CREDITS,         // Display credits.
-
-    // MAIN MENU SCREEN
-    ID_NEW_CUP,         // Start a new cup (season).
-    ID_CONTINUE_CUP,    // Continue the active cup (if any).
-    ID_ADJUST_VEHICLES, // Adjust player's team vehicles.
-
-
-} MenuActions;
+#pragma region Main menus
 
 /**
  * @brief Representing the initial menu screen.
@@ -43,5 +23,32 @@ int MenuWelcomeScreen(void);
 * @details Possible return values: ID_NEW_CUP, ID_CONTINUE_CUP, ID_ADJUST_VEHICLES, ID_EXIT
 */
 int MenuMainScreen(GameSession *session);
+
+#pragma endregion
+
+#pragma region Main Screen submenus
+
+/**
+* @brief Representing the continue cup menu. This shall be called both on continuing a cup and after starting a new cup.
+* @param session Active game session.
+* @return ID of the selected item.
+*/
+int MenuContinueCup(GameSession* session);
+
+/**
+* @brief Representing the new cup menu. After starting a new cup, MenuContinueCup method shall be called.
+* @param session Active game session.
+* @return ID of the selected item.
+*/
+int MenuNewCup(GameSession* session);
+
+/**
+* @brief Representing the adjust team vehicles menu.
+* @param session Active game session.
+* @return ID of the selected item.
+*/
+int MenuAdjustVehicles(GameSession* session);
+
+#pragma endregion
 
 #endif //RALLYDAKAR_APPMENUS_H

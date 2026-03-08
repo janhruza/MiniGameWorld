@@ -13,9 +13,6 @@
 
 #define AUTHOR              "@jendahruza"
 
-#define TRUE                1
-#define FALSE               0
-
 #define MAX_STAGES          14
 #define MAX_TEAMS           30
 
@@ -27,6 +24,8 @@
 #define MAX_CREW_SIZE       5
 
 #define HEALTH_MAX          100.0f
+
+int GetRawChar();
 
 /**
  * @brief Representing the global storage place for the last app message.

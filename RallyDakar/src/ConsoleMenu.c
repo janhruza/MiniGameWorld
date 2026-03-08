@@ -12,33 +12,7 @@
 
 #include "../inc/Ansi.h"
 #include "../inc/UI/ConsoleMenu.h"
-
-// helper function
-static int GetRawChar() {
-#ifdef _WIN32
-    int ch = _getch();
-    if (ch == 0 || ch == 224) return _getch();
-    return ch;
-#else
-    struct termios oldt, newt;
-    int ch;
-    tcgetattr(STDIN_FILENO, &oldt);
-    newt = oldt;
-    newt.c_lflag &= ~(ICANON | ECHO);
-    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
-    ch = getchar();
-
-    // linux arrow magic
-    if (ch == 27) {
-        if (getchar() == 91) { // skip the '['
-            ch = getchar(); // read the result
-        }
-    }
-
-    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-    return ch;
-#endif
-}
+#include "../inc/Common.h"
 
 bool CmInitMenu(ConsoleMenu *menu) {
     if (menu == NULL) return false;

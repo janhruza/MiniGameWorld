@@ -19,6 +19,17 @@ Almost all app menus are missing.
 #### Player actions menu
 Once the game is loaded, there is no team controls for the player's team.
 
+#### Continue Cup Menu
+Submenus:
+- Race
+- View Dashboard
+- Fix broken parts
+- Service vehicle
+
+#### New Cup Menu
+
+#### Adjust Vehicles Menu
+
 Missing features:
 - Create a new team
 - Create team drivers

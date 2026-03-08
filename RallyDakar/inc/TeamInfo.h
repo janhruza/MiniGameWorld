@@ -22,7 +22,7 @@ typedef struct {
      * @brief Representing the team name.
      */
     char TeamName[SHORT_TEXT_LENGTH];
-
+ 
     /**
      * @brief Representing the total racing time (from all stages, aggregated).
      */

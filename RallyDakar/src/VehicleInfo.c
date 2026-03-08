@@ -4,6 +4,7 @@
 
 #include <stdlib.h>
 #include <memory.h>
+#include <stdio.h>
 #include "../inc/VehicleInfo.h"
 
 bool VehicleInit(VehicleInfo *vehicleInfo) {
@@ -12,11 +13,11 @@ bool VehicleInit(VehicleInfo *vehicleInfo) {
     }
 
     // clear the driver names list
-    vehicleInfo->Drivers[0] = "\0";
-    vehicleInfo->Drivers[1] = "\0";
-    vehicleInfo->Drivers[2] = "\0";
-    vehicleInfo->Drivers[3] = "\0";
-    vehicleInfo->Drivers[4] = "\0";
+    snprintf(vehicleInfo->Drivers[0], SHORT_TEXT_LENGTH, "\0");
+    snprintf(vehicleInfo->Drivers[1], SHORT_TEXT_LENGTH, "\0");
+    snprintf(vehicleInfo->Drivers[2], SHORT_TEXT_LENGTH, "\0");
+    snprintf(vehicleInfo->Drivers[3], SHORT_TEXT_LENGTH, "\0");
+    snprintf(vehicleInfo->Drivers[4], SHORT_TEXT_LENGTH, "\0");
 
     // initialize the vehicle health
     vehicleInfo->Health = (VehicleHealth)
@@ -41,7 +42,7 @@ bool VehicleCreate(VehicleInfo *vehicleInfo, char* drivers[]) {
 
     // assign the drivers objects
     for (int i = 0; i < MAX_TEAM_VEHICLES; i++) {
-        vehicleInfo->Drivers[i] = drivers[i];
+        snprintf(vehicleInfo->Drivers[i], SHORT_TEXT_LENGTH, drivers[i]);
     }
 
     return true;

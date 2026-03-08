@@ -17,7 +17,7 @@ typedef struct {
     /**
      * Representing the vehicle crew.
      */
-    char *Drivers[MAX_CREW_SIZE];
+    char Drivers[MAX_CREW_SIZE][SHORT_TEXT_LENGTH];
 
     /**
      * Representing the total (aggregated) time.

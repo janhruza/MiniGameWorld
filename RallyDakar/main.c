@@ -4,12 +4,15 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <signal.h>
 
 #include "inc/Ansi.h"
 #include "inc/GameSession.h"
 #include "inc/UI/ConsoleMenu.h"
 #include "inc/UI/AppMenus.h"
 #include "inc/TerrainType.h"
+#include "inc/UI/Screens.h"
+#include "inc/UI/MenuActions.h"
 
 void EvaluateGame(const StatusCode exitCode) {
     switch (exitCode) {
@@ -75,54 +78,21 @@ void GenerateTestData(GameSession *session) {
 }
 
 int main(int argc, const char *argv[]) {
-    ClearScreen();
-    CoDrawBanner();
-
-    GameSession gs;
-    GsInitialize(&gs);
+    GameSession *pSession = malloc(sizeof(GameSession));
+    GsInitialize(pSession);
 
     // create testing data
-    GenerateTestData(&gs);
+    GenerateTestData(pSession);
 
-    // TODO create/load game session
-    while (true) {
-        const int iWelcome = MenuWelcomeScreen();
-        switch (iWelcome) {
-            default: // The Q key, etc.
-            case ID_EXIT:
-                goto exit;
-
-            case ID_NEW_GAME:
-            case ID_DEBUG:
-                // create the save game file
-                if (GsSave(&gs, sSaveFile) == false) {
-                    fprintf(stderr, "Unable to create the save game file.\n");
-                    break;
-                }
-
-                // run the game loop
-                const StatusCode result = GsStartGameLoop(&gs);
-
-                // handle the results
-                EvaluateGame(result);
-                break;
-
-            case ID_LOAD_GAME:
-                if (GsLoad(&gs, sSaveFile) == false) {
-                    fprintf(stderr, "Unable to load the save game file.\n");
-                    break;
-                }
-
-                break;
-
-            case ID_CREDITS:
-                CoShowCredits();
-                break;
-        }
-    }
+    int result = 0xFFFF;
+    do
+    {
+        result = ScrWelcome(pSession);
+    } while (result != ID_EXIT);
 
     // app exit
-    exit:
+exit:
+    free(pSession);
     printf("Goodbye!\n");
     return EXIT_SUCCESS;
 }
