@@ -91,6 +91,15 @@ int ScrContinueCup(GameSession* session)
             case ID_EXIT:
                 return ID_EXIT;
 
+            case ID_RACE:
+                break;
+
+            case ID_SCOREBOARD:
+                break;
+
+            case ID_REPAIR_VEHICLES:
+                break;
+
             default:
                 break;
         }

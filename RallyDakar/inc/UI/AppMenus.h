@@ -32,15 +32,9 @@ int MenuMainScreen(GameSession *session);
 * @brief Representing the continue cup menu. This shall be called both on continuing a cup and after starting a new cup.
 * @param session Active game session.
 * @return ID of the selected item.
+* @details Possible return values: ID_RACE, ID_SCOREBOARD, ID_REPAIR_VEHICLES, ID_EXIT
 */
 int MenuContinueCup(GameSession* session);
-
-/**
-* @brief Representing the new cup menu. After starting a new cup, MenuContinueCup method shall be called.
-* @param session Active game session.
-* @return ID of the selected item.
-*/
-int MenuNewCup(GameSession* session);
 
 /**
 * @brief Representing the adjust team vehicles menu.
