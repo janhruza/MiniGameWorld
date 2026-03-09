@@ -31,7 +31,7 @@ void EvaluateGame(const StatusCode exitCode) {
     }
 }
 
-void GenerateTestData(GameSession *session) {
+static void GenerateTestData(GameSession *session) {
     const char *locations[] = {
         "Sea Camp", "Alula", "Ha'il", "Ha'il Loop", "Shaybah",
         "Empty Quarter", "Marathon Stage", "Haradh", "Al-Hofuf", "Dammam",

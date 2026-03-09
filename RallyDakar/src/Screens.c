@@ -2,6 +2,7 @@
 #include "../inc/UI/MenuActions.h"
 #include "../inc/UI/AppMenus.h"
 #include "../inc/Ansi.h"
+#include "../inc/Debug.h"
 
 #include <stdio.h>
 
@@ -92,12 +93,15 @@ int ScrContinueCup(GameSession* session)
                 return ID_EXIT;
 
             case ID_RACE:
+                DbgNotImplemented("ID_RACE");
                 break;
 
             case ID_SCOREBOARD:
+                DbgNotImplemented("ID_SCOREBOARD");
                 break;
 
             case ID_REPAIR_VEHICLES:
+                DbgNotImplemented("ID_REPAIR_VEHICLES");
                 break;
 
             default:

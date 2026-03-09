@@ -24,4 +24,4 @@ add_executable(RallyDakar main.c
         inc/UI/AppMenus.h
         "inc/UI/Screens.h"
         "src/Screens.c"
-        "inc/UI/MenuActions.h")
+        "inc/UI/MenuActions.h" "inc/Debug.h" "src/Debug.c")
