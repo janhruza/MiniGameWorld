@@ -9,7 +9,7 @@
 int ScrDisplayText(FILE* stream, const char* msg)
 {
     ClearScreen();
-    fprintf(stream, msg);
+    fprintf(stream, "%s", msg);
     fprintf(stdout, "\nPress any key to continue... ");
 
     return GetRawChar();
@@ -17,12 +17,19 @@ int ScrDisplayText(FILE* stream, const char* msg)
 
 int ScrShowError(const char* msg)
 {
-    return ScrDisplayText(stdout, msg);
+    return ScrDisplayText(stderr, msg);
 }
 
 int ScrShowMessage(const char* msg)
 {
-    return ScrDisplayText(stderr, msg);
+    return ScrDisplayText(stdout, msg);
+}
+
+static int ScrDisplayCredits(void) {
+    char msg[LONG_TEXT_LENGTH];
+    snprintf(msg, LONG_TEXT_LENGTH, "Rally Dakar\n(c) 2026, %s%s%s\n", ACCENT_BOLD, AUTHOR, RESET);
+    ScrShowMessage(msg);
+    return 0;
 }
 
 int ScrWelcome(GameSession* session)
@@ -49,8 +56,8 @@ int ScrWelcome(GameSession* session)
         break;
 
     case ID_CREDITS:
-        CoShowCredits();
-        break;
+            ScrDisplayCredits();
+            break;
 
     default:
         return ID_ERROR;
@@ -93,19 +100,49 @@ int ScrContinueCup(GameSession* session)
                 return ID_EXIT;
 
             case ID_RACE:
-                DbgNotImplemented("ID_RACE");
+                if (ScrStartRace(session) == ID_CUP_ENDED) {
+                    return ScrCupEnded(session);
+                }
                 break;
 
             case ID_SCOREBOARD:
-                DbgNotImplemented("ID_SCOREBOARD");
+                ScrShowScoreboard(session);
                 break;
 
             case ID_REPAIR_VEHICLES:
-                DbgNotImplemented("ID_REPAIR_VEHICLES");
+                ScrServiceVehicles(session);
                 break;
 
             default:
                 break;
         }
     }
+
+    return opt;
+}
+
+int ScrStartRace(GameSession* session) {
+    DbgNotImplemented("ID_RACE");
+    if (session->StageIndex == MAX_STAGES - 1) {
+        return ID_CUP_ENDED;
+    }
+
+    session->StageIndex++;
+    return EOF;
+}
+
+int ScrCupEnded(GameSession *session) {
+    DbgNotImplemented("ID_CUP_ENDED");
+    session->StageIndex = 0;
+    return EOF;
+}
+
+int ScrShowScoreboard(const GameSession* session) {
+    DbgNotImplemented("ID_SCOREBOARD");
+    return EOF;
+}
+
+int ScrServiceVehicles(GameSession* session) {
+    DbgNotImplemented("ID_REPAIR_VEHICLES");
+    return EOF;
 }
