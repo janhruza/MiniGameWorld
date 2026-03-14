@@ -13,6 +13,8 @@
 
 #define AUTHOR              "@jendahruza"
 
+#define PLAYER_TEAM_INDEX   0
+
 #define MAX_STAGES          14
 #define MAX_TEAMS           30
 
@@ -24,6 +26,15 @@
 #define MAX_CREW_SIZE       5
 
 #define HEALTH_MAX          1.0f
+
+/**
+ * @brief Representing the game exit code enum.
+ */
+typedef enum {
+    STATUS_OK = 0,              // Success status code.
+    STATUS_ERROR,               // Error status code.
+    STATUS_GAME_UNINITIALIZED,  // Game unitialized status code.
+} StatusCode;
 
 int GetRawChar();
 

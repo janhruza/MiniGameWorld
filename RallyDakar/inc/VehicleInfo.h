@@ -15,24 +15,29 @@
 typedef struct {
 
     /**
-     * Representing the vehicle crew.
+     * @brief Representing the vehicle crew.
      */
     char Drivers[MAX_CREW_SIZE][SHORT_TEXT_LENGTH];
 
     /**
-     * Representing the total (aggregated) time.
+     * @brief Representing the total (aggregated) time.
      */
     float Time;
 
     /**
-     * Representing the total (aggregated) penalty.
+     * @brief Representing the total (aggregated) penalty.
      */
     float Penalty;
 
     /**
-     * Representing the vehicle health.
+     *@brief Representing the vehicle health.
      */
     VehicleHealth Health;
+
+    /**
+    * @brief Determines whether the vehicle has been set by player or auto-initialized (vehicle is not active, invalid).
+    */
+    bool bActive;
 
 } VehicleInfo;
 

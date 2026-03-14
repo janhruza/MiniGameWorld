@@ -11,6 +11,11 @@
 
 #include "../GameSession.h"
 
+/**
+* @brief Helper function to pause the execution until any key is pressed.
+*/
+int ScrPause(void);
+
 int ScrShowError(const char* msg);
 int ScrShowMessage(const char* msg);
 
@@ -19,10 +24,23 @@ int ScrShowMessage(const char* msg);
 */
 #pragma region Teams and vehicles
 
+/**
+* @brief Representing the create team screen.
+* @param team Pointer to the target team info object.
+* @returns Operation result.
+*/
 int ScrCreateTeam(TeamInfo* team);
+
+/**
+* @brief Representing the vehicle creation screen.
+* @param vehicle Pointer to the target vehicle info object.
+* @returns Operation result.
+*/
 int ScrCreateVehicle(VehicleInfo* vehicle);
 
 #pragma endregion
+
+int ScrGarage(TeamInfo* team);
 
 int ScrWelcome(GameSession* session);
 int ScrMainMenu(GameSession* session);

@@ -10,28 +10,6 @@
 #include "Stage.h"
 
 /**
- * {brief Representing the game exit code enum.
- */
-typedef enum {
-
-    /**
-     * Exit success code.
-     */
-    STATUS_OK = 0,
-
-    /**
-     * Exit error status code.
-     */
-    STATUS_ERROR,
-
-    /**
-     * Game session is invalid or uninitialized.
-     */
-    STATUS_GAME_UNINITIALIZED
-
-} StatusCode;
-
-/**
  * @brief Representing the game session struct.
  */
 typedef struct {

@@ -5,6 +5,7 @@
 #include "../inc/UI/AppMenus.h"
 #include "../inc/UI/ConsoleMenu.h"
 #include "../inc/UI/MenuActions.h"
+#include "../inc/Debug.h"
 #include <stdio.h>
 
 #pragma region Main menus
@@ -55,7 +56,7 @@ int MenuMainScreen(GameSession *session)
 
     ConsoleMenu cm;
     CmInitMenu(&cm);
-    snprintf(cm.Header, SHORT_TEXT_LENGTH, "MAIN MENU");
+    snprintf(cm.Header, SHORT_TEXT_LENGTH, "MAIN MENU - %s", session->Teams[PLAYER_TEAM_INDEX].TeamName);
 
     int idx = 0;
 
@@ -71,6 +72,18 @@ int MenuMainScreen(GameSession *session)
     cm.Items[idx++] = (MenuItem){
         .Id = ID_NEW_CUP,
         .Header = "New Cup"
+    };
+
+    cm.Items[idx++] = (MenuItem){
+        .Id = ID_GARAGE,
+        .Header = "Garage"
+    };
+
+    CmMakeSeparator(&cm.Items[idx++]);
+
+    cm.Items[idx++] = (MenuItem){
+        .Id = ID_SAVE_GAME,
+        .Header = "Save"
     };
 
     CmMakeSeparator(&cm.Items[idx++]);
@@ -127,7 +140,8 @@ int MenuContinueCup(GameSession* session)
 
 int MenuAdjustVehicles(GameSession* session)
 {
-    return ID_EXIT;
+    DbgNotImplemented("MenuAdjustVehicles");
+    return ID_NOT_IMPLEMENTED;
 }
 
 #pragma endregion

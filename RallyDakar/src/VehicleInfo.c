@@ -31,6 +31,7 @@ bool VehicleInit(VehicleInfo *vehicleInfo) {
     // initializes the time and penalty fields
     vehicleInfo->Time = 0;
     vehicleInfo->Penalty = 0;
+    vehicleInfo->bActive = false;
     return true;
 }
 
