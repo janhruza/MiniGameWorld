@@ -22,6 +22,7 @@ typedef enum {
 
     // CONTINUE CUP SCREEN
     ID_RACE,
+    ID_CUP_ENDED,
     ID_SCOREBOARD,
     ID_REPAIR_VEHICLES
 

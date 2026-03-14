@@ -28,4 +28,9 @@ int ScrWelcome(GameSession* session);
 int ScrMainMenu(GameSession* session);
 int ScrContinueCup(GameSession* session);
 
+int ScrStartRace(GameSession* session);
+int ScrCupEnded(GameSession* session);
+int ScrShowScoreboard(const GameSession* session);
+int ScrServiceVehicles(GameSession* session);
+
 #endif

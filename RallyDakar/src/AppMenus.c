@@ -91,7 +91,7 @@ int MenuContinueCup(GameSession* session)
 {
     ConsoleMenu menu;
     CmInitMenu(&menu);
-    snprintf(menu.Header, SHORT_TEXT_LENGTH, "Continue Cup");
+    snprintf(menu.Header, SHORT_TEXT_LENGTH, "Continue Cup: Stage %d/%d", session->StageIndex + 1, MAX_STAGES);
 
     int idx = 0;
 

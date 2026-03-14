@@ -2,10 +2,16 @@
 // Created by jan on 01/03/2026.
 //
 
+#include <stdlib.h>
 #include <stdio.h>
 #include "../inc/Common.h"
 #include "../inc/Ansi.h"
 #include "../inc/UI/Screens.h"
+
+#ifndef _WIN32          // linux env
+#include <termios.h>
+#include <unistd.h>
+#endif
 
 // helper function
 int GetRawChar() {
