@@ -75,7 +75,7 @@ int ScrMainMenu(GameSession* session)
             ScrContinueCup(session);
             break;
         case ID_EXIT:
-            return 0xFF; // > 0 to not get terminated completely
+            break;
         }
     }
     return 0xFF;

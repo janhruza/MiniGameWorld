@@ -14,6 +14,16 @@
 int ScrShowError(const char* msg);
 int ScrShowMessage(const char* msg);
 
+/*
+* Vehicle and teams initialization screens
+*/
+#pragma region Teams and vehicles
+
+int ScrCreateTeam(TeamInfo* team);
+int ScrCreateVehicle(VehicleInfo* vehicle);
+
+#pragma endregion
+
 int ScrWelcome(GameSession* session);
 int ScrMainMenu(GameSession* session);
 int ScrContinueCup(GameSession* session);

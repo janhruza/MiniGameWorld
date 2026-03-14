@@ -23,7 +23,7 @@
 #define MAX_TEAM_VEHICLES   4
 #define MAX_CREW_SIZE       5
 
-#define HEALTH_MAX          100.0f
+#define HEALTH_MAX          1.0f
 
 int GetRawChar();
 
