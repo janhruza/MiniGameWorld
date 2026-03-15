@@ -284,15 +284,15 @@ int ScrStartRace(GameSession* session) {
 int ScrCupEnded(GameSession *session) {
     DbgNotImplemented("ID_CUP_ENDED");
     session->StageIndex = 0;
-    return EOF;
+    return ID_NOT_IMPLEMENTED;
 }
 
 int ScrShowScoreboard(const GameSession* session) {
     DbgNotImplemented("ID_SCOREBOARD");
-    return EOF;
+    return ID_NOT_IMPLEMENTED;
 }
 
 int ScrServiceVehicles(GameSession* session) {
     DbgNotImplemented("ID_REPAIR_VEHICLES");
-    return EOF;
+    return ID_NOT_IMPLEMENTED;
 }

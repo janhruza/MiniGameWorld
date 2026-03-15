@@ -68,7 +68,7 @@ bool CmDrawMenu(ConsoleMenu *menu) {
     }
 
     // print help, left pad it as well
-    printf("\n%*sUse %sUP%s and %sDOWN%s to navigate,\n%*s%sENTER%s to select or %sQ%s to exit\n", MENU_LEFT_PADDING, "", ACCENT_BOLD, RESET, ACCENT_BOLD, RESET, MENU_LEFT_PADDING, "", ACCENT_BOLD, RESET, ACCENT_BOLD, RESET);
+    printf("\n%*sUse %sUP%s and %sDOWN%s to navigate,\n%*s%sENTER%s to select or %sQ%s to quit.\n", MENU_LEFT_PADDING, "", ACCENT_BOLD, RESET, ACCENT_BOLD, RESET, MENU_LEFT_PADDING, "", ACCENT_BOLD, RESET, ACCENT_BOLD, RESET);
 
     if (strlen(menu->Extra) > 0) {
         // display the extra attached info
@@ -125,7 +125,11 @@ int CmSelectMenu(ConsoleMenu *menu) {
 
             case 'q': // Escape
             case 'Q': // Escape
-                goto exit;
+                // immediate exit
+                // no save, just quit
+                printf(CURSOR_SHOW);    // restore the cursor
+                exit(0);
+                break;
 
             default:
                 break;
@@ -134,7 +138,6 @@ int CmSelectMenu(ConsoleMenu *menu) {
 
     exit:
     printf(CURSOR_SHOW);
-
     // return the selected key
     return value;
 }
