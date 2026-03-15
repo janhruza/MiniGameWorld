@@ -228,7 +228,7 @@ int ScrMainMenu(GameSession* session)
                 return ID_ERROR;
             }
 
-            ScrDisplayText(stdout, "Game saved!");
+            ScrShowMessage("Game saved!");
             break;
 
         case ID_EXIT:
