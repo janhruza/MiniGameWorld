@@ -82,6 +82,7 @@ static void GenerateTestData(GameSession *session) {
 }
 
 int main(int argc, const char *argv[]) {
+    SetConsoleTitle(PRODUCT_NAME);
     GameSession *pSession = malloc(sizeof(GameSession));
     GsInitialize(pSession);
 

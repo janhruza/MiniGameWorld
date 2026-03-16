@@ -44,7 +44,22 @@ void CoDrawBanner(void) {
     printf("Rally Dakar\n(c) 2026 %s%s%s%s\n\n", BOLD, ACCENT_TEXT, AUTHOR, RESET);
 }
 
+void CoDrawBannerEx(void)
+{
+    // extended version of the CoDisplayBanner()
+    printf("Rally Dakar\n(c) 2026 %s%s%s%s\n\n", BOLD, ACCENT_TEXT, AUTHOR, RESET);
+}
+
 void CoShowCredits(void) {
     ClearScreen();
     CoDrawBanner();
+}
+
+void SetConsoleTitle(const char* text)
+{
+    /*
+    * Sets the console/terminal window title using the ANSI
+    */
+    printf("\033]0;%s\007", text);
+    fflush(stdout);
 }

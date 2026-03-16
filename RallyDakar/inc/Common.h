@@ -12,6 +12,8 @@
 #include <string.h>
 
 #define AUTHOR              "@jendahruza"
+#define PRODUCT             "RALLY DAKAR MANAGER"
+#define PRODUCT_NAME        "Rally Dakar Manager"
 
 #define PLAYER_TEAM_INDEX   0
 
@@ -49,8 +51,20 @@ static char gLastMessage[NORMAL_TEXT_LENGTH];
 void CoDrawBanner(void);
 
 /**
+* @brief Displays the extended application banner and extra information.
+*/
+void CoDrawBannerEx(void);
+
+/**
  * @brief Shows the about and credits screen.
  */
 void CoShowCredits(void);
+
+/**
+* Sets the terminal emulator window title.
+* @param text New window title.
+* @details This method assumes the ANSI processing-able terminal.
+*/
+void SetConsoleTitle(const char* text);
 
 #endif //RALLYDAKAR_COMMON_H

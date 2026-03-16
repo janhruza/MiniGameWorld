@@ -31,10 +31,9 @@ int ScrShowMessage(const char* msg)
 }
 
 static int ScrDisplayCredits(void) {
-    char msg[LONG_TEXT_LENGTH];
-    snprintf(msg, LONG_TEXT_LENGTH, "Rally Dakar\n(c) 2026, %s%s%s\n", ACCENT_BOLD, AUTHOR, RESET);
-    ScrShowMessage(msg);
-    return 0;
+    ClearScreen();
+    CoDrawBannerEx();
+    return ScrPause();
 }
 
 int ScrGarage(TeamInfo* team)

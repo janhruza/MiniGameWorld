@@ -13,7 +13,7 @@
 int MenuWelcomeScreen(void) {
     ConsoleMenu menu;
     CmInitMenu(&menu);
-    snprintf(menu.Header, SHORT_TEXT_LENGTH, "RALLY DAKAR MANAGER");
+    snprintf(menu.Header, SHORT_TEXT_LENGTH, PRODUCT);
 
     int idx = 0;
 
