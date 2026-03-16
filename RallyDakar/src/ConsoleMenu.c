@@ -75,6 +75,12 @@ bool CmDrawMenu(ConsoleMenu *menu) {
         printf("\n%*s%s\n", MENU_LEFT_PADDING, "", menu->Extra);
     }
 
+    if (strlen(gLastMessage) > 0)
+    {
+        // display the global last message
+        printf("\n%*s%s\n", MENU_LEFT_PADDING, "", gLastMessage);
+    }
+
     return true;
 }
 

@@ -83,6 +83,7 @@ static void GenerateTestData(GameSession *session) {
 
 int main(int argc, const char *argv[]) {
     SetConsoleTitle(PRODUCT_NAME);
+
     GameSession *pSession = malloc(sizeof(GameSession));
     GsInitialize(pSession);
 
@@ -98,6 +99,7 @@ int main(int argc, const char *argv[]) {
     // app exit
 exit:
     free(pSession);
+    ClearScreen();
     printf("Goodbye!\n");
     return EXIT_SUCCESS;
 }

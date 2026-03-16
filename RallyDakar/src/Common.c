@@ -40,6 +40,9 @@ int GetRawChar() {
 #endif
 }
 
+// explicit declaration
+char gLastMessage[NORMAL_TEXT_LENGTH] = "\0";
+
 void CoDrawBanner(void) {
     printf("Rally Dakar\n(c) 2026 %s%s%s%s\n\n", BOLD, ACCENT_TEXT, AUTHOR, RESET);
 }

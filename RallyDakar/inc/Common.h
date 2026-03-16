@@ -43,7 +43,7 @@ int GetRawChar();
 /**
  * @brief Representing the global storage place for the last app message.
  */
-static char gLastMessage[NORMAL_TEXT_LENGTH];
+extern char gLastMessage[NORMAL_TEXT_LENGTH];
 
 /**
  * @brief Draws the application banner.
