@@ -90,6 +90,8 @@ StatusCode GsStartGameLoop(GameSession *session);
  */
 int GsValidTeamsCount(const GameSession *session);
 
+int GsGenerateData(GameSession* session);
+
 #pragma endregion
 
 #endif //RALLYDAKAR_GAMESESSION_H

@@ -104,6 +104,9 @@ int ScrWelcome(GameSession* session)
             vehicleIdx++;
         }
 
+        // generate other teams data
+        GsGenerateData(session);
+
         // game created
         if (GsSave(session, sSaveFile) == false) {
             fprintf(stderr, "Unable to create the save game file.\n");
@@ -287,8 +290,9 @@ int ScrCupEnded(GameSession *session) {
 }
 
 int ScrShowScoreboard(const GameSession* session) {
-    DbgNotImplemented("ID_SCOREBOARD");
-    return ID_NOT_IMPLEMENTED;
+    
+    GsDisplayScoreboard(session);
+    return ScrPause();
 }
 
 int ScrServiceVehicles(GameSession* session) {
