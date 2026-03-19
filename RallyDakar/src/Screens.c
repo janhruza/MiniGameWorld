@@ -291,6 +291,7 @@ int ScrCupEnded(GameSession *session) {
 
 int ScrShowScoreboard(const GameSession* session) {
     
+    ClearScreen();
     GsDisplayScoreboard(session);
     return ScrPause();
 }

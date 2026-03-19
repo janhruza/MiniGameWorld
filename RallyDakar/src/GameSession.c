@@ -116,7 +116,6 @@ bool GsDisplayScoreboard(GameSession* session) {
     int rank = 1;
 
     for (int i = 0; i < MAX_TEAMS; i++) {
-
         // 3. Pass the pointer directly to TeamIsValid (assuming it takes TeamInfo*)
         if (TeamIsValid(teams[i]) == false) continue;
 
@@ -135,6 +134,8 @@ bool GsDisplayScoreboard(GameSession* session) {
 
         rank++; // Increment rank only for valid teams
     }
+
+    printf("\n");
 
     free(teams);
     return true;
