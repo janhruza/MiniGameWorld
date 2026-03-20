@@ -14,6 +14,8 @@
 #include "../inc/TeamInfo.h"
 #include "../inc/TerrainType.h"
 
+#define min(a, b) ((a) < (b) ? (a) : (b))
+
 #pragma region Load/Save functions
 
 bool GsSave(const GameSession *session, const char *fileName) {

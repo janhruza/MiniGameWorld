@@ -14,7 +14,7 @@
 /**
 * @brief Helper function to pause the execution until any key is pressed.
 */
-int ScrPause(void);
+static int ScrPause(void);
 
 int ScrShowError(const char* msg);
 int ScrShowMessage(const char* msg);
