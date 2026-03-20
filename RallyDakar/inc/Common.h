@@ -29,6 +29,9 @@
 
 #define HEALTH_MAX          1.0f
 
+#define RACE_AVG_PACE       80
+#define RACE_AVG_DEVIATION  3600
+
 /**
  * @brief Representing the game exit code enum.
  */

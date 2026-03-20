@@ -26,7 +26,7 @@ typedef struct {
     /**
      * @brief Representing the total racing time (from all stages, aggregated).
      */
-    float TimeTotal;
+    float TimeRace;
 
     /**
      * @brief Representing the total penalty time.
@@ -52,5 +52,13 @@ bool TeamInit(TeamInfo *team, char *teamName);
  * @return true if the team is valid, otherwise false.
  */
 bool TeamIsValid(const TeamInfo *team);
+
+/**
+ * Adds penalty time to the given team.
+ * @param team Pointer to the target team object.
+ * @param penalty New penalty which will be added to the team.
+ * @return The team's new total penalty time.
+ */
+int TeamAddPenalty(TeamInfo *team, float penalty);
 
 #endif //RALLYDAKAR_TEAMINFO_H

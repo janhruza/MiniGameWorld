@@ -42,8 +42,8 @@ int ScrGarage(TeamInfo* team)
     printf("--- %sGeneral Information%s ---\n", ACCENT_BOLD, RESET);
     printf("Id:      %s%d%s\n", ACCENT_TEXT, team->Id, RESET);
     printf("Name:    %s%s%s\n", ACCENT_TEXT, team->TeamName, RESET);
-    printf("Time:    %s%.2f%s\n", ACCENT_TEXT, team->TimeTotal, RESET);
-    printf("Penalty: %s%.2f%s\n", ACCENT_TEXT, team->TimeTotal, RESET);
+    printf("Time:    %s%.2f%s\n", ACCENT_TEXT, team->TimeRace, RESET);
+    printf("Penalty: %s%.2f%s\n", ACCENT_TEXT, team->TimeRace, RESET);
 
     printf("\n--- Vehicles ---\n");
 
@@ -279,8 +279,11 @@ int ScrStartRace(GameSession* session) {
         return ID_CUP_ENDED;
     }
 
+    // start the race
+    GsStartRace(session);
+
     session->StageIndex++;
-    return EOF;
+    return STATUS_OK;
 }
 
 int ScrCupEnded(GameSession *session) {

@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
+#include <time.h>
 
 #include "inc/Ansi.h"
 #include "inc/GameSession.h"
@@ -33,6 +34,9 @@ void EvaluateGame(const StatusCode exitCode) {
 
 int main(int argc, const char *argv[]) {
     SetConsoleTitle(PRODUCT_NAME);
+
+    // set the random seed
+    srand((unsigned int)time(NULL));
 
     GameSession *pSession = malloc(sizeof(GameSession));
     GsInitialize(pSession);

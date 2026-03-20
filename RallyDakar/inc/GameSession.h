@@ -90,6 +90,13 @@ StatusCode GsStartGameLoop(GameSession *session);
  */
 int GsValidTeamsCount(const GameSession *session);
 
+/**
+ * Simulates a single stage race.
+ * @param session Pointer to the game session.
+ * @return Operation result.
+ */
+int GsStartRace(GameSession *session);
+
 int GsGenerateData(GameSession* session);
 
 #pragma endregion

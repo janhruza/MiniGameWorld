@@ -27,7 +27,7 @@ bool TeamInit(TeamInfo *team, char *teamName) {
 
     // initialize the times
     team->TimePenalty = 0;
-    team->TimeTotal = 0;
+    team->TimeRace = 0;
     return true;
 }
 
@@ -39,4 +39,13 @@ bool TeamIsValid(const TeamInfo *team) {
     }
 
     return true;
+}
+
+int TeamAddPenalty(TeamInfo *team, float penalty) {
+    if (team == NULL) {
+        return EOF;
+    }
+
+    team->TimePenalty += penalty;
+    return team->TimePenalty;
 }

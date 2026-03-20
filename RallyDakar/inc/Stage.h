@@ -22,7 +22,7 @@ typedef struct {
     char Location[NORMAL_TEXT_LENGTH];
 
     /**
-     * Representing the stage's distance.
+     * Representing the stage's distance in kilometers or miles.
      */
     float Distance;
 
