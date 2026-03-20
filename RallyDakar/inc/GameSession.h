@@ -99,6 +99,8 @@ int GsStartRace(GameSession *session);
 
 int GsGenerateData(GameSession* session);
 
+int GsSortTeams(GameSession *session, TeamInfo **teams);
+
 #pragma endregion
 
 #endif //RALLYDAKAR_GAMESESSION_H

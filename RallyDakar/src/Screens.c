@@ -3,8 +3,10 @@
 #include "../inc/UI/AppMenus.h"
 #include "../inc/Ansi.h"
 #include "../inc/Debug.h"
+#include "../inc/GameSession.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 
 static int ScrPause()
@@ -212,29 +214,30 @@ int ScrMainMenu(GameSession* session)
         iMainMenu = MenuMainScreen(session);
         switch (iMainMenu)
         {
-        case ID_NEW_CUP:
-            session->StageIndex = 0;
-            ScrContinueCup(session);
-            break;
-        case ID_CONTINUE_CUP:
-            ScrContinueCup(session);
-            break;
+            case ID_NEW_CUP:
+                session->StageIndex = 0;
+                ScrContinueCup(session);
+                break;
+            case ID_CONTINUE_CUP:
+                ScrContinueCup(session);
+                break;
 
-        case ID_GARAGE:
-            ScrGarage(&session->Teams[PLAYER_TEAM_INDEX]);
-            break;
+            case ID_GARAGE:
+                ClearScreen();
+                ScrGarage(&session->Teams[PLAYER_TEAM_INDEX]);
+                break;
 
-        case ID_SAVE_GAME:
-            if (GsSave(session, sSaveFile) == false)
-            {
-                return ID_ERROR;
-            }
+            case ID_SAVE_GAME:
+                if (GsSave(session, sSaveFile) == false)
+                {
+                    return ID_ERROR;
+                }
 
-            ScrShowMessage("Game saved!");
-            break;
+                ScrShowMessage("Game saved!");
+                break;
 
-        case ID_EXIT:
-            break;
+            case ID_EXIT:
+                break;
         }
     }
     return 0xFF;
@@ -253,6 +256,7 @@ int ScrContinueCup(GameSession* session)
 
             case ID_RACE:
                 if (ScrStartRace(session) == ID_CUP_ENDED) {
+                    ClearScreen();
                     return ScrCupEnded(session);
                 }
                 break;
@@ -274,7 +278,6 @@ int ScrContinueCup(GameSession* session)
 }
 
 int ScrStartRace(GameSession* session) {
-    DbgNotImplemented("ID_RACE");
     if (session->StageIndex == MAX_STAGES - 1) {
         return ID_CUP_ENDED;
     }
@@ -287,9 +290,17 @@ int ScrStartRace(GameSession* session) {
 }
 
 int ScrCupEnded(GameSession *session) {
-    DbgNotImplemented("ID_CUP_ENDED");
     session->StageIndex = 0;
-    return ID_NOT_IMPLEMENTED;
+
+    // display the final scoreboard
+
+    GsDisplayScoreboard(session);
+    TeamInfo **teams = calloc(MAX_CREW_SIZE, sizeof(TeamInfo));
+    GsSortTeams(session, teams);
+
+    printf("Team %s%s%s won!\n\n", ACCENT_BOLD, teams[0]->TeamName, RESET);
+    free(teams);
+    return ScrPause();
 }
 
 int ScrShowScoreboard(const GameSession* session) {
