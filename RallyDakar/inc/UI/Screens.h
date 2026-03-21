@@ -48,7 +48,7 @@ int ScrContinueCup(GameSession* session);
 
 int ScrStartRace(GameSession* session);
 int ScrCupEnded(GameSession* session);
-int ScrShowScoreboard(const GameSession* session);
+int ScrShowScoreboard(GameSession* session);
 int ScrServiceVehicles(GameSession* session);
 
 #endif

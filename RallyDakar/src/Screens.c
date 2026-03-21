@@ -303,7 +303,7 @@ int ScrCupEnded(GameSession *session) {
     return ScrPause();
 }
 
-int ScrShowScoreboard(const GameSession* session) {
+int ScrShowScoreboard(GameSession* session) {
     
     ClearScreen();
     GsDisplayScoreboard(session);
@@ -311,6 +311,15 @@ int ScrShowScoreboard(const GameSession* session) {
 }
 
 int ScrServiceVehicles(GameSession* session) {
-    DbgNotImplemented("ID_REPAIR_VEHICLES");
+    TeamInfo* ti = &session->Teams[PLAYER_TEAM_INDEX];
+
+    for (int i = 0; i < MAX_TEAM_VEHICLES; i++) {
+        VehicleInfo *vh = &ti->Vehicles[i];
+        vh->Health.Electronics = HEALTH_MAX;
+        vh->Health.Engine = HEALTH_MAX;
+        vh->Health.Tires = HEALTH_MAX;
+        vh->Health.Suspension = HEALTH_MAX;
+    }
+
     return ID_NOT_IMPLEMENTED;
 }
