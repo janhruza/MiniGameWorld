@@ -18,7 +18,7 @@ static void AppCleanup(void) {
 
 static void Test(void) {
     for (int i = 0; i < DRIVER_COUNT; i++) {
-        fprintf(debug_fd, "%02d: #%02d: %s%s%s\n", i+1, gDrivers[i].Number, ACCENT_DEBUG, gDrivers[i].Name, RESET);
+        fprintf(debug_fd, "%02d: #%02d: %s\n", i+1, gDrivers[i].Number, gDrivers[i].Name);
     }
 }
 
