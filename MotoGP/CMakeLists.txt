@@ -12,4 +12,5 @@ add_executable(MotoGP main.c
         src/ConsoleMenu.c
         inc/GameSession.h
         src/Common.c
-        src/GameSession.c)
+        src/GameSession.c
+        inc/Debug.h)

@@ -3,22 +3,21 @@
 #include "inc/Common.h"
 #include "inc/GameSession.h"
 #include "inc/UI/Ansi.h"
-
-FILE* debug_fd;
+#include "inc/Debug.h"
 
 static void AppInit(void) {
-    debug_fd = fopen("debug.txt", "a");
+    debug_open();
     printf(CURSOR_HIDE);
 }
 
 static void AppCleanup(void) {
-    fclose(debug_fd);
+    debug_close();
     printf(CURSOR_SHOW);
 }
 
 static void Test(void) {
     for (int i = 0; i < DRIVER_COUNT; i++) {
-        fprintf(debug_fd, "%02d: #%02d: %s\n", i+1, gDrivers[i].Number, gDrivers[i].Name);
+        debug_print("%02d: #%02d: %s\n", i+1, gDrivers[i].Number, gDrivers[i].Name);
     }
 }
 
