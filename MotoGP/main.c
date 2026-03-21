@@ -7,7 +7,7 @@
 FILE* debug_fd;
 
 static void AppInit(void) {
-    debug_fd = fopen("debug.txt", "w+");
+    debug_fd = fopen("debug.txt", "a");
     printf(CURSOR_HIDE);
 }
 
