@@ -6,7 +6,7 @@
 #include "inc/GameSession.h"
 #include "inc/UI/Ansi.h"
 #include "inc/Debug.h"
-#include "inc/UI/AppMenus.h"
+#include "inc/UI/Screens.h"
 
 #define CMD_HELP        "--help"
 
@@ -18,7 +18,6 @@ GameSession *pSession = NULL;
 static void ShowHelp(void) {
     // prints the help/about
     CoDrawBanner();
-    printf("\n");
 
     printf("%sABOUT %s%s\n", BOLD, PRODUCT_NAME, RESET);
     puts("This app is a simple random MotoGP manager. It was made solely for learning purposes.\n");
@@ -31,30 +30,11 @@ static void ShowHelp(void) {
 static void AppInit(void) {
     debug_open();
     pSession = GsInit();
-    printf(CURSOR_HIDE);
 }
 
 static void AppCleanup(void) {
     debug_close();
     GsFree(pSession);
-    printf(CURSOR_SHOW);
-}
-
-static void Test(void) {
-    printf("--- DRIVERS ---\n");
-    for (int i = 0; i < DRIVER_COUNT; i++) {
-        printf("%02d: #%02d: %s (%s)\n", i+1, gDrivers[i].Number, gDrivers[i].Name, gTeams[gDrivers[i].IdxTeam].Name);
-    }
-
-    printf("\n--- TEAMS ---\n");
-    for (int i = 0; i < TEAM_COUNT; i++) {
-        printf("%02d: %-*s (%d)\n", i+1, DRIVER_COUNT, gTeams[i].Name, gTeams[i].Bike);
-    }
-
-    printf("\n--- TRACKS ---\n");
-    for (int i = 0; i < TRACK_COUNT; i++) {
-        printf("%02d: %s (%s)\n", i+1, gTracks[i].Name, gTracks[i].Circuit);
-    }
 }
 
 int main(int argc, const char **argv) {
@@ -73,6 +53,8 @@ int main(int argc, const char **argv) {
 
     AppInit();
     CoDrawBanner();
+
+    ScrWelcomeScreen(pSession);
 
     // main code goes here
     AppCleanup();

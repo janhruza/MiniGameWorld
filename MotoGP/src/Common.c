@@ -26,6 +26,6 @@ const char* GetStatus(const STATUS status) {
 }
 
 STATUS CoDrawBanner(void) {
-    printf("%s\n(c) 2026 %s%s%s\n", PRODUCT_NAME, ACCENT_TEXT, AUTHOR, RESET);
+    printf("%s\n(c) 2026 %s%s%s\n\n", PRODUCT_NAME, ACCENT_TEXT, AUTHOR, RESET);
     return STATUS_OK;
 }

@@ -18,4 +18,6 @@ add_executable(MotoGP main.c
         inc/TrackInfo.h
         inc/UI/AppMenus.h
         src/UI/AppMenus.c
-        inc/Scoreboard.h)
+        inc/Scoreboard.h
+        inc/UI/Screens.h
+        src/UI/Screens.c)

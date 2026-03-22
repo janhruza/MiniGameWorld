@@ -14,8 +14,7 @@
 #include "../inc/UI/ConsoleMenu.h"
 #include "../inc/Common.h"
 
-// helper function
-int GetRawChar() {
+int GetRawChar(void) {
 #ifdef _WIN32
     int ch = _getch();
     if (ch == 0 || ch == 224) return _getch();

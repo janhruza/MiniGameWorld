@@ -85,6 +85,12 @@ STATUS GsLoad(GameSession *session);
 STATUS GsSave(const GameSession *session);
 
 /**
+ * @brief Displays the game data.
+ * @return Operation result.
+ */
+STATUS GsDisplayData(void);
+
+/**
  * @brief Determines whether a cup is in progress.
  * @param session Pointer to the active game session object.
  * @return TRUE if the cup is in progress, otherwise FALSE.

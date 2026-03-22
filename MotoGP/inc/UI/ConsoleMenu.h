@@ -58,6 +58,13 @@ typedef struct {
 #pragma region Methods
 
 /**
+ * @brief Reads a single keystroke in binary mode.
+ * @return Raw identifier of the pressed key.
+ * @details This method's implementation is platform-specific.
+ */
+int GetRawChar(void);
+
+/**
  * @brief Initializes the console menu object.
  * @param menu A pointer to the target menu object.
  * @return true if the operation succeeded, otherwise false.
