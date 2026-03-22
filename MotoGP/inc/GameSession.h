@@ -7,6 +7,7 @@
 
 #include "Common.h"
 #include "DriverInfo.h"
+#include "TeamInfo.h"
 
 #pragma region Global Variables
 
@@ -14,6 +15,7 @@
  * @brief Representing the driver objects.
  */
 extern DriverInfo gDrivers[DRIVER_COUNT];
+extern TeamInfo gTeams[DRIVER_COUNT];
 
 #pragma endregion
 

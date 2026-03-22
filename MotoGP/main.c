@@ -17,7 +17,7 @@ static void AppCleanup(void) {
 
 static void Test(void) {
     for (int i = 0; i < DRIVER_COUNT; i++) {
-        debug_print("%02d: #%02d: %s\n", i+1, gDrivers[i].Number, gDrivers[i].Name);
+        debug_print("%02d: #%02d: %s (%s)\n", i+1, gDrivers[i].Number, gDrivers[i].Name, gTeams[gDrivers[i].IdxTeam].Name);
     }
 }
 
@@ -30,6 +30,7 @@ int main(int argc, const char **argv) {
     AppInit();
     CoDrawBanner();
 
+    // main code goes here
     Test();
 
     AppCleanup();

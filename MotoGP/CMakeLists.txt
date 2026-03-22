@@ -13,4 +13,5 @@ add_executable(MotoGP main.c
         inc/GameSession.h
         src/Common.c
         src/GameSession.c
-        inc/Debug.h)
+        inc/Debug.h
+        inc/TeamInfo.h)
