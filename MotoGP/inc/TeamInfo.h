@@ -28,8 +28,12 @@ typedef enum tagTeamId : int {
  * @brief Representing the bike manufacturers.
  */
 typedef enum tagBikeManufacturer : int {
-    BIKE_OTHER,     BIKE_DUCATI,    BIKE_APRILIA,
-    BIKE_HONDA,     BIKE_YAMAHA,    BIKE_KTM,
+    BIKE_OTHER,
+    BIKE_DUCATI,
+    BIKE_APRILIA,
+    BIKE_HONDA,
+    BIKE_YAMAHA,
+    BIKE_KTM,
 } Manufacturer;
 
 /**

@@ -10,18 +10,25 @@
 #define DRIVER_COUNT        22
 #define TEAM_COUNT          11
 #define TRACK_COUNT         22
+#define MANUFACTURERS_COUNT 5
 
 #define TEXT_LENGTH         33
 #define LONG_TEXT_LENGTH    65
 
+#include <limits.h>
+#include <stdint.h>
+
 /**
  * @brief Representing various status codes.
  */
-typedef enum tagSTATUS : int {
+typedef enum tagSTATUS : uint32_t {
     STATUS_OK,              // Success code.
     STATUS_ERROR,           // Error code.
-    STATUS_UNINITIALIZED,    // Error, object not initialized.
+    STATUS_UNINITIALIZED,   // Error, object not initialized.
+    STATUS_UNKNOWN          = INT_MAX,
 } STATUS;
+
+extern const char *GetStatus(const STATUS status);
 
 /**
  * @brief Simple custom boolean implementation.
@@ -34,8 +41,8 @@ typedef enum tagBOOL : int {
 /**
  * @brief Representing various nationalities.
  */
-typedef enum tagCountry {
-    COUNTRY_OTHER,
+typedef enum tagCountry : uint8_t {
+    COUNTRY_OTHER = 0,
     COUNTRY_FRANCE,
     COUNTRY_TURKEY,
     COUNTRY_ITALY,
@@ -57,7 +64,7 @@ typedef enum tagCountry {
     COUNTRY_AUSTRIA,
     COUNTRY_INDONESIA,
     COUNTRY_MALAYSIA,
-    COUNTRY_QUATAR,
+    COUNTRY_QATAR,
     COUNTRY_PORTUGAL,
     COUNTRY_VALENCIA,
 } Country;

@@ -9,6 +9,7 @@
 #include "DriverInfo.h"
 #include "TeamInfo.h"
 #include "TrackInfo.h"
+#include "Scoreboard.h"
 
 #pragma region Global Variables
 
@@ -46,6 +47,11 @@ typedef struct tagGameSession {
      * @details Values other than the defined range will be treated as no cup is in progress.
      */
     int CupIdx;
+
+    /**
+     * @brief Representing the in-progress cup standings.
+     */
+    Scoreboard Standings;
 
 } GameSession;
 

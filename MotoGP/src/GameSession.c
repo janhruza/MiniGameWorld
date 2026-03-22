@@ -370,7 +370,7 @@ TrackInfo gTracks[TRACK_COUNT] = {
 
     (TrackInfo) {
         .Id = 20,
-        .Country = COUNTRY_QUATAR,
+        .Country = COUNTRY_QATAR,
         .Name = "QATAR AIRWAYS GRAND PRIX OF QATAR",
         .Circuit = "Lusail International Circuit"
     },
