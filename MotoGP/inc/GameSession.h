@@ -8,17 +8,30 @@
 #include "Common.h"
 #include "DriverInfo.h"
 #include "TeamInfo.h"
+#include "TrackInfo.h"
 
 #pragma region Global Variables
 
 /**
- * @brief Representing the driver objects.
+ * @brief Representing all driver objects.
  */
 extern DriverInfo gDrivers[DRIVER_COUNT];
-extern TeamInfo gTeams[DRIVER_COUNT];
+
+/**
+ * @brief Representing all team objects.
+ */
+extern TeamInfo gTeams[TEAM_COUNT];
+
+/**
+ * @brief Representing all track objects.
+ */
+extern TrackInfo gTracks[TRACK_COUNT];
 
 #pragma endregion
 
+/**
+ * @brief Representing a game session object.
+ */
 typedef struct tagGameSession {
     /**
      * @brief Pointer to the player's associated driver object.

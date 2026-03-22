@@ -7,24 +7,16 @@
 
 #include "Common.h"
 
-typedef enum tagCountry {
-    OTHER,          FRANCE,     TURKEY,
-    ITALY,          BRAZIL,     SPAIN,
-    SOUTH_AFRICA,   AUSTRALIA,  JAPAN
-} Country;
-
 typedef struct {
     /**
      * @brief Driver's number.
      */
     int Number;
 
-    Country Country;
-
     /**
-     * @brief Index of the driver's bike in the bikes array.
+     * @brief Representing the driver's nationality.
      */
-    int IdxBike;
+    Country Country;
 
     /**
      * @brief Index of the driver's team in the teams array.
