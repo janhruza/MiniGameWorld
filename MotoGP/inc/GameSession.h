@@ -57,7 +57,6 @@ typedef struct tagGameSession {
 
 /**
  * @brief Initializes a new game session.
- * @param session Pointer to the new game session object.
  * @return Status code.
  * @details This method allocates the object's memory on heap, manual freeing is required. Can be freed using the GsFree method.
  */

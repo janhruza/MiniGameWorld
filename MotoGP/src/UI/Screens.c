@@ -89,6 +89,22 @@ int ScrMainMenu(GameSession *session) {
                 ScrContinueCup(session);
                 break;
 
+            case ID_SAVE_GAME:
+                if (GsSave(session) == STATUS_OK) {
+                    ClearScreen();
+                    puts("Game saved!");
+                    ScrPause();
+                    break;
+                }
+
+                else {
+                    ClearScreen();
+                    puts("Unable to save game.");
+                    ScrPause();
+                    break;
+                }
+                break;
+
             case ID_OVERVIEW:
                 // display riders, teams, etc.
                 ClearScreen();
@@ -106,5 +122,35 @@ int ScrMainMenu(GameSession *session) {
 }
 
 int ScrContinueCup(GameSession *session) {
-    return STATUS_UNINITIALIZED;
+    while (TRUE) {
+        ClearScreen();
+        const int opt = AppContinueCupMenu(session);
+        switch (opt) {
+            case ID_EXIT:
+                goto exit;
+
+            case ID_RACE:
+                break;
+
+            case ID_PRACTICE:
+                break;
+
+            case ID_SCOREBOARD:
+                printf("%-*s %-*s\n", TEXT_LENGTH, "Name", 10, "Points");
+                for (int j = 0; j < DRIVER_COUNT; j++) {
+                    // print rider score
+                    RaceResult *rr = &session->Standings.Riders[session->CupIdx][j];
+                    printf("%-*s %06d\n", TEXT_LENGTH, gDrivers[rr->EntityId].Name, rr->Pts);
+                }
+
+                ScrPause();
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    exit:
+    return ID_EXIT;
 }

@@ -76,6 +76,13 @@ int AppMainMenu(int bCupInProgress) {
 
     CmMakeSeparator(&cm.Items[idx++]);
 
+    cm.Items[idx++] = (MenuItem){
+        .Header = "Save",
+        .Id = ID_SAVE_GAME
+    };
+
+    CmMakeSeparator(&cm.Items[idx++]);
+
     cm.Items[idx++] = (MenuItem)
     {
         .Header = "Back",
@@ -86,5 +93,33 @@ int AppMainMenu(int bCupInProgress) {
 }
 
 int AppContinueCupMenu(GameSession *session) {
-    return STATUS_UNINITIALIZED;
+    ConsoleMenu cm;
+    CmInitMenu(&cm);
+
+    int idx = 0;
+    cm.Items[idx++] = (MenuItem) {
+        .Header = "Race",
+        .Id = ID_RACE
+    };
+
+    cm.Items[idx++] = (MenuItem) {
+        .Header = "Practice",
+        .Id = ID_PRACTICE
+    };
+
+    CmMakeSeparator(&cm.Items[idx++]);
+
+    cm.Items[idx++] = (MenuItem) {
+        .Header = "Scoreboard",
+        .Id = ID_SCOREBOARD
+    };
+
+    CmMakeSeparator(&cm.Items[idx++]);
+
+    cm.Items[idx++] = (MenuItem) {
+        .Header = "Back",
+        .Id = ID_EXIT
+    };
+
+    return CmSelectMenu(&cm);
 }

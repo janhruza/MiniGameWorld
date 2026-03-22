@@ -18,7 +18,12 @@ typedef enum tagMenuId : int
     ID_LOAD_GAME,
     ID_CONTINUE_CUP,
     ID_NEW_CUP,
-    ID_OVERVIEW
+    ID_OVERVIEW,
+    ID_SCOREBOARD,
+    ID_SAVE_GAME,
+    ID_RACE,            // Start race
+    ID_PRACTICE,
+
 
 } MenuId;
 

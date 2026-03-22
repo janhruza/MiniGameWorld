@@ -33,6 +33,7 @@ static void AppInit(void) {
 }
 
 static void AppCleanup(void) {
+    ClearScreen();
     debug_close();
     GsFree(pSession);
 }
