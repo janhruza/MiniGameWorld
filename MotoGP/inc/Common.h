@@ -20,8 +20,16 @@
 typedef enum tagSTATUS : int {
     STATUS_OK,              // Success code.
     STATUS_ERROR,           // Error code.
-    STATUS_UNINITIALIZED    // Error, object not initialized.
+    STATUS_UNINITIALIZED,    // Error, object not initialized.
 } STATUS;
+
+/**
+ * @brief Simple custom boolean implementation.
+ */
+typedef enum tagBOOL : int {
+    FALSE = 0,
+    TRUE
+} BOOL;
 
 /**
  * @brief Representing various nationalities.

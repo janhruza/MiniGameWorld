@@ -1,17 +1,23 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "inc/Common.h"
 #include "inc/GameSession.h"
 #include "inc/UI/Ansi.h"
 #include "inc/Debug.h"
+#include "inc/UI/AppMenus.h"
+
+GameSession *pSession = NULL;
 
 static void AppInit(void) {
     debug_open();
+    pSession = GsInit();
     printf(CURSOR_HIDE);
 }
 
 static void AppCleanup(void) {
     debug_close();
+    GsFree(pSession);
     printf(CURSOR_SHOW);
 }
 
@@ -35,15 +41,13 @@ static void Test(void) {
 int main(int argc, const char **argv) {
     if (argc > 1) {
         fprintf(stderr, "%s: Arguments are disabled.\n", argv[0]);
-        return 1;
+        return EXIT_FAILURE;
     }
 
     AppInit();
     CoDrawBanner();
 
     // main code goes here
-    Test();
-
     AppCleanup();
-    return 0;
+    return EXIT_SUCCESS;
 }

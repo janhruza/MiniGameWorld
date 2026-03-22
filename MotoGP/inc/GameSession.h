@@ -12,6 +12,8 @@
 
 #pragma region Global Variables
 
+#define SAVEGAME        "data.sav"
+
 /**
  * @brief Representing all driver objects.
  */
@@ -34,17 +36,26 @@ extern TrackInfo gTracks[TRACK_COUNT];
  */
 typedef struct tagGameSession {
     /**
-     * @brief Pointer to the player's associated driver object.
+     * @brief Index of the player object in the global driver's array.
+     * @details Global arrays keep the indexes, no need to store the object itself.
      */
-    DriverInfo *Player;
+    int PlayerIdx;
+
+    /**
+     * @brief Representing the current event index in the active cup. Must be in range [0, TRACK_COUNT - 1]
+     * @details Values other than the defined range will be treated as no cup is in progress.
+     */
+    int CupIdx;
+
 } GameSession;
 
 /**
  * @brief Initializes a new game session.
  * @param session Pointer to the new game session object.
  * @return Status code.
+ * @details This method allocates the object's memory on heap, manual freeing is required. Can be freed using the GsFree method.
  */
-STATUS GsInit(GameSession *session);
+GameSession* GsInit();
 
 /**
  * Frees all resources used by the given game session.
@@ -52,5 +63,26 @@ STATUS GsInit(GameSession *session);
  * @return Operation result.
  */
 STATUS GsFree(GameSession *session);
+
+/**
+ * @brief Loads the saved game session.
+ * @param session Pointer to the game session object.
+ * @return Operation result.
+ */
+STATUS GsLoad(GameSession *session);
+
+/**
+ * @brief Saves the active game session.
+ * @param session Pointer to the game session object.
+ * @return Operation result.
+ */
+STATUS GsSave(const GameSession *session);
+
+/**
+ * @brief Determines whether a cup is in progress.
+ * @param session Pointer to the active game session object.
+ * @return TRUE if the cup is in progress, otherwise FALSE.
+ */
+BOOL GsCupInProgress(const GameSession *session);
 
 #endif //MOTOGP_GAMESESSION_H

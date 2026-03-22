@@ -15,4 +15,6 @@ add_executable(MotoGP main.c
         src/GameSession.c
         inc/Debug.h
         inc/TeamInfo.h
-        inc/TrackInfo.h)
+        inc/TrackInfo.h
+        inc/UI/AppMenus.h
+        src/UI/AppMenus.c)

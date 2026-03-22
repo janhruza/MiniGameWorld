@@ -4,7 +4,12 @@
 
 #include "../inc/GameSession.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 #pragma region Globals
+
 DriverInfo gDrivers[DRIVER_COUNT] = {
     (DriverInfo) {
         .Number = 5,
@@ -386,3 +391,56 @@ TrackInfo gTracks[TRACK_COUNT] = {
 };
 
 #pragma endregion
+
+GameSession* GsInit() {
+    // calloc - we want to initialize the memory with zeros
+    GameSession *session = calloc(1, sizeof(GameSession));
+    if (session == NULL) {
+        return NULL;
+    }
+    return session;
+}
+
+STATUS GsFree(GameSession *session) {
+    if (session == NULL) {
+        return STATUS_UNINITIALIZED;
+    }
+
+    free(session);
+    return STATUS_OK;
+}
+
+STATUS GsLoad(GameSession *session) {
+    if (session == NULL) {
+        return STATUS_UNINITIALIZED;
+    }
+
+    FILE* f = fopen(SAVEGAME, "rb");
+    if (f == NULL) {
+        return STATUS_ERROR;
+    }
+
+    fread(session, sizeof(GameSession), 1, f);
+    fclose(f);
+    return STATUS_OK;
+}
+
+STATUS GsSave(const GameSession *session) {
+    if (session == NULL) {
+        return STATUS_UNINITIALIZED;
+    }
+
+    FILE* f = fopen(SAVEGAME, "wb");
+    if (f == NULL) {
+        return STATUS_ERROR;
+    }
+
+    fwrite(session, sizeof(GameSession), 1, f);
+    fclose(f);
+    return STATUS_OK;
+}
+
+BOOL GsCupInProgress(const GameSession *session) {
+    // [1, TRACK_COUNT - 1] => in progress, otherwise not
+    return (session->CupIdx > 0 && session->CupIdx < TRACK_COUNT) ? TRUE : FALSE;
+}
