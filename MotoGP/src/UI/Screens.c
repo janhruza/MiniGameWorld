@@ -138,7 +138,7 @@ int ScrContinueCup(GameSession *session) {
             case ID_SCOREBOARD:
                 printf("%-*s %-*s\n", TEXT_LENGTH, "Name", 10, "Points");
                 for (int j = 0; j < DRIVER_COUNT; j++) {
-                    // print rider score
+                    // print rider's score
                     RaceResult *rr = &session->Standings.Riders[session->CupIdx][j];
                     printf("%-*s %06d\n", TEXT_LENGTH, gDrivers[rr->EntityId].Name, rr->Pts);
                 }
