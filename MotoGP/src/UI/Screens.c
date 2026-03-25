@@ -16,6 +16,12 @@ int ScrPause(void) {
     return GetRawChar();
 }
 
+int ScrNotImplemented(void) {
+    ClearScreen();
+    printf("[%sFAIL%s] Not implemented.\n", ACCENT_TEXT, RESET);
+    return ScrPause();
+}
+
 int ScrWelcomeScreen(GameSession *session) {
     while (TRUE) {
         ClearScreen();
@@ -130,13 +136,16 @@ int ScrContinueCup(GameSession *session) {
                 goto exit;
 
             case ID_RACE:
+                ScrNotImplemented();
                 break;
 
             case ID_PRACTICE:
+                ScrNotImplemented();
                 break;
 
             case ID_SCOREBOARD:
-                printf("%-*s %-*s\n", TEXT_LENGTH, "Name", 10, "Points");
+                ClearScreen();
+                printf("%s%-*s %-*s%s\n", ACCENT_BOLD, TEXT_LENGTH, "Name", 10, "Points", RESET);
                 for (int j = 0; j < DRIVER_COUNT; j++) {
                     // print rider's score
                     RaceResult *rr = &session->Standings.Riders[session->CupIdx][j];

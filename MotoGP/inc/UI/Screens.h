@@ -7,6 +7,8 @@
 
 #include "../GameSession.h"
 
+int ScrNotImplemented(void);
+
 /**
  * Pauses the execution until any key is pressed.
  * @return Pressed key identifier.
