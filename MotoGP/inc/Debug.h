@@ -15,7 +15,7 @@
 static FILE *debug_fd = NULL;
 
 /**
- * Opens the debug file stream.
+ * @brief Opens the debug file stream.
  * @return Operation result - 0: Success, EOF: Error.
  */
 int debug_open(void) {
@@ -24,7 +24,7 @@ int debug_open(void) {
 }
 
 /**
- * Closes the debug file stream.
+ * @brief Closes the debug file stream.
  * @return Operation result - 0: Success, EOF: Error.
  */
 int debug_close(void) {

@@ -143,13 +143,17 @@ int ScrContinueCup(GameSession *session) {
 
             case ID_RACE:
                 if (GsRace(session) != STATUS_OK) {
+                    ClearScreen();
                     ScrError("Unable to start race.");
                 }
                 break;
 
             case ID_SCOREBOARD:
                 ClearScreen();
-                GsDisplayScoreboard(session);
+                if (GsDisplayScoreboard(session) != STATUS_OK) {
+                    ClearScreen();
+                    ScrError("Unable to show scoreboard.");
+                }
                 ScrPause();
                 break;
 

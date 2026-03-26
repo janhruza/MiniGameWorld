@@ -452,19 +452,19 @@ BOOL GsCupInProgress(const GameSession *session) {
 }
 
 STATUS GsDisplayData(void) {
-    printf("--- DRIVERS ---\n");
+    printf("%s--- DRIVERS ---%s\n", BOLD, RESET);
     for (int i = 0; i < DRIVER_COUNT; i++) {
-        printf("%02d: #%02d: %s (%s)\n", i+1, gDrivers[i].Number, gDrivers[i].Name, gTeams[gDrivers[i].IdxTeam].Name);
+        printf("%02d: #%02d: %s%s%s (%s)\n", i+1, gDrivers[i].Number, ACCENT_TEXT, gDrivers[i].Name, RESET, gTeams[gDrivers[i].IdxTeam].Name);
     }
 
-    printf("\n--- TEAMS ---\n");
+    printf("\n%s--- TEAMS ---%s\n", BOLD, RESET);
     for (int i = 0; i < TEAM_COUNT; i++) {
-        printf("%02d: %-*s (%d)\n", i+1, DRIVER_COUNT, gTeams[i].Name, gTeams[i].Bike);
+        printf("%02d: %s%-*s%s (%d)\n", i+1, ACCENT_TEXT, DRIVER_COUNT, gTeams[i].Name, RESET, gTeams[i].Bike);
     }
 
-    printf("\n--- TRACKS ---\n");
+    printf("\n%s--- TRACKS ---%s\n", BOLD, RESET);
     for (int i = 0; i < TRACK_COUNT; i++) {
-        printf("%02d: %s (%s)\n", i+1, gTracks[i].Name, gTracks[i].Circuit);
+        printf("%02d: %s%s%s (%s)\n", i+1, ACCENT_TEXT, gTracks[i].Name, RESET, gTracks[i].Circuit);
     }
 
     return STATUS_OK;
@@ -516,7 +516,9 @@ STATUS GsRace(GameSession *session) {
     }
 
     if (session->CupIdx >= 0 && session->CupIdx < TRACK_COUNT) {
-        // adjust the scoreboard
+        // TODO update the scoreboard
+        // set the scores for the race at current index
+        // current implementation is basic and wrong
         for (int i = 0; i < TRACK_COUNT; i++) {
             session->Standings.Riders[session->CupIdx][i] = (RaceResult) {
                 .EntityId = i,

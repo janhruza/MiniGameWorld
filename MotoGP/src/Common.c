@@ -8,7 +8,7 @@
 
 #include "../inc/UI/Ansi.h"
 
-const char* GetStatus(const STATUS status) {
+const char* CoGetStatus(const STATUS status) {
     switch (status) {
         case STATUS_OK:
             return "STATUS_OK";

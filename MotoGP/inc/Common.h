@@ -28,7 +28,7 @@ typedef enum tagSTATUS : uint32_t {
     STATUS_UNKNOWN          = INT_MAX,
 } STATUS;
 
-extern const char *GetStatus(const STATUS status);
+extern const char *CoGetStatus(const STATUS status);
 
 /**
  * @brief Simple custom boolean implementation.

@@ -8,7 +8,9 @@
 #include "inc/Debug.h"
 #include "inc/UI/Screens.h"
 
+#pragma region Definitions
 #define CMD_HELP        "--help"
+#pragma endregion
 
 /**
  * @brief Representing the global active game session pointer.
@@ -24,7 +26,6 @@ static void ShowHelp(void) {
 
     printf("%sCREDITS%s\n", BOLD, RESET);
     printf("Made with %s\u2764%s by %s!\n", ACCENT_TEXT, RESET, AUTHOR);
-    return;
 }
 
 static void AppInit(void) {
@@ -38,7 +39,7 @@ static void AppCleanup(void) {
     GsFree(pSession);
 }
 
-int main(int argc, const char **argv) {
+int main(const int argc, const char **argv) {
     if (argc > 1) {
 
         // help is allowed
