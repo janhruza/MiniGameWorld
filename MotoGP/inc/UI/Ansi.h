@@ -85,7 +85,7 @@
 #define ACCENT_TEXT     "\033[38;5;1m"
 #define ACCENT_BACK     "\033[48;5;1m\033[38;5;15m"
 #define ACCENT_BOLD     "\033[38;5;1m\033[1m"
-#define ACCENT_DEBUG	"\033[1m\033[38;5;7m"
+#define ACCENT_DEBUG	BHRED
 #define INVERT_VIDEO    "\033[7m"
 #define BLINK           "\033[5m"
 #define BOLD            "\033[1m"

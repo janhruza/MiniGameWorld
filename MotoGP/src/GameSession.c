@@ -3,10 +3,16 @@
 //
 
 #include "../inc/GameSession.h"
+#include "../inc/UI/Ansi.h"
+#include "../inc/Scoreboard.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#define max(a, b) ((a) > (b) ? (a) : (b))
+
+#include "../inc/UI/Screens.h"
 
 #pragma region Globals
 
@@ -461,5 +467,82 @@ STATUS GsDisplayData(void) {
         printf("%02d: %s (%s)\n", i+1, gTracks[i].Name, gTracks[i].Circuit);
     }
 
+    return STATUS_OK;
+}
+
+STATUS GsDisplayScoreboard(const GameSession *session) {
+    if (session == NULL) {
+        return STATUS_UNINITIALIZED;
+    }
+
+    ClearScreen();
+    printf("%s%-*s %-*s%s\n", ACCENT_BOLD, TEXT_LENGTH, "Name", 10, "Points", RESET);
+    for (int j = 0; j < DRIVER_COUNT; j++) {
+        // print rider's score
+        const RaceResult rr = session->Standings.Riders[max(0, session->CupIdx-1)][j];
+        printf("%-*s %06d\n", TEXT_LENGTH, gDrivers[rr.EntityId].Name, rr.Pts);
+    }
+
+    return STATUS_OK;
+}
+
+int GsGetPoints(const GameSession *session, const int driverIdx) {
+    if (session == NULL) {
+        return -1;
+    }
+
+    if (driverIdx < 0 || driverIdx >= DRIVER_COUNT) {
+        return -1;
+    }
+
+    int count = 0;
+    for (int i = 0; i < TRACK_COUNT; i++) {
+        int pts = session->Standings.Riders[i][driverIdx].Pts;
+        if (pts < 0 || pts > 10) {
+            // must be in range 0-10
+            continue;
+        }
+
+        // adjust points
+        count += pts;
+    }
+
+    return count;
+}
+
+STATUS GsRace(GameSession *session) {
+    if (session == NULL) {
+        return STATUS_UNINITIALIZED;
+    }
+
+    if (session->CupIdx >= 0 && session->CupIdx < TRACK_COUNT) {
+        // adjust the scoreboard
+        for (int i = 0; i < TRACK_COUNT; i++) {
+            session->Standings.Riders[session->CupIdx][i] = (RaceResult) {
+                .EntityId = i,
+                .Pts = rand() % 10 + 1
+            };
+        }
+
+        // advance the cup index
+        session->CupIdx++;
+
+        if (session->CupIdx == TRACK_COUNT) {
+            // cup ended
+            session->CupIdx = 0;
+            return GsFinalResults(session);
+        }
+
+        return STATUS_OK;
+    }
+
+    // invalid cup index
+    return STATUS_ERROR;
+}
+
+STATUS GsFinalResults(const GameSession *session) {
+    // FIXME temporary solution
+    GsDisplayScoreboard(session);
+    ScrPause();
     return STATUS_OK;
 }

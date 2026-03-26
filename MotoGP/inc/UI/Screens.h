@@ -9,6 +9,8 @@
 
 int ScrNotImplemented(void);
 
+int ScrError(const char *msg);
+
 /**
  * Pauses the execution until any key is pressed.
  * @return Pressed key identifier.

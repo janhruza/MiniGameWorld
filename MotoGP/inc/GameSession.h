@@ -96,4 +96,33 @@ STATUS GsDisplayData(void);
  */
 BOOL GsCupInProgress(const GameSession *session);
 
+/**
+ * @brief Displays the current cup scoreboard.
+ * @param session Pointer to the game session object.
+ * @return Operation result.
+ */
+STATUS GsDisplayScoreboard(const GameSession *session);
+
+/**
+ * @brief Starts the next race in cup.
+ * @param session Pointer to the game session object.
+ * @return Operation result.
+ */
+STATUS GsRace(GameSession *session);
+
+/**
+ * @brief Displays the final leaderboard.
+ * @param session Pointer to the game session object.
+ * @return Operation result.
+ */
+STATUS GsFinalResults(const GameSession *session);
+
+/**
+ * @brief Gets the driver points.
+ * @param session Pointer to the active game session object.
+ * @param driverIdx Index of the driver.
+ * @return Total driver points or -1, if an error has occurred.
+ */
+int GsGetPoints(const GameSession *session, const int driverIdx);
+
 #endif //MOTOGP_GAMESESSION_H

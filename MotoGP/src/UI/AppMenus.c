@@ -96,15 +96,12 @@ int AppContinueCupMenu(GameSession *session) {
     ConsoleMenu cm;
     CmInitMenu(&cm);
 
+    snprintf(cm.Header, MENU_ITEM_HEADER_WIDTH, "Continue Cup (%02d/%02d)", session->CupIdx + 1, TRACK_COUNT);
+
     int idx = 0;
     cm.Items[idx++] = (MenuItem) {
         .Header = "Race",
         .Id = ID_RACE
-    };
-
-    cm.Items[idx++] = (MenuItem) {
-        .Header = "Practice",
-        .Id = ID_PRACTICE
     };
 
     CmMakeSeparator(&cm.Items[idx++]);

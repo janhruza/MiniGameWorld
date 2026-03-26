@@ -18,7 +18,13 @@ int ScrPause(void) {
 
 int ScrNotImplemented(void) {
     ClearScreen();
-    printf("[%sFAIL%s] Not implemented.\n", ACCENT_TEXT, RESET);
+    printf("[%sFAIL%s] Not implemented.\n", ACCENT_DEBUG, RESET);
+    return ScrPause();
+}
+
+int ScrError(const char *msg) {
+    ClearScreen();
+    printf("[%sFAIL%s] %s\n", ACCENT_DEBUG, RESET, msg);
     return ScrPause();
 }
 
@@ -136,22 +142,14 @@ int ScrContinueCup(GameSession *session) {
                 goto exit;
 
             case ID_RACE:
-                ScrNotImplemented();
-                break;
-
-            case ID_PRACTICE:
-                ScrNotImplemented();
+                if (GsRace(session) != STATUS_OK) {
+                    ScrError("Unable to start race.");
+                }
                 break;
 
             case ID_SCOREBOARD:
                 ClearScreen();
-                printf("%s%-*s %-*s%s\n", ACCENT_BOLD, TEXT_LENGTH, "Name", 10, "Points", RESET);
-                for (int j = 0; j < DRIVER_COUNT; j++) {
-                    // print rider's score
-                    RaceResult *rr = &session->Standings.Riders[session->CupIdx][j];
-                    printf("%-*s %06d\n", TEXT_LENGTH, gDrivers[rr->EntityId].Name, rr->Pts);
-                }
-
+                GsDisplayScoreboard(session);
                 ScrPause();
                 break;
 
