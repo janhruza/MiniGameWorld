@@ -470,17 +470,31 @@ STATUS GsDisplayData(void) {
     return STATUS_OK;
 }
 
+int comp_score(const void *a, const void *b) {
+    RaceResult *r1 = (RaceResult*)a;
+    RaceResult *r2 = (RaceResult*)b;
+
+    if (r1->Pts > r2->Pts) return -1;
+    else if (r1->Pts < r2->Pts) return 1;
+    else return 0;
+}
+
 STATUS GsDisplayScoreboard(const GameSession *session) {
     if (session == NULL) {
         return STATUS_UNINITIALIZED;
     }
 
+    // sort the leaderboard by points
+    const int cupIdx = max(0, session->CupIdx-1);
+
+    qsort((void*)session->Standings.Riders[cupIdx], DRIVER_COUNT, sizeof(RaceResult), comp_score);
+
     ClearScreen();
     printf("%s%-*s %-*s%s\n", ACCENT_BOLD, TEXT_LENGTH, "Name", 10, "Points", RESET);
     for (int j = 0; j < DRIVER_COUNT; j++) {
         // print rider's score
-        const RaceResult rr = session->Standings.Riders[max(0, session->CupIdx-1)][j];
-        printf("%-*s %06d\n", TEXT_LENGTH, gDrivers[rr.EntityId].Name, rr.Pts);
+        const RaceResult rr = session->Standings.Riders[cupIdx][j];
+        printf("%-*s %6d\n", TEXT_LENGTH, gDrivers[rr.EntityId].Name, rr.Pts);
     }
 
     return STATUS_OK;
@@ -565,8 +579,24 @@ STATUS GsRace(GameSession *session) {
 }
 
 STATUS GsFinalResults(const GameSession *session) {
-    // FIXME temporary solution
-    const STATUS result = GsDisplayScoreboard(session);
+    // init final scoreboard
+    RaceResult results[DRIVER_COUNT];
+    for (int i = 0; i < DRIVER_COUNT; i++) {
+        // sum the driver's points
+        results[i].EntityId = i;
+        results[i].Pts = GsGetPoints(session, i);
+    }
+
+    // sort by score
+    qsort((void*)results, DRIVER_COUNT, sizeof(RaceResult), comp_score);
+
+    // display the scoreboard
+    ClearScreen();
+    printf("%s%-*s %-*s%s\n", ACCENT_BOLD, TEXT_LENGTH, "Name", 10, "Points", RESET);
+    for (int i = 0; i < DRIVER_COUNT; i++) {
+        printf("%-*s %6d\n", TEXT_LENGTH, gDrivers[i].Name, results[i].Pts);
+    }
+
     ScrPause();
-    return result;
+    return STATUS_OK;
 }

@@ -150,11 +150,10 @@ int ScrContinueCup(GameSession *session) {
 
             case ID_SCOREBOARD:
                 ClearScreen();
-                if (GsDisplayScoreboard(session) != STATUS_OK) {
+                if (GsFinalResults(session) != STATUS_OK) {
                     ClearScreen();
                     ScrError("Unable to show scoreboard.");
                 }
-                ScrPause();
                 break;
 
             default:
