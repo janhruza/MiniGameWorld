@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include "inc/Common.h"
 #include "inc/GameSession.h"
@@ -30,6 +31,7 @@ static void ShowHelp(void) {
 
 static void AppInit(void) {
     debug_open();
+    srand(time(0));
     pSession = GsInit();
 }
 

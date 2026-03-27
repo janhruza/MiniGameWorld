@@ -497,7 +497,7 @@ int GsGetPoints(const GameSession *session, const int driverIdx) {
 
     int count = 0;
     for (int i = 0; i < TRACK_COUNT; i++) {
-        int pts = session->Standings.Riders[i][driverIdx].Pts;
+        const int pts = session->Standings.Riders[i][driverIdx].Pts;
         if (pts < 0 || pts > 10) {
             // must be in range 0-10
             continue;
@@ -519,10 +519,32 @@ STATUS GsRace(GameSession *session) {
         // TODO update the scoreboard
         // set the scores for the race at current index
         // current implementation is basic and wrong
+
+        int pts[DRIVER_COUNT];
+        for (int x = 0; x < DRIVER_COUNT; x++)
+        {
+            pts[x] = 1;
+        }
+
+        for (int x = 9; x >= 0; --x)
+        {
+            pts[x] = x+1;
+        }
+
+        // shuffle points
+        for (int x = 0; x < DRIVER_COUNT; x++)
+        {
+            int other = rand() % DRIVER_COUNT;
+            int temp = pts[x];
+            pts[x] = pts[other];
+            pts[other] = temp;
+        }
+
+        // assign shuffled points to drivers
         for (int i = 0; i < TRACK_COUNT; i++) {
             session->Standings.Riders[session->CupIdx][i] = (RaceResult) {
                 .EntityId = i,
-                .Pts = rand() % 10 + 1
+                .Pts = pts[i]
             };
         }
 
@@ -544,7 +566,7 @@ STATUS GsRace(GameSession *session) {
 
 STATUS GsFinalResults(const GameSession *session) {
     // FIXME temporary solution
-    GsDisplayScoreboard(session);
+    const STATUS result = GsDisplayScoreboard(session);
     ScrPause();
-    return STATUS_OK;
+    return result;
 }
