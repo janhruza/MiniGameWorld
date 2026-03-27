@@ -529,72 +529,65 @@ STATUS GsRace(GameSession *session) {
         return STATUS_UNINITIALIZED;
     }
 
-    if (session->CupIdx >= 0 && session->CupIdx < TRACK_COUNT) {
-        // TODO update the scoreboard
-        // set the scores for the race at current index
-        // current implementation is basic and wrong
-
-        int pts[DRIVER_COUNT];
-        for (int x = 0; x < DRIVER_COUNT; x++)
-        {
-            pts[x] = 1;
-        }
-
-        for (int x = 9; x >= 0; --x)
-        {
-            pts[x] = x+1;
-        }
-
-        // shuffle points
-        for (int x = 0; x < DRIVER_COUNT; x++)
-        {
-            int other = rand() % DRIVER_COUNT;
-            int temp = pts[x];
-            pts[x] = pts[other];
-            pts[other] = temp;
-        }
-
-        // assign shuffled points to drivers
-        for (int i = 0; i < TRACK_COUNT; i++) {
-            session->Standings.Riders[session->CupIdx][i] = (RaceResult) {
-                .EntityId = i,
-                .Pts = pts[i]
-            };
-        }
-
-        // advance the cup index
-        session->CupIdx++;
-
-        if (session->CupIdx == TRACK_COUNT) {
-            // cup ended
-            session->CupIdx = 0;
-            return GsFinalResults(session);
-        }
-
-        return STATUS_OK;
+    if (session->CupIdx < 0 || session->CupIdx >= TRACK_COUNT) {
+        return STATUS_ERROR;
     }
 
-    // invalid cup index
-    return STATUS_ERROR;
+    int pts[DRIVER_COUNT];
+
+    for (int x = 0; x < DRIVER_COUNT; x++) {
+        pts[x] = (x < 10) ? (10 - x) : 1;
+    }
+
+    for (int x = DRIVER_COUNT - 1; x > 0; x--) {
+        int other = rand() % (x + 1);
+        int temp = pts[x];
+        pts[x] = pts[other];
+        pts[other] = temp;
+    }
+
+    for (int i = 0; i < DRIVER_COUNT; i++) {
+        session->Standings.Riders[session->CupIdx][i] = (RaceResult) {
+            .EntityId = i,
+            .Pts = pts[i]
+        };
+    }
+
+    session->CupIdx++;
+
+    if (session->CupIdx == TRACK_COUNT) {
+        const STATUS result = GsFinalResults(session);
+        session->CupIdx = 0;
+        memset(&session->Standings, 0, sizeof(Scoreboard));
+
+        return result;
+    }
+
+    return STATUS_OK;
 }
 
 STATUS GsFinalResults(const GameSession *session) {
-    // init final scoreboard
     RaceResult results[DRIVER_COUNT];
     for (int i = 0; i < DRIVER_COUNT; i++) {
-        // sum the driver's points
         results[i].EntityId = i;
         results[i].Pts = GsGetPoints(session, i);
     }
 
-    // sort by score
     qsort((void*)results, DRIVER_COUNT, sizeof(RaceResult), comp_score);
-
-    // display the scoreboard
     ClearScreen();
-    printf("%s%-*s %-*s%s\n", ACCENT_BOLD, TEXT_LENGTH, "Name", 10, "Points", RESET);
+    printf("%s%-*s %-10s%s\n", ACCENT_BOLD, TEXT_LENGTH, "Name", "Points", RESET);
+
     for (int i = 0; i < DRIVER_COUNT; i++) {
-        printf("%-*s %6d\n", TEXT_LENGTH, gDrivers[i].Name, results[i].Pts);
+        int driverId = results[i].EntityId;
+        int points = results[i].Pts;
+
+        if (driverId == session->PlayerIdx) {
+            printf("%s%-*s %6d%s\n",
+                   ACCENT_TEXT, TEXT_LENGTH, gDrivers[driverId].Name, points, RESET);
+        }
+        else {
+            printf("%-*s %6d\n", TEXT_LENGTH, gDrivers[driverId].Name, points);
+        }
     }
 
     ScrPause();
