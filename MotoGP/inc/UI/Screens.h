@@ -38,4 +38,10 @@ int ScrMainMenu(GameSession *session);
  */
 int ScrContinueCup(GameSession *session);
 
+/**
+ * @brief Displays a driver selection screen.
+ * @return Index of the selected driver as it appears in the global gDrivers array or -1 when selection failed or was canceled for any reason.
+ */
+int ScrSelectDriver(void);
+
 #endif //MOTOGP_SCREENS_H

@@ -75,4 +75,11 @@ typedef enum tagCountry : uint8_t {
  */
 STATUS CoDrawBanner(void);
 
+/**
+ * @brief Gets the country's 3-letter code.
+ * @param country Country flag.
+ * @return Standard 3-letter country name.
+ */
+const char *CoGetCountryName(Country country);
+
 #endif //MOTOGP_COMMON_H

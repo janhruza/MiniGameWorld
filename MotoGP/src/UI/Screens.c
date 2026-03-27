@@ -7,6 +7,7 @@
 #include "../../inc/UI/ConsoleMenu.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "../../inc/GameSession.h"
 #include "../../inc/UI/Ansi.h"
@@ -53,6 +54,17 @@ int ScrWelcomeScreen(GameSession *session) {
                     ScrPause();
                     break;
                 }
+
+                // select rider
+                int drvIdx = ScrSelectDriver();
+                if (drvIdx == -1) {
+                    puts("Unable to select driver");
+                    ScrPause();
+                    break;
+                }
+
+                // assign the driver index
+                session->PlayerIdx = drvIdx;
 
                 GsSave(session);
                 ScrMainMenu(session);
@@ -163,4 +175,30 @@ int ScrContinueCup(GameSession *session) {
 
     exit:
     return ID_EXIT;
+}
+
+int ScrSelectDriver(void)
+{
+    ClearScreen();
+
+    // print available drivers
+    printf("%s--- Available Riders ---%s\n", BOLD, RESET);
+    for (int i = 0; i < DRIVER_COUNT; i++) {
+        printf("%2d: #%02d: %s%-*s%s %*s\n", i+1, gDrivers[i].Number, ACCENT_TEXT, TEXT_LENGTH, gDrivers[i].Name, RESET, 3, CoGetCountryName(gDrivers[i].Country));
+    }
+
+    // select driver
+    int idx = -1;
+
+    printf("\nEnter driver's ID [1-%d]: ", DRIVER_COUNT);
+    scanf("%d", &idx);
+
+    // adjust the index to the global gDrivers array
+    idx--;
+
+    // flush buffer
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF) { }
+
+    return idx;
 }
