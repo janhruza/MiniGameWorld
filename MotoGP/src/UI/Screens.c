@@ -193,6 +193,10 @@ int ScrSelectDriver(void)
     printf("\nEnter driver's ID [1-%d]: ", DRIVER_COUNT);
     scanf("%d", &idx);
 
+    if (idx < 1 || idx > DRIVER_COUNT) {
+        idx = 0; // it will turn -1 later
+    }
+
     // adjust the index to the global gDrivers array
     idx--;
 
