@@ -3,4 +3,8 @@ project(CitizenDB C)
 
 set(CMAKE_C_STANDARD 23)
 
-add_executable(CitizenDB main.c)
+add_executable(CitizenDB main.c
+        inc/Person.h
+        inc/Common.h
+        src/Person.c
+        src/Common.c)
