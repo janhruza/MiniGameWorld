@@ -125,4 +125,11 @@ STATUS GsFinalResults(const GameSession *session);
  */
 int GsGetPoints(const GameSession *session, const int driverIdx);
 
+/**
+ * @brief Prints the given session as a Markdown .md file.
+ * @param session Pointer to the game session object.
+ * @return Operation result.
+ */
+int GsPrintAsMarkdown(const GameSession *session);
+
 #endif //MOTOGP_GAMESESSION_H

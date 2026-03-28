@@ -443,7 +443,8 @@ STATUS GsSave(const GameSession *session) {
 
     fwrite(session, sizeof(GameSession), 1, f);
     fclose(f);
-    return STATUS_OK;
+
+    return GsPrintAsMarkdown(session);
 }
 
 BOOL GsCupInProgress(const GameSession *session) {
@@ -591,5 +592,76 @@ STATUS GsFinalResults(const GameSession *session) {
     }
 
     ScrPause();
+    return STATUS_OK;
+}
+
+int GsPrintAsMarkdown(const GameSession *session) {
+    if (session == NULL) {
+        return STATUS_UNINITIALIZED;
+    }
+
+    FILE *file = fopen("game_state.md", "w");
+    if (file == NULL) {
+        fprintf(stderr, "Unable to open game_state.md\n");
+        return STATUS_ERROR;
+    }
+
+    // print the header
+    fprintf(file, "# Game Session dump\n");
+
+    // print working data - global drivers, tracks, etc
+    fprintf(file, "## Game data\n");
+
+    // teams
+    fprintf(file, "### Teams\n");
+
+    fprintf(file, "|Id|Name|\n");
+    fprintf(file, "|--|----|\n");
+    for (int i = 0; i < TEAM_COUNT; i++) {
+        fprintf(file, "|%d|%s|\n", gTeams[i].TeamId, gTeams[i].Name);
+    }
+
+    fprintf(file, "\n");
+
+    // print drivers
+    fprintf(file, "### Riders\n");
+    fprintf(file, "|Id|Name|Number|Team|\n");
+    fprintf(file, "|--|----|------|----|\n");
+    for (int i = 0; i < DRIVER_COUNT; i++) {
+        fprintf(file, "|%d|%s|%d|%s|\n", i, gDrivers[i].Name, gDrivers[i].Number, gTeams[gDrivers[i].IdxTeam].Name);
+    }
+
+    fprintf(file, "\n");
+
+    // tracks
+    fprintf(file, "### Tracks\n");
+
+    fprintf(file, "|Id|Country|Name|Circuit|\n");
+    fprintf(file, "|--|-------|----|-------|\n");
+
+    for (int i = 0; i < TRACK_COUNT; i++) {
+        fprintf(file, "|%d|%s|%s|%s|\n", gTracks[i].Id, CoGetCountryName(gTracks[i].Country), gTracks[i].Name, gTracks[i].Circuit);
+    }
+
+    fprintf(file, "\n---\n\n");
+
+    fprintf(file, "## Scoreboard\n");
+
+    for (int i = 0; i < TRACK_COUNT; i++) {
+        // print active track
+        fprintf(file, "### Track %d/%d\n", i+1, TRACK_COUNT);
+
+        fprintf(file, "|Id|Name|Points|\n");
+        fprintf(file, "|--|----|------|\n");
+
+        for (int j = 0; j < DRIVER_COUNT; j++) {
+            // print driver's stat
+            fprintf(file, "|%d|%s|%d|\n", session->Standings.Riders[i][j].EntityId, gDrivers[j].Name, session->Standings.Riders[i][j].Pts);
+        }
+
+        fprintf(file, "\n");
+    }
+
+    fclose(file);
     return STATUS_OK;
 }
