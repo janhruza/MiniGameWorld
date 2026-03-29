@@ -16,6 +16,10 @@ STATUS AppCleanup(void) {
     return STATUS_OK;
 }
 
+int min(const int a, const int b) {
+    return (a < b) ? a : b;
+}
+
 int main(void) {
 
     if (AppInit() != STATUS_OK) {
@@ -23,6 +27,7 @@ int main(void) {
     }
 
     // TODO main logic goes here
+    CoDrawBanner();
 
     if (AppCleanup() != STATUS_OK) {
         fprintf(stderr, "Cleanup failed.\n");

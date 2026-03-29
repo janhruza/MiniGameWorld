@@ -2,6 +2,8 @@
 // Created by jan on 28/03/2026.
 //
 
+#include <stdio.h>
+
 #include "../inc/Common.h"
 
 char gCountries[COUNTRIES_COUNT][COUNTRY_CODE_LEN] = {
@@ -16,3 +18,10 @@ char gCountries[COUNTRIES_COUNT][COUNTRY_CODE_LEN] = {
     "MNG", "PAK", "BGD", "LKA", "NPL", "MMR", "KHM", "LAO", "TWN", "HKG",
     "MAC", "QAT", "KWT", "OMN", "JOR", "LBN", "IRQ", "IRN", "AFG", "SRB"
 };
+
+void CoDrawBanner(void) {
+    printf("CitizenDB\n");
+    printf("(c) 2026, %s\n", AUTHOR);
+    printf("\n");
+    return;
+}
