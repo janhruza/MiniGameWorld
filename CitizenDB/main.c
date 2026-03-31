@@ -16,9 +16,14 @@ STATUS AppCleanup(void) {
     return STATUS_OK;
 }
 
-int min(const int a, const int b) {
+#ifndef _WIN32
+
+int min(const int a, const int b)
+{
     return (a < b) ? a : b;
 }
+
+#endif // !_WIN32
 
 int main(void) {
 
@@ -28,6 +33,9 @@ int main(void) {
 
     // TODO main logic goes here
     CoDrawBanner();
+
+    printf("%sWELCOME!%s\n", BLINK, RESET);
+    CoPause();
 
     if (AppCleanup() != STATUS_OK) {
         fprintf(stderr, "Cleanup failed.\n");

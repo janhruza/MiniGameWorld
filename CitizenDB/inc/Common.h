@@ -26,5 +26,6 @@ typedef enum tagSTATUS {
 extern char gCountries[COUNTRIES_COUNT][COUNTRY_CODE_LEN];
 
 void CoDrawBanner(void);
+void CoPause(void);
 
 #endif //CITIZENDB_COMMON_H

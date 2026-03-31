@@ -25,3 +25,11 @@ void CoDrawBanner(void) {
     printf("\n");
     return;
 }
+
+void CoPause(void)
+{
+    printf("Press enter to continue... ");
+    char num = 0;
+    (void)scanf("%c", &num);
+    return;
+}
