@@ -53,6 +53,11 @@ typedef struct tagPerson {
      */
     char CountryCode[4];
 
+    /**
+     * @brief Representing persons vehicles (as indexes).
+     */
+    int Vehicles[MAX_VEHICLES];
+
 } Person;
 
 /**

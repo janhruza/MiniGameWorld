@@ -10,4 +10,6 @@ add_executable(CitizenDB main.c
         inc/Person.h
         inc/Common.h
         src/Person.c
-        src/Common.c)
+        src/Common.c
+        inc/UI/Screens.h
+        src/UI/Screens.c)

@@ -11,6 +11,7 @@
 #define COUNTRIES_COUNT     100
 #define COUNTRY_CODE_LEN    4
 #define NAMES_COUNT         100
+#define MAX_VEHICLES        10
 
 /**
  * @brief Application status codes.
