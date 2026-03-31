@@ -5,13 +5,13 @@
 #include "inc/UI/Ansi.h"
 #include "inc/Common.h"
 
-STATUS AppInit(void) {
+static STATUS AppInit(void) {
     srand(time(NULL));
     ClearScreen();
     return STATUS_OK;
 }
 
-STATUS AppCleanup(void) {
+static STATUS AppCleanup(void) {
     ClearScreen();
     return STATUS_OK;
 }
@@ -34,7 +34,7 @@ int main(void) {
     // TODO main logic goes here
     CoDrawBanner();
 
-    printf("%sWELCOME!%s\n", BLINK, RESET);
+    printf("%sWELCOME!%s\n", ACCENT_TEXT, RESET);
     CoPause();
 
     if (AppCleanup() != STATUS_OK) {
