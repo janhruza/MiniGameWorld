@@ -2,6 +2,8 @@
 // Created by jan on 31/03/2026.
 //
 
+#include <stdio.h>
+
 #include "../../inc/UI/Ansi.h"
 #include "../../inc/Common.h"
 #include "../../inc/UI/Screens.h"
