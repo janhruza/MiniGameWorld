@@ -4,6 +4,7 @@
 
 #include "inc/UI/Ansi.h"
 #include "inc/Common.h"
+#include "inc/UI/Screens.h"
 
 static STATUS AppInit(void) {
     srand(time(NULL));
@@ -34,7 +35,7 @@ int main(void) {
     // TODO main logic goes here
     CoDrawBanner();
 
-    printf("%sWELCOME!%s\n", ACCENT_TEXT, RESET);
+    ScrAddPerson();
     CoPause();
 
     if (AppCleanup() != STATUS_OK) {

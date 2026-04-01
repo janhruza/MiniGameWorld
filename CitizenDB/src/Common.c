@@ -6,6 +6,8 @@
 
 #include "../inc/Common.h"
 
+#include <string.h>
+
 char gCountries[COUNTRIES_COUNT][COUNTRY_CODE_LEN] = {
     "USA", "CZE", "IRE", "GBR", "CAN", "AUS", "DEU", "FRA", "ITA", "ESP",
     "SVK", "POL", "AUT", "JPN", "CHN", "KOR", "IND", "BRA", "MEX", "ARG",
@@ -32,4 +34,20 @@ void CoPause(void)
     char num = 0;
     (void)scanf("%c", &num);
     return;
+}
+
+void CoClearBuffer(void) {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF) { }
+    return;
+}
+
+int CoReadString(char* buf, int n, FILE *stream) {
+    fgets(buf, n, stream);
+    int len = strlen(buf);
+    if (len > 0) {
+        buf[len - 1] = '\0';
+    }
+
+    return len - 1;
 }

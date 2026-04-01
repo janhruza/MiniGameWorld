@@ -5,6 +5,8 @@
 #ifndef CITIZENDB_COMMON_H
 #define CITIZENDB_COMMON_H
 
+#include <stdio.h>
+
 #define AUTHOR              "@jendahruza"
 #define PRODUCT             "CitizenDB"
 #define TEXT_SIZE           33
@@ -19,7 +21,7 @@
 typedef enum tagSTATUS {
     STATUS_OK,              // OK
     STATUS_ERROR,           // ERROR
-    STATUS_UNINITIALIZED,   // Object not initialized
+    STATUS_UNINITIALIZED,   // Object not initialized.
     STATUS_CRITICAL,        // Critical error.
 } STATUS;
 
@@ -27,5 +29,8 @@ extern char gCountries[COUNTRIES_COUNT][COUNTRY_CODE_LEN];
 
 void CoDrawBanner(void);
 void CoPause(void);
+
+void CoClearBuffer(void);
+int CoReadString(char* buf, int n, FILE *stream);
 
 #endif //CITIZENDB_COMMON_H
