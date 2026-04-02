@@ -51,3 +51,20 @@ int CoReadString(char* buf, int n, FILE *stream) {
 
     return len - 1;
 }
+
+int CoChoice(char *text) {
+    if (text != NULL && text[0] != '\0') {
+        printf("%s", text);
+    } else {
+        printf("Proceed?");
+    }
+
+    printf(" [Y/n]: ");
+
+    char conf = 0;
+    scanf(" %c", &conf);
+    int res = (conf == 'Y' || conf == 'y') ? 1 : 0;
+    CoClearBuffer();
+
+    return res;
+}

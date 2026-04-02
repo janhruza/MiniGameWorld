@@ -30,7 +30,18 @@ extern char gCountries[COUNTRIES_COUNT][COUNTRY_CODE_LEN];
 void CoDrawBanner(void);
 void CoPause(void);
 
+/**
+ * @brief Clears the input buffer.
+ */
 void CoClearBuffer(void);
+
 int CoReadString(char* buf, int n, FILE *stream);
+
+/**
+ * @brief Prompts user to perform yes/no choice.
+ * @param text Confirmation text. Use NULL to use the default text.
+ * @return Operation result: 1 - yes, 0 - no.
+ */
+int CoChoice(char *text);
 
 #endif //CITIZENDB_COMMON_H

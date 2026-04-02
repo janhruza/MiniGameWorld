@@ -41,13 +41,9 @@ STATUS ScrAddPerson(void) {
 	CoClearBuffer();
 
 	// confirm
-	char conf = 0;
-	printf("Proceed? [Y/n]: ");
-	scanf("%c", &conf);
-	CoClearBuffer();
-
-	if (conf != 'Y' && conf != 'y') {
+	if (CoChoice(NULL) == 0) {
 		// not confirmed
+		printf("Cancelled.\n");
 		return STATUS_ERROR;
 	}
 
@@ -61,6 +57,7 @@ STATUS ScrAddPerson(void) {
 	person.Age = age;
 
 	// TODO save the created person object
+	printf("Proceeding... \n");
 
 	return STATUS_OK;
 };
