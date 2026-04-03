@@ -1,8 +1,7 @@
 #include "../inc/AppState.h"
 #include "../inc/Common.h"
 
-// save game file name
-#define SAVEGAME	"data.state"
+#include <stdlib.h>
 
 int AppLoad(AppState* state)
 {

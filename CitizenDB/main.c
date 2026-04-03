@@ -38,6 +38,7 @@ int main(void) {
 
     // TODO main logic goes here
     CoSetConsoleTitle("My Awesome Citizen Database!");
+    CoDrawBanner();
     CoPause();
 
     if (AppCleanup() != STATUS_OK) {

@@ -1,6 +1,9 @@
 #ifndef APPSTATE_H
 #define APPSTATE_H
 
+// save game file name
+#define SAVEGAME	"data.state"
+
 #include "LinkedList.h"
 
 /**
@@ -28,4 +31,4 @@ int AppLoad(AppState *state);
 */
 int AppSave(AppState* state);
 
-#endif
+#endif /* APPSTATE_H */

@@ -3,10 +3,11 @@
 //
 
 #include <stdio.h>
-
+#include <time.h>
 #include "../inc/Common.h"
 
 #include <string.h>
+#include "../inc/UI/Ansi.h"
 
 char gCountries[COUNTRIES_COUNT][COUNTRY_CODE_LEN] = {
     "USA", "CZE", "IRE", "GBR", "CAN", "AUS", "DEU", "FRA", "ITA", "ESP",
@@ -22,14 +23,18 @@ char gCountries[COUNTRIES_COUNT][COUNTRY_CODE_LEN] = {
 };
 
 void CoDrawBanner(void) {
+    // get local time
+    time_t tnow;
+    time(&tnow);
+    struct tm* now = localtime(&tnow);
+
     printf("CitizenDB\n");
     printf("(c) 2026, %s\n", AUTHOR);
-    printf("\n");
+    printf("\nLocal time is %s%02d:%02d:%02d%s.\n\n", ACCENT_TEXT, now->tm_hour, now->tm_min, now->tm_sec, RESET);
     return;
 }
 
-void CoPause(void)
-{
+void CoPause(void) {
     printf("Press enter to continue... ");
     char num = 0;
     (void)scanf("%c", &num);
@@ -69,8 +74,7 @@ int CoChoice(char *text) {
     return res;
 }
 
-void CoSetConsoleTitle(char* text)
-{
+void CoSetConsoleTitle(char* text) {
     (void)printf("\033]0;%s\007", text);
     return;
 }
