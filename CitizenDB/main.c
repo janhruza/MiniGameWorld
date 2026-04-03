@@ -5,6 +5,7 @@
 #include "inc/Common.h"
 #include "inc/UI/Ansi.h"
 #include "inc/UI/Screens.h"
+#include "inc/AppState.h"
 
 static STATUS AppInit(void) {
     srand(time(NULL));
@@ -31,6 +32,9 @@ int main(void) {
     if (AppInit() != STATUS_OK) {
         fprintf(stderr, "Initialization failed.\n");
     }
+
+    AppState state;
+    ListInit(&state.Persons);
 
     // TODO main logic goes here
     CoSetConsoleTitle("My Awesome Citizen Database!");

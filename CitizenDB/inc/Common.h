@@ -19,9 +19,9 @@
  * @brief Application status codes.
  */
 typedef enum tagSTATUS {
-    STATUS_OK,              // OK
-    STATUS_ERROR,           // ERROR
-    STATUS_UNINITIALIZED,   // Object not initialized.
+    STATUS_OK,              // Operation success.
+    STATUS_ERROR,           // Generic failure.
+    STATUS_UNINITIALIZED,   // Object not initialized or missing implementation.
     STATUS_CRITICAL,        // Critical error.
 } STATUS;
 

@@ -21,7 +21,8 @@ STATUS ScrAddPerson(void) {
 	char lname[TEXT_SIZE];
 	int age = 0;
 
-	printf("%s--- NEW PERSON ---%s\n", BOLD, RESET);
+	printf("%s--- NEW PERSON ---%s\n", ACCENT_BOLD, RESET);
+
 	printf("First name: ");
 	CoReadString(name, TEXT_SIZE, stdin);
 
