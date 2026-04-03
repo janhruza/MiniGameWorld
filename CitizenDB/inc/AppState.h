@@ -1,10 +1,10 @@
 #ifndef APPSTATE_H
 #define APPSTATE_H
 
-// save game file name
-#define SAVEGAME	"data.state"
-
 #include "LinkedList.h"
+
+// save game file name
+#define SAVEGAME		"data.state"
 
 /**
 * @brief Representing the program state variables.
