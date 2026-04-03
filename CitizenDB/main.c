@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "inc/UI/Ansi.h"
 #include "inc/Common.h"
+#include "inc/UI/Ansi.h"
 #include "inc/UI/Screens.h"
 
 static STATUS AppInit(void) {
@@ -33,9 +33,7 @@ int main(void) {
     }
 
     // TODO main logic goes here
-    CoDrawBanner();
-
-    ScrAddPerson();
+    CoSetConsoleTitle("My Awesome Citizen Database!");
     CoPause();
 
     if (AppCleanup() != STATUS_OK) {
