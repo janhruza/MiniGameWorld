@@ -29,7 +29,7 @@ STATUS ScrAddPerson(void) {
 	CoReadString(lname, TEXT_SIZE, stdin);
 
 	printf("Age: ");
-	scanf("%d", &age);
+	(void)scanf("%d", &age);
 
 	// print confirmation
 	printf("First name: %s\n", name);

@@ -12,4 +12,4 @@ add_executable(CitizenDB main.c
         src/Person.c
         src/Common.c
         inc/UI/Screens.h
-        src/UI/Screens.c)
+        src/UI/Screens.c "inc/LinkedList.h" "src/LinkdedList.c")
