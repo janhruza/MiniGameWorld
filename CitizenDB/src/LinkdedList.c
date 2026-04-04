@@ -28,6 +28,11 @@ int ListFree(LinkedList* list) {
 
 int ListLength(LinkedList* list)
 {
+	if (list == NULL)
+	{
+		return -1;
+	}
+
 	int count = 0;
 	Node* ptr = list->head;
 

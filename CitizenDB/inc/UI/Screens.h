@@ -6,9 +6,10 @@
 #define CITIZENDB_SCREENS_H
 
 #include "../Common.h"
+#include "../AppState.h"
 
-STATUS ScrAddPerson(void);
-STATUS ScrRemovePerson(void);
+STATUS ScrAddPerson(AppState *state);
+STATUS ScrRemovePerson(AppState *state);
 
 STATUS ScrAddVehicle(int personId);
 STATUS ScrRemoveVehicle(int personId);

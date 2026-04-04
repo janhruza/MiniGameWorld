@@ -37,6 +37,8 @@ void CoClearBuffer(void);
 
 int CoReadString(char* buf, int n, FILE *stream);
 
+int CoReadInt(int* buf);
+
 void CoSetConsoleTitle(char* text);
 
 /**

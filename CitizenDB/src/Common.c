@@ -48,13 +48,24 @@ void CoClearBuffer(void) {
 }
 
 int CoReadString(char* buf, int n, FILE *stream) {
+    printf("%s", ACCENT_TEXT);
     fgets(buf, n, stream);
+    printf("%s", RESET);
     int len = strlen(buf);
     if (len > 0) {
         buf[len - 1] = '\0';
     }
 
     return len - 1;
+}
+
+int CoReadInt(int* buf)
+{
+    printf("%s", ACCENT_TEXT);
+    int res = scanf("%d", buf);
+    printf("%s", RESET);
+    CoClearBuffer();
+    return res;
 }
 
 int CoChoice(char *text) {
@@ -67,7 +78,9 @@ int CoChoice(char *text) {
     printf(" [Y/n]: ");
 
     char conf = 0;
+    printf("%s", ACCENT_TEXT);
     (void)scanf(" %c", &conf);
+    printf("%s", RESET);
     int res = (conf == 'Y' || conf == 'y') ? 1 : 0;
     CoClearBuffer();
 

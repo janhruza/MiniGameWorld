@@ -6,14 +6,21 @@
 
 #include "../../inc/UI/Ansi.h"
 #include "../../inc/Common.h"
+#include "../../inc/LinkedList.h"
 #include "../../inc/UI/Screens.h"
 
 #include <string.h>
 #include <time.h>
 
 #include "../../inc/Person.h"
+#include "../../inc/AppState.h"
 
-STATUS ScrAddPerson(void) {
+STATUS ScrAddPerson(AppState *state) {
+	if (state == NULL)
+	{
+		return STATUS_CRITICAL;
+	}
+
 	// get: first name, last name, age
 	ClearScreen();
 
@@ -30,16 +37,13 @@ STATUS ScrAddPerson(void) {
 	CoReadString(lname, TEXT_SIZE, stdin);
 
 	printf("Age: ");
-	(void)scanf("%d", &age);
+	CoReadInt(&age);
 
 	// print confirmation
 	printf("First name: %s\n", name);
 	printf("Last name:  %s\n", lname);
 	printf("Age:        %d\n", age);
 	printf("\n");
-
-	// clear buf
-	CoClearBuffer();
 
 	// confirm
 	if (CoChoice(NULL) == 0) {
@@ -49,25 +53,112 @@ STATUS ScrAddPerson(void) {
 	}
 
 	// confirmed
-	Person person;
-	memset(&person, 0, sizeof(person));
+	Person* person = (Person*)malloc(sizeof(Person));
+	if (person == NULL)
+	{
+		fprintf(stderr, "Unable to allocate memory.\n");
+		return STATUS_CRITICAL;
+	}
 
-	person.Id = time(0);
-	strcpy(person.Firstname, name);
-	strcpy(person.Lastname, lname);
-	person.Age = age;
+	memset(person, 0, sizeof(person));
 
-	// TODO save the created person object
-	printf("Proceeding... \n");
+	person->Id = time(0);
+	strcpy(person->Firstname, name);
+	strcpy(person->Lastname, lname);
+	person->Age = age;
+
+	Node n = {
+		.data = person,
+		.next = NULL
+	};
+
+	if (ListPush(&state->Persons, n) != 0)
+	{
+		fprintf(stderr, "Unable to push the item to the list.\n");
+		return STATUS_ERROR;
+	}
 
 	return STATUS_OK;
 };
 
-STATUS ScrRemovePerson(void) {
+STATUS ScrRemovePerson(AppState* state) {
+	if (state == NULL)
+	{
+		return STATUS_CRITICAL;
+	}
+
+	// gets the database length
+	int dbLen = ListLength(&state->Persons);
+	if (dbLen == 0)
+	{
+		fprintf(stderr, "No persons registered.\n");
+		return STATUS_ERROR;
+	}
+
 	ClearScreen();
 
-	// TODO missing implementation
-	return STATUS_UNINITIALIZED;
+	// get name and last name, then search by Id
+	char name[TEXT_SIZE], lname[TEXT_SIZE];
+	int id = 0;
+
+	ClearScreen();
+	printf("%s--- REMOVE PERSON%s\n", ACCENT_BOLD, RESET);
+
+	printf("Enter person's name: ");
+	CoReadString(name, TEXT_SIZE, stdin);
+
+	printf("Enter person's lastname: ");
+	CoReadString(lname, TEXT_SIZE, stdin);
+
+	// iterate the database
+	printf("\n%s--- MATCHING PERSONS ---%s\n", ACCENT_BOLD, RESET);
+	Node* ptr = state->Persons.head;
+	for (int i = 0; i < dbLen; i++)
+	{
+		Person* p = (Person*)ptr->data;
+		if (strcmp(name, p->Firstname) == 0 && strcmp(lname, p->Lastname) == 0)
+		{
+			printf("%4d: %-*s %-*s\n", p->Id, TEXT_SIZE, p->Firstname, TEXT_SIZE, p->Lastname);
+		}
+
+		ptr = ptr->next;
+	}
+
+	printf("\nEnter record ID: ");
+	CoReadInt(&id);
+
+	if (id <= 0)
+	{
+		fprintf(stderr, "Invalid ID.\n");
+		return STATUS_ERROR;
+	}
+
+	// TODO icomplete implementation
+
+	// remove the record from the database
+	ptr = state->Persons.head;
+	while (ptr != NULL)
+	{
+		Person* p = (Person*)ptr->data;
+		if (p == NULL)
+		{
+			// no data
+			ptr = ptr->next;
+			continue;
+		}
+
+		if (p->Id == id)
+		{
+			// free the memory
+			free(p);
+			ptr->data = NULL;
+			return STATUS_OK;
+		}
+
+		ptr = ptr->next;
+	}
+
+	return STATUS_ERROR;
 }
 
 STATUS ScrAddVehicle(int personId) {
