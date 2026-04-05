@@ -25,9 +25,19 @@ typedef enum tagSTATUS {
     STATUS_CRITICAL,        // Critical error.
 } STATUS;
 
+/**
+* @brief Representing the array of all country codes.
+*/
 extern char gCountries[COUNTRIES_COUNT][COUNTRY_CODE_LEN];
 
+/**
+* @brief Draws the banner to the screen.
+*/
 void CoDrawBanner(void);
+
+/**
+* @brief Pauses the program execution until a key is pressed.
+*/
 void CoPause(void);
 
 /**
@@ -35,10 +45,26 @@ void CoPause(void);
  */
 void CoClearBuffer(void);
 
+/**
+* @brief Reads a string from the user and clears the input buffer.
+* @param buf Output buffer.
+* @param n Maximum length of the string including the null terminator.
+* @param stream Target stream to read from.
+* @returns The length of the read string, excluding the null terminator.
+*/
 int CoReadString(char* buf, int n, FILE *stream);
 
+/**
+* @brief Reads an integer from the stdin and stores it in the buf.
+* @param buf Output buffer.
+* @returns Operation result. The read integer is stored in the buf.
+*/
 int CoReadInt(int* buf);
 
+/**
+* @brief Sets the terminal emulator's window title using the ANSI escape sequence.
+* @param text New requested window title.
+*/
 void CoSetConsoleTitle(char* text);
 
 /**
