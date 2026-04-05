@@ -13,14 +13,12 @@ int ListFree(LinkedList* list) {
 	if (list == NULL) return -1;
 	Node* ptr = list->head;
 
-	while (ptr != NULL)
-	{
+	while (ptr != NULL) {
 		Node* nextNode = ptr->next;
+		free(ptr->data);
 		free(ptr);
 		ptr = nextNode;
 	}
-
-	// reset for safety
 	list->head = NULL;
 	list->end = NULL;
 	return 0;
@@ -45,48 +43,74 @@ int ListLength(LinkedList* list)
 	return count;
 }
 
-int ListPush(LinkedList* list, Node node) {
-	if (list == NULL) return -1;
+int ListPush(LinkedList* list, void* dataToCopy, size_t dataSize) {
+	if (list == NULL || dataToCopy == NULL) return -1;
 
 	Node* addr = (Node*)malloc(sizeof(Node));
 	if (addr == NULL) return -1;
 
-	addr->data = node.data;
+	addr->data = malloc(dataSize);
+	if (addr->data == NULL) {
+		free(addr);
+		return -1;
+	}
+
+	memcpy(addr->data, dataToCopy, dataSize);
 	addr->next = NULL;
 
 	if (list->head == NULL) {
-		// pushing first item
 		list->head = addr;
 		list->end = addr;
 	}
 	else {
-		// push to the end
 		list->end->next = addr;
 		list->end = addr;
 	}
 	return 0;
 }
 
-int ListPop(LinkedList* list, Node* retItem)
+int ListPop(LinkedList* list, void* outData, size_t dataSize)
 {
-	if (list == NULL || list->head == NULL)
+	// 1. Základní kontroly
+	if (list == NULL || list->head == NULL || outData == NULL)
 	{
 		return -1;
 	}
 
+	Node* targetNode = list->end;
+
+	// 2. Kopírování dat do uživatelského bufferu
+	// Musíme použít memcpy, protože pracujeme s void*
+	memcpy(outData, targetNode->data, dataSize);
+
+	// 3. Logika nalezení předposledního prvku (tvůj stávající kód)
 	if (list->head == list->end)
 	{
-		retItem->data = list->head->data;
-		retItem->next = NULL;
-
-		// free the memory
-		free(list->head);
-
-		// fix the list
+		// V listu byl jen jeden prvek
+		free(targetNode->data); // Nejdřív uvolnit alokovanou zálohu
+		free(targetNode);       // Pak uvolnit uzel
 		list->head = NULL;
 		list->end = NULL;
-		return 0;
 	}
+	else
+	{
+		// Najdeme prvek před "end"
+		Node* ptr = list->head;
+		while (ptr->next != list->end)
+		{
+			ptr = ptr->next;
+		}
+
+		// Odpojíme a uvolníme poslední uzel
+		free(targetNode->data);
+		free(targetNode);
+
+		ptr->next = NULL;
+		list->end = ptr;
+	}
+
+	return 0;
+}
 
 	Node* ptr = list->head;
 	while (ptr != NULL)
