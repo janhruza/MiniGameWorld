@@ -133,8 +133,6 @@ STATUS ScrRemovePerson(AppState* state) {
 		return STATUS_ERROR;
 	}
 
-	// TODO icomplete implementation
-
 	// remove the record from the database
 	ptr = state->Persons.head;
 	while (ptr != NULL)
@@ -161,14 +159,14 @@ STATUS ScrRemovePerson(AppState* state) {
 	return STATUS_ERROR;
 }
 
-STATUS ScrAddVehicle(int personId) {
+STATUS ScrAddVehicle(AppState *state, int personId) {
 	ClearScreen();
 
 	// TODO missing implementation
 	return STATUS_UNINITIALIZED;
 }
 
-STATUS ScrRemoveVehicle(int personId) {
+STATUS ScrRemoveVehicle(AppState *state, int personId) {
 	ClearScreen();
 
 	// TODO missing implementation
