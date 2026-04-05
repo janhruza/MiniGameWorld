@@ -63,18 +63,19 @@ int ListLength(LinkedList* list);
 /**
 * @brief Pushes the item to the end of the linked list.
 * @param list The target linked list.
-* @param node The new list node.
+* @param dataToCopy Data to be copied into the list node.
+* @param dataSize Size of the input data.
 * @returns Operation result.
 */
-int ListPush(LinkedList* list, Node node);
+int ListPush(LinkedList* list, void* dataToCopy, size_t dataSize);
 
 /**
 * @brief Pops the last node from the given linked list.
 * @param list The target linked list.
-* @param retItem The popped item.
+* @param outData The popped item.
+* @param dataSize Size of the data.
 * @returns Operation result.
 */
-int ListPop(LinkedList *list, Node* retItem);
-
+int ListPop(LinkedList* list, void* outData, size_t dataSize);
 
 #endif // !LINKEDLIST_H

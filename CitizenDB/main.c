@@ -56,7 +56,22 @@ int main(void) {
     // TODO main logic goes here
     CoSetConsoleTitle("My Awesome Citizen Database!");
     CoDrawBanner();
+
+    LinkedList list;
+    ListInit(&list);
+
+    for (int x = 0; x < 1000000; x++)
+    {
+        if (ListPush(&list, &x, sizeof(int)) != 0)
+        {
+            fprintf(stderr, "Unable to push the item into the list.\n");
+            break;
+        }
+    }
+
     CoPause();
+
+    ListFree(&list);
 
     if (AppCleanup() != STATUS_OK) {
         fprintf(stderr, "Cleanup failed.\n");
