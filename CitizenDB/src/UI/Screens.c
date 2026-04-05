@@ -72,7 +72,7 @@ STATUS ScrAddPerson(AppState *state) {
 		.next = NULL
 	};
 
-	if (ListPush(&state->Persons, n) != 0)
+	if (ListPush(&state->Persons, &n, sizeof(int)) != 0)
 	{
 		fprintf(stderr, "Unable to push the item to the list.\n");
 		return STATUS_ERROR;

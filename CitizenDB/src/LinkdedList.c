@@ -71,7 +71,6 @@ int ListPush(LinkedList* list, void* dataToCopy, size_t dataSize) {
 
 int ListPop(LinkedList* list, void* outData, size_t dataSize)
 {
-	// 1. Základní kontroly
 	if (list == NULL || list->head == NULL || outData == NULL)
 	{
 		return -1;
@@ -79,58 +78,30 @@ int ListPop(LinkedList* list, void* outData, size_t dataSize)
 
 	Node* targetNode = list->end;
 
-	// 2. Kopírování dat do uživatelského bufferu
-	// Musíme použít memcpy, protože pracujeme s void*
 	memcpy(outData, targetNode->data, dataSize);
 
-	// 3. Logika nalezení předposledního prvku (tvůj stávající kód)
 	if (list->head == list->end)
 	{
-		// V listu byl jen jeden prvek
-		free(targetNode->data); // Nejdřív uvolnit alokovanou zálohu
-		free(targetNode);       // Pak uvolnit uzel
+		free(targetNode->data);
+		free(targetNode);
 		list->head = NULL;
 		list->end = NULL;
 	}
+
 	else
 	{
-		// Najdeme prvek před "end"
 		Node* ptr = list->head;
 		while (ptr->next != list->end)
 		{
 			ptr = ptr->next;
 		}
 
-		// Odpojíme a uvolníme poslední uzel
 		free(targetNode->data);
 		free(targetNode);
 
 		ptr->next = NULL;
 		list->end = ptr;
 	}
-
-	return 0;
-}
-
-	Node* ptr = list->head;
-	while (ptr != NULL)
-	{
-		if (ptr->next != list->end)
-		{
-			ptr = ptr->next;
-		}
-
-		else break;
-	}
-
-	Node* last = ptr->next;
-	ptr->next = NULL;
-
-	retItem->data = last->data;
-	retItem->next = NULL;
-
-	free(last);
-	list->end = ptr;
 
 	return 0;
 }

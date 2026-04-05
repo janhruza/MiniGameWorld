@@ -78,5 +78,4 @@ int ListPush(LinkedList* list, void* dataToCopy, size_t dataSize);
 */
 int ListPop(LinkedList* list, void* outData, size_t dataSize);
 
-
 #endif // !LINKEDLIST_H
