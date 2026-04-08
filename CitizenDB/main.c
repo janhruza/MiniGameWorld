@@ -60,15 +60,6 @@ int main(void) {
     LinkedList list;
     ListInit(&list);
 
-    for (int x = 0; x < 1000000; x++)
-    {
-        if (ListPush(&list, &x, sizeof(int)) != 0)
-        {
-            fprintf(stderr, "Unable to push the item into the list.\n");
-            break;
-        }
-    }
-
     CoPause();
 
     ListFree(&list);
