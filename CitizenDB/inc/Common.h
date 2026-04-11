@@ -14,6 +14,7 @@
 #define COUNTRY_CODE_LEN    4
 #define NAMES_COUNT         100
 #define MAX_VEHICLES        10
+#define MAX_COMMANDS        50
 
 /**
  * @brief Application status codes.
@@ -66,6 +67,21 @@ int CoReadInt(int* buf);
 * @param text New requested window title.
 */
 void CoSetConsoleTitle(char* text);
+
+/**
+* @brief Calculates a hash of the given string.
+* @author Dan Bernstein
+* @details A djb2 hash implementation.
+* @param str Subject of the hash.
+* @returns Numeric hash of the str value.
+*/
+unsigned long CoHash(unsigned char* str);
+
+/**
+* @brief Normalizes the buf to all lowercase characters.
+* @param buf Subject of the normalization.
+*/
+void CoNormalize(char* buf);
 
 /**
  * @brief Prompts user to perform yes/no choice.

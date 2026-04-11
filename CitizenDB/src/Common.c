@@ -7,6 +7,7 @@
 #include "../inc/Common.h"
 
 #include <string.h>
+#include <ctype.h>
 #include "../inc/UI/Ansi.h"
 
 char gCountries[COUNTRIES_COUNT][COUNTRY_CODE_LEN] = {
@@ -90,4 +91,23 @@ int CoChoice(char *text) {
 void CoSetConsoleTitle(char* text) {
     (void)printf("\033]0;%s\007", text);
     return;
+}
+
+void CoNormalize(char* buf)
+{
+    for (int i = 0; i < strlen(buf); i++)
+    {
+        buf[i] = tolower(buf[i]);
+    }
+}
+
+unsigned long CoHash(unsigned char* str)
+{
+    unsigned long hash = 5381;
+    int c;
+
+    while (c = *str++)
+        hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+
+    return hash;
 }
