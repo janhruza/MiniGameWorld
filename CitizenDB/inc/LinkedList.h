@@ -6,6 +6,8 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 
+#include <stdlib.h>
+
 /**
 * @brief Representing a single linked list node.
 */

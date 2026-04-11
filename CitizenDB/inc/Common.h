@@ -75,7 +75,7 @@ void CoSetConsoleTitle(char* text);
 * @param str Subject of the hash.
 * @returns Numeric hash of the str value.
 */
-unsigned long CoHash(unsigned char* str);
+unsigned long CoHash(const char* str);
 
 /**
 * @brief Normalizes the buf to all lowercase characters.

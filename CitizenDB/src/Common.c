@@ -101,7 +101,7 @@ void CoNormalize(char* buf)
     }
 }
 
-unsigned long CoHash(unsigned char* str)
+unsigned long CoHash(const char* str)
 {
     unsigned long hash = 5381;
     int c;

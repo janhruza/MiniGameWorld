@@ -1,4 +1,6 @@
 #include <stdlib.h>
+#include <string.h>
+
 #include "../inc/LinkedList.h"
 
 int ListInit(LinkedList* list)

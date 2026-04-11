@@ -65,7 +65,7 @@ static STATUS AppCleanup(void) {
 
 #ifndef _WIN32
 
-int min(const int a, const int b)
+static int min(const int a, const int b)
 {
     return (a < b) ? a : b;
 }
