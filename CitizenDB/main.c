@@ -27,9 +27,10 @@ typedef enum tagCommandId
     COM_CLEAR,      // clear screen command id
     COM_ABOUT,
     COM_HELP,
+    COM_LAST        // max value. must be the last - used for bounds-checking
 } CommandId;
 
-Command commands[MAX_COMMANDS];
+Command commands[COM_LAST];
 
 static STATUS AppInit(void) {
     srand(time(NULL));
